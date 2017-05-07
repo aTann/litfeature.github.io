@@ -4,13 +4,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Tom Preston-Werner</title>
- <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
- <link href="http://tom.preston-werner.com/"/>
+ <link href="http://litfeature.github.io/atom.xml" rel="self"/>
+ <link href="http://litfeature.github.io/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://tom.preston-werner.com/</id>
+ <id>http://litfeature.github.io/</id>
  <author>
-   <name>Tom Preston-Werner</name>
-   <email>tom@mojombo.com</email>
+   <name>Litfeature</name>
+   <email>litfeature@163.com</email>
  </author>
 
  {% for post in site.posts %}
