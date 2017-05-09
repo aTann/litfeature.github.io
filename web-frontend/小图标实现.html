@@ -1,7 +1,9 @@
----
-laout: post
-title: 三角形图标实现
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小图标实现</title>
+	<link rel="stylesheet" type="text/css" href="./styles/style.css">
 	<style type="text/css">
 		
 		*{
@@ -15,7 +17,7 @@ title: 三角形图标实现
 			margin: 0 auto;
 			margin-top: 100px;
 			text-align: center;
-			width: 1000px;
+			width: 900px;
 			height: 600px;
 		}
 
@@ -185,16 +187,29 @@ title: 三角形图标实现
 			bottom: -12px;
 			left: 40px;
 		}
+
+		/*meta*/
+		.post-head{
+			text-align: justify;
+			font-size: 110%;
+    		line-height: 1.5em;
+		}
+		h1,h2,h3,h4,h5,h6{
+			font-size: 100%;
+		}
+		.meta{
+			color: #aaa;
+			margin: 1em 0;
+		}
 	</style>
-
-	<h2>
-	{{ page.title }}
-	</h2>
-	<p class="meta">7 May 2016 </p>
-
+</head>
+<body>
 	<div id="wrap">
-		<div>
-			<h2>{{ page.title }}</h2>
+		<div class="post-head">
+			<h2 class="title">小图标实现</h2>
+			<p class="meta">
+				8 May 2017
+			</p>
 		</div>
 		<ul>
 			<li>
@@ -288,3 +303,6 @@ title: 三角形图标实现
 
 
 	</div>
+
+</body>
+</html>
