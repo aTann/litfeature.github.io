@@ -1,0 +1,70 @@
+---
+layout: post
+title: jQuery幻灯片实现
+---
+	<link rel="stylesheet" type="text/css" href="/css/postcss/20170510.css">
+    <h2>
+		{{ page.title }}
+	</h2>
+	<p class="meta">{{ page.date | date_to_string }}</p>
+	
+	<div class="wrap">
+		
+		<div class="imgBox">
+			<ul id="imgShow">
+				<li class=""><img src="/images/posts/2017-05-10/1008793.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/1375321273982.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/1410227425237.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/20150515034136109.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/20150515034139468.jpg"></li>
+			</ul>
+		
+		<div class="clearfix"></div>
+		</div>
+		<div class="numBox">
+			<ul class="numList">
+				<li class="onselect">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		var time = "";
+		var index = 1;
+		$(function(){
+			showimg(index);
+			//鼠标经过
+			$(".numBox ul li").hover( function () {
+				clearTimeout(time);
+				var eq_sel = $(this).text()
+				// $('#imgShow li').removeClass("onshow").eq(eq_sel-1).addClass("onshow"); //代码少，但不能实现动画效果
+				$(".numBox ul li").removeClass("onselect").eq(eq_sel-1).addClass("onselect");
+				// $("#imgShow li").hide().stop(true,true).eq(eq_sel-1).fadeIn(2000);
+				$("#imgShow li").fadeOut(2000).eq(eq_sel-1).fadeIn(2000);  //淡出淡入，不会显得过于耀眼
+
+			}, function () {
+				//实现自动轮转
+				index=$(this).text() > 4 ? 1 : parseInt( $(this).text() )+1;
+				time = setTimeout("showimg(" + index + ")", 3000);
+			} )
+		});
+
+		function showimg(num) {
+			//实现自动轮转
+			index = num;
+			$(".numList li").removeClass("onselect").eq(index-1).addClass("onselect");
+			// $("#imgShow li").hide().stop(true, true).eq(index-1).fadeIn(2000);
+			$("#imgShow li").fadeOut(2000).eq(index-1).fadeIn(2000);  //淡出淡入，不会显得过于耀眼
+
+			index = index + 1 > 5 ? 1 : index + 1;
+			time = setTimeout("showimg(" + index + ")", 3000);
+
+		}
+
+	</script>
