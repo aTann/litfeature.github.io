@@ -1,0 +1,53 @@
+---
+layout: post
+title: jQuery幻灯片实现
+---
+	<link rel="stylesheet" type="text/css" href="/css/postcss/20170510.css">
+    <h2>
+		{{ page.title }}
+	</h2>
+	<p class="meta">{{ page.date | date_to_string }}</p>
+
+	<div class="wrap">
+		
+		<div class="imgBox">
+			<ul id="imgShow">
+				<li class=""><img src="/images/posts/2017-05-10/1008793.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/1375321273982.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/1410227425237.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/20150515034136109.jpg"></li>
+				<li class=""><img src="/images/posts/2017-05-10/20150515034139468.jpg"></li>
+			</ul>
+		</div>
+		<div class="numBox">
+			<ul class="numList">
+				<li class="onselect">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+		</div>
+		
+
+		<div class="clearfix"></div>
+
+	</div>
+	<div class="look">
+		<p>
+			轻度封装幻灯片JQuery实现
+				<div id="C_0_50" style="width: 600px;" class="wrap_code"><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">slide</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">(</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">#imgShow li</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">,</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">.numBox ul li</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">,</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">onselect</span><span class=" real_text" style="background-color: #FFFFFF; color: #8F8634;">"</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">,</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">{</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">fadeIn</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">:</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #7C4FCD;">1000</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> , </span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">fadeOut</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">:</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #7C4FCD;">1000</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> , </span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">interval</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">:</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #7C4FCD;">3000</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;"> </span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">}</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">)</span><span class=" real_text" style="background-color: #FFFFFF; color: #000000;">;</span>
+			
+		</p>
+	</div>
+
+	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/js/slide_2017-05-11.js"></script>
+	<script type="text/javascript">
+	// $(function(){slide("#imgShow li", ".numBox ul li", "onselect", {fadeIn: 1000 , fadeOut: 1000 , interval: 3000 })})
+	slide("#imgShow li", ".numBox ul li", "onselect", {fadeIn: 1000 , fadeOut: 1000 , interval: 3000 });
+			
+	</script>
+
+</body>
+</html>
