@@ -1,0 +1,142 @@
+---
+layout: post
+title: 导航训练制作
+---
+    <link rel="stylesheet" type="text/css" href="/css/posts/20170510.css">
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".nav_menu .nav_list li").hover(function() {
+            $(this).children('div').show();
+            $(this).children('a').focus().addClass('focus');
+        }, function() {
+            $(this).children('div').hide();
+            $(this).children('a').focus().removeClass('focus');
+
+        }
+        );
+
+        // 仿上面，但是我不想这样子
+        $(".nav_menu_r ul li").hover(function() {
+			$(this).children("ul").show();
+			$(this).children('a').focus().addClass('focus');
+			// alert($(this));
+			}, function() {
+				// alert($(this));
+				$(this).children("ul").hide()
+				$(this).children('a').focus().removeClass('focus');
+			}
+			);
+
+    });
+
+    </script>
+    
+    <h2>
+        {{ page.title }}
+    </h2>
+    <p class="meta">{{ page.date | date_to_string }}</p>
+    
+    <div class="wrapper">
+        <div class="navbar">
+            <nav class="nav_menu">
+                <ul class="nav_list">
+                    <li> <a href="#">HOME</a> </li>
+                    <li> <a href="#">About</a> </li>
+                    <li class="dropdown">
+                        <a href="#">Blog</a>
+                        <div class="nav_menu_2">
+                            <ul>
+                                <li>
+                                    <a href="#">Love</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">
+										Like
+									</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Gallery</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Page</a>
+                        <span class="btn_icon">
+							
+						</span>
+                        <div class="nav_menu_2">
+                            <ul>
+                                <li>
+                                    <a href="#">Love</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">
+										Like
+									</a>
+                                    <div class="nav_menu_3">
+                                        <ul>
+                                            <li>
+                                                <a href="#">whats Love</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">How</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#">Why</a>
+                                                <div class="nav_menu_3">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#">whats Love</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">How</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Why</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- //横菜单导航 -->
+		<script type="text/javascript">
+		</script>
+        <nav class="nav_menu_r">
+        	<ul>
+        		<li><a href="#">HOME</a></li>
+        		<li><a href="#">About</a></li>
+        		<li><a href="#">Blog</a></li>
+        		<li class="dropdown-r">
+        			<a href="#">Page</a>
+					
+					<ul>
+						<li><a href="#">-Page1</a></li>
+						<li class="dropdown-r">
+							<a href="#">-Page2</a>
+							<ul>
+								<li><a href="#">--Page-1</a></li>
+								<li><a href="#">--Page-2</a></li>
+								<li><a href="#">--Page-3</a></li>
+							</ul>
+						</li>
+					</ul>
+
+        		</li>
+
+        		<li><a href="#">Contact</a></li>
+        	</ul>
+        </nav>
+    </div>

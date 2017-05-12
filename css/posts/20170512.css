@@ -1,0 +1,175 @@
+*{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+
+.wrapper{
+	margin: 0 auto;
+	width: 640px;
+	height: auto;
+	min-height: 500px;
+	padding-top: 30px;
+	margin-top: 20px;
+	background-color: #eee;
+	text-align: center;
+
+}
+
+.navbar{
+	margin: 0 auto;
+	max-width: 600px;
+	width: auto;
+	height: 80px;
+	border: 1px solid #fff;
+}
+
+	.nav_menu{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-color: #fa2;
+	}
+
+	.nav_menu>.nav_list>li{
+		width: 16.66%;
+		float: left;
+	}
+	.nav_menu>.nav_list>li>a{
+		display: inline-block;
+		font-size: 120%;
+		/*color: #fff;*/
+		color: #222;
+		cursor: pointer;
+		width: 100%;
+		font-weight: bold;
+		line-height: 80px;
+	}
+	.nav_menu>.nav_list>li>a:hover{
+		background-color: #fb2;
+		/*color: #fe2;*/
+	}
+	
+	.dropdown{
+		position: relative;
+	}
+	.btn_icon{
+		content: "+";
+	}
+		
+		.dropdown .nav_menu_2{
+			position: absolute;
+			left: 0;
+			width: auto;
+			height: auto;
+			border: 1px solid #eee;
+			display: none;
+		
+		}
+			
+			.dropdown .nav_menu_2>ul>li a{
+				box-sizing: border-box;
+				width: 200px;
+				padding: 5px 40px;
+				display: inline-block;
+				background-color: #fa2;
+				line-height: 30px;
+				font-size: 120%;
+				text-align: left;
+				border: 1px solid #eee;
+
+			}
+			
+			.nav_menu_2>ul>li a:hover{
+				background-color: #fb2;
+			}
+
+
+				.nav_menu_3{
+					position: absolute;
+					left: -200px;
+					top: 0;
+					width: 120px;
+
+					display: none;
+				}	
+
+				.nav_menu_3>ul>li>a{
+					border: 1px solid #eee;
+				}
+
+	.focus{
+		background-color: #fb2 !important;
+	}
+
+
+
+/*竖版菜单导航*/
+.nav_menu_r{
+	width: 122px;
+	margin-top: 50px;
+	margin-left: 40px;
+	
+
+}
+
+.nav_menu_r>ul>li{
+	border: 1px solid #eee;
+	text-align: left;
+	line-height: 20px;
+	font-weight: bolder;
+}
+
+.nav_menu_r>ul>li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 15px;
+	background-color: #fa2;
+}
+.nav_menu_r>ul>li a:hover{
+	background-color: #fb2;
+}
+
+.dropdown-r{
+	/*position: relative;*/
+}
+
+/*.dropdown-r ul{*/
+	/*width: 120px;*/
+	/*position: absolute;*/
+	/*left: 148px; */
+	/* 尝试让子列表稍微嵌入左边列表，减少距离防止鼠标落空出现转接消失 */
+	/*top: 0;*/
+	/*display: none;*/
+/*}*/
+
+/*.dropdown-r>ul>li{
+	border: 1px solid #eee;
+}*/
+
+
+
+.dropdown-r ul{
+	width: 100%;
+	display: none;
+
+}
+
+.dropdown-r>ul>li{
+	width: 100%;
+	border: 1px solid #aaa;
+	/*background-color: #aaa;*/
+	padding-left: 10px;
+	height: auto;
+	width: auto;
+}
+
+.dropdown-r>ul>li>a{
+	/*width: 120px;*/
+	/*padding-left: 20px; */
+}
+
