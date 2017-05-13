@@ -32,11 +32,13 @@ title: 选项卡练习 1
 		$(function() {
 			// 默认
 			$(".options_body div").hide().eq(0).show();
+			$(".options_header>ul>li").eq(0).addClass("focus");
 
 			$(".options_header>ul>li").click(function() {
 				// alert($(this).index("li"));
 
 				$(".options_body div").hide().eq($(this).index("li")).show();
+				$(".options_header>ul>li").removeClass("focus");
 				$(this).focus().addClass("focus");
 			})
 		})

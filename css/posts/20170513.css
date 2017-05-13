@@ -29,7 +29,7 @@
 	 
 }
 .options_header>ul{
-	margin: 0;
+	margin: 0 !important;
 }
 
 .options_header>ul>li{
@@ -68,7 +68,7 @@
 }
 
 .focus{
-	background-color: #fe2;
+	background-color: #fe2 !important;
 }
 
 
