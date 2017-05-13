@@ -28,6 +28,9 @@
 	line-height: 30px;
 	 
 }
+.options_header>ul{
+	margin: 0;
+}
 
 .options_header>ul>li{
 		float: left;
