@@ -30,13 +30,14 @@ title: 选项卡练习 1
 	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$(".options_header>ul>li").hover(function() {
+			// 默认
+			$(".options_body div").hide().eq(0).show();
+
+			$(".options_header>ul>li").click(function() {
 				// alert($(this).index("li"));
-				$(".options_body div").eq($(this).index("li")).show();
+
+				$(".options_body div").hide().eq($(this).index("li")).show();
 				$(this).focus().addClass("focus");
-			},
-				function() {
-					$(".options_body div").eq($(this).index("li")).hide();
-				})
+			})
 		})
 	</script>
