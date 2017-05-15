@@ -1,0 +1,69 @@
+---
+layout: post
+title: 选项卡练习 2 动画效果-左右滑动
+---
+    <link rel="stylesheet" type="text/css" href="/css/posts/20170515.css">
+	<h2>
+        {{ page.title }}
+    </h2>
+    <p class="meta">{{ page.date | date_to_string }}</p>
+	<div class="wrapper">
+		<div class="options_box">
+			<div class="options_header">
+				<ul>
+					<li>选项一</li>
+					<li>选项二</li>
+					<li>选项三</li>
+				</ul>
+			</div>
+			
+			<div class="options_body">
+				<div class="options_content_wrapper">
+					<div class="options_content" style="background-color: green;">选项一内容</div>
+					<div class="options_content" style="background-color: orange;">选项二内容</div>
+					<div class="options_content">选项三内容</div>
+				</div>
+				
+			</div>
+
+		</div>
+
+	</div>
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			// 默认
+			
+			tabWidth = $(".options_content_wrapper div").width();
+			
+			// tabLen = $(".options_header>ul>li").length;
+			// $(".options_content_wrapper").css({width: tabLen*tabWidth});	
+			// 原想法是让内容容器足够长，把各选项内容一一float放进容器中，转动容器尽可以得到各个内容的呈现，
+			// 但是不好做其他内容隐藏
+			// $(".options_content_wrapper>div").css({width: tabWidth-1});  /*因为CSS中width=100%，需要进行重新裁定*/
+			
+
+			$(".options_content_wrapper>div").each( function(){   // 对内容体进行偏移
+				index = $(this).index();
+				$(this).css({left: index * tabWidth});
+				bgc = $(this).css("background-color");
+				$(".options_header>ul>li").eq(index).css({"background-color" : bgc});
+
+			})
+
+			//默认从第二个开始
+
+			$(".options_content_wrapper").css({left: - tabWidth * 1});
+			$(".options_header>ul>li").click(function() {
+
+				index = $(this).index();
+				// $(".options_header>ul>li").removeClass("focus");	//单一标题色时候，去色使用
+				$(".options_content_wrapper").css({left: - tabWidth * index});	
+
+				// bgc = $(".options_content_wrapper>div").eq(index).css("background-color")	
+				// $(this).focus().addClass("focus").css({"background-color" : bgc});
+				// 本来打算点击当前，当前选项标题发生与内容同一背景，但是找不到合适做同一标题背景色，
+				// 而且现在一开始与同色滑动也挺好看的
+			})
+		})
+	</script>
