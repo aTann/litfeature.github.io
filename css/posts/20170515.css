@@ -30,6 +30,9 @@
 	 
 }
 
+.options_header>ul{
+	margin: 0 !important;
+}
 .options_header>ul>li{
 		float: left;
 		width: 33.3%;
