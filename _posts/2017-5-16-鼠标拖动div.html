@@ -1,0 +1,95 @@
+---
+layout: post
+title: 鼠标拖动div 
+---
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        font-size: 12px;
+    }
+    
+    .wrapper {
+        width: 600px;
+        min-height: 600px;
+        margin: 50px auto;
+        background-color: #eee;
+        position: relative;
+    }
+    
+    .box {
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        margin: 20px auto;
+        background-color: #fa2;
+        position: absolute;
+        transform: translateX(0px);
+    }
+    
+    .wrapper>p {
+        position: absolute;
+        bottom: 0;
+        margin-left: 20px;
+        line-height: 20px;
+    }
+    </style>
+
+
+    <h2>
+        {{ page.title }}
+    </h2>
+    <p class="meta">{{ page.date | date_to_string }}</p>
+    <div class="wrapper">
+        <div class="box">
+        </div>
+        <span id="xyOffset">
+            坐标值:(x,y)
+        </span>
+        <p>
+            整个事件过程：
+            <br /> 鼠标下按(mousedown)-鼠标拖动(mousemove)-鼠标放开(mouseup)
+            <br /> 
+            <br /> 鼠标下按(mousedown)：获取鼠标当前点击点坐标(e.pageX, e.pageY) - (left, top) = (_x, _y)
+            <br /> 鼠标拖动(mousemove)：获取停靠点坐标(e.pageX, e.pageY) - (_x, _y) = (x, y)
+            <br /> 鼠标放开(mouseup): 事件完成，取消mousemove操作
+        </p>
+    </div>
+    <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+
+        // 整个事件过程：
+        // 鼠标下按(mousedown)-鼠标拖动(mouseover)-鼠标放开(mouseup)
+
+        var _move = false;
+        var _x, _y;
+        // alert($(".box").html())
+        $(".box").mousedown(function(e) {
+            _move = true;
+            _x = e.pageX - parseInt($(".box").css("left"));
+            _y = e.pageY - parseInt($(".box").css("top"))
+            $("#xyOffset").html("坐标值:(" + _x + "," + _y + ")");
+            $(".box").fadeTo(20, 0.5); //点击后开始拖动并透明显示  
+        });
+        $(".box").mousemove(function(e) {
+            if (_move) {
+                var x = e.pageX - _x; //移动时根据鼠标位置计算控件左上角的绝对位置  
+                var y = e.pageY - _y;
+                $(".box").css({
+                    top: y,
+                    left: x
+                }); //控件新位置  
+                $("#xyOffset").html("坐标值:(" + e.pageX + "," + e.pageY + ")");
+            }
+        });
+        $(".box").mouseup(function() {
+            _move = false;
+            $(".box").fadeTo("fast", 1); //松开鼠标后停止移动并恢复成不透明  
+        });
+
+
+
+    });
+    </script>
