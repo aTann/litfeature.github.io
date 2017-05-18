@@ -30,10 +30,13 @@
 	 
 }
 
+<<<<<<< HEAD
 .options_header>ul{
 	margin: 0 !important;
 }
 
+=======
+>>>>>>> origin/master
 .options_header>ul>li{
 		float: left;
 		width: 33.3%;
