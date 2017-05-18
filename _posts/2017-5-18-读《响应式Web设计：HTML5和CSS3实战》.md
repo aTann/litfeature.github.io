@@ -36,25 +36,48 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 第1章：	
 
-[响应式网站欣赏-1](http://thinkvitamin.com/)	
-[响应式网站欣赏-2-响应式设计创意收集网站](https://mediaqueri.es/)	
-[Border Radius效果演示](https://testdrive-archive.azurewebsites.net/html5/borderradius/default.html)	
-[CSS3效果欣赏-Panic Inc-已改版](https://panic.com/blog/)	
-[CSS3效果欣赏-marcofolio](http://demo.marcofolio.net/3d_animation_css3/)	
-[CSS3效果欣赏-designlovr](http://designlovr.com/)	
+[响应式网站欣赏-1](http://thinkvitamin.com/)   	
+[响应式网站欣赏-2-响应式设计创意收集网站](https://mediaqueri.es/)   	
+[Border Radius效果演示](https://testdrive-archive.azurewebsites.net/html5/borderradius/default.html)   	
+[CSS3效果欣赏-Panic Inc-已改版](https://panic.com/blog/)   	
+[CSS3效果欣赏-marcofolio](http://demo.marcofolio.net/3d_animation_css3/)    
+[CSS3效果欣赏-designlovr](http://designlovr.com/)   	
 
 第2章：	
 
-[W3C规范审批流程](http://www.w3.org/2005/10/Process-20051014/tr)	
-[CSS3 变换模块Level规范](http://www.w3.org/TR/css3-3d-transforms/)	
-[viewport meta CSS引入文档 @viewport](http://dev.w3.org/csswg/css-device-adapt/)	
+[W3C规范审批流程](http://www.w3.org/2005/10/Process-20051014/tr)  	
+[CSS3 变换模块Level规范](http://www.w3.org/TR/css3-3d-transforms/)     
+[viewport meta CSS引入文档 @viewport](http://dev.w3.org/csswg/css-device-adapt/)       
 
 第3章：	
 
-[伊桑·马科特在A List Apart 上发表的有关响应式网页设计](http://www.alistapart.com/articles/responsive-web-design/)	
-[《无懈可击的Web 设计》-Dan Cederholm-2006](https://book.douban.com/subject/1937913/)	
-主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
-		目标元素宽度÷上下文元素宽度=百分比宽度	
+[伊桑·马科特在A List Apart 上发表的有关响应式网页设计](http://www.alistapart.com/articles/responsive-web-design/)   	
+[《无懈可击的Web 设计》-Dan Cederholm-2006](https://book.douban.com/subject/1937913/)         	
+		主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
+				目标元素宽度÷上下文元素宽度=百分比宽度	
+
+
+[Filament Group的“响应式图片”(已失效)](http://filamentgroup.com/lab/responsive_images_experi_ menting_with_context_aware_image_sizing/)     
+[Matt Wilcox 的“自适应图片”](http://adaptive-images.com/)      
+
+第四章：    
+[html5shiv.js-Remy Sharp](https://remysharp.com/2009/01/07/html5-enabling-script/)     
+[Modernizr](http://www.modernizr.com)      
+[HTML5样板文件](http://html5boilerplate.com/)     		
+
+>样板文件是一个预先做好的融合了“最佳实践”HTML5 文件，包含一些基本样式（如之前提到过的normalize.css）、polyfill 和一些必要的工具如Modernizr。
+>它还包含一个自动合并CSS 和JS 文件、自动删除注释以生成生产环境代码的构建工具。
+
+[W3C定义-lang](http://dev.w3.org/html5/spec/Overview.html#attr-lang)           
+[完整的语言列表](http://www.iana.org/assignments/language-subtag-registry)            
+[HTML 5.2草案](http://w3c.github.io/html/#non-conforming-features)       
+[HTML5.2-语义化标签](http://w3c.github.io/html/sections.html#sections)       
+[无障碍网页技术应用阅读](https://www.w3.org/WAI/intro/aria)    
+[无障碍阅读技术2](https://www.w3.org/TR/wai-aria/roles#role_definitions)       
+[非可视桌面阅读器（NVDA）免费测试网站](http://www.nvdaproject.org/)    
+[离线浏览-2011年草案内容](https://www.w3.org/TR/2011/WD-html5-20110525/offline.html)			  
+
+
 
 
 
