@@ -35,12 +35,12 @@
 }
 
 .options_header>ul>li{
-		float: left;
-		width: 33.3%;
-		height: 100%;
-		background-color: #fa3;
-		cursor: pointer;
-		font-weight: bold;
+	float: left;
+	width: 33.3%;
+	height: 100%;
+	background-color: #fa3;
+	cursor: pointer;
+	font-weight: bold;
 }
 
 .options_header>ul>li:hover{
