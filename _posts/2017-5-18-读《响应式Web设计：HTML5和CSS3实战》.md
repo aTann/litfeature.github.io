@@ -32,19 +32,19 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 书中资源和链接贴出：
 
-[书中实现网站-And the winner isn’t](http://www.andthewinnerisnt.com/)
+[书中实现网站-And the winner isn’t](http://www.andthewinnerisnt.com/)	
 
 第一章：
-[响应式网站欣赏-1](http://thinkvitamin.com/)
-[响应式网站欣赏-2-响应式设计创意收集网站](https://mediaqueri.es/)
-[Border Radius效果演示](https://testdrive-archive.azurewebsites.net/html5/borderradius/default.html)
-[CSS3效果欣赏-Panic Inc-已改版](https://panic.com/blog/)
-[CSS3效果欣赏-marcofolio](http://demo.marcofolio.net/3d_animation_css3/)
-[CSS3效果欣赏-designlovr](http://designlovr.com/)
+[响应式网站欣赏-1](http://thinkvitamin.com/)	
+[响应式网站欣赏-2-响应式设计创意收集网站](https://mediaqueri.es/)	
+[Border Radius效果演示](https://testdrive-archive.azurewebsites.net/html5/borderradius/default.html)	
+[CSS3效果欣赏-Panic Inc-已改版](https://panic.com/blog/)	
+[CSS3效果欣赏-marcofolio](http://demo.marcofolio.net/3d_animation_css3/)	
+[CSS3效果欣赏-designlovr](http://designlovr.com/)	
 
 第二章：
-[W3C规范审批流程](http://www.w3.org/2005/10/Process-20051014/tr)
-[CSS3 变换模块Level规范](http://www.w3.org/TR/css3-3d-transforms/)
+[W3C规范审批流程](http://www.w3.org/2005/10/Process-20051014/tr)	
+[CSS3 变换模块Level规范](http://www.w3.org/TR/css3-3d-transforms/)	
 未完待续……
 
 
