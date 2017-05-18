@@ -34,7 +34,8 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 [书中实现网站-And the winner isn’t](http://www.andthewinnerisnt.com/)	
 
-第一章：
+第1章：	
+
 [响应式网站欣赏-1](http://thinkvitamin.com/)	
 [响应式网站欣赏-2-响应式设计创意收集网站](https://mediaqueri.es/)	
 [Border Radius效果演示](https://testdrive-archive.azurewebsites.net/html5/borderradius/default.html)	
@@ -42,9 +43,21 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 [CSS3效果欣赏-marcofolio](http://demo.marcofolio.net/3d_animation_css3/)	
 [CSS3效果欣赏-designlovr](http://designlovr.com/)	
 
-第二章：
+第2章：	
+
 [W3C规范审批流程](http://www.w3.org/2005/10/Process-20051014/tr)	
 [CSS3 变换模块Level规范](http://www.w3.org/TR/css3-3d-transforms/)	
+[viewport meta CSS引入文档 @viewport](http://dev.w3.org/csswg/css-device-adapt/)	
+
+第3章：	
+
+[伊桑·马科特在A List Apart 上发表的有关响应式网页设计](http://www.alistapart.com/articles/responsive-web-design/)	
+[《无懈可击的Web 设计》-Dan Cederholm-2006](https://book.douban.com/subject/1937913/)	
+主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
+		目标元素宽度÷上下文元素宽度=百分比宽度	
+
+
+
 未完待续……
 
 
