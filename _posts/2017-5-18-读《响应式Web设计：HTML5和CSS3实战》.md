@@ -92,7 +92,7 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 第6章：
 
-[W3C 对box-shadow 属性的标准定义](https://www.w3.org/TR/css3-background/#the-box-shadow)
+*	[W3C 对box-shadow 属性的标准定义](https://www.w3.org/TR/css3-background/#the-box-shadow)
 *	[线性渐变的W3C 规范](https://drafts.csswg.org/css-images-3/#linear-gradients)
 *	[渐变生成器](http://www.colorzilla.com/gradient-editor/)
 *	[W3C对重复渐变的标准定义](https://drafts.csswg.org/css-images-3/#repeating-gradients)
