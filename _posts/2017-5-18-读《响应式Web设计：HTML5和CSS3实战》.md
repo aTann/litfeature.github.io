@@ -54,8 +54,8 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 *	[伊桑·马科特在A List Apart 上发表的有关响应式网页设计](http://www.alistapart.com/articles/responsive-web-design/)    
 *	[《无懈可击的Web 设计》-Dan Cederholm-2006](https://book.douban.com/subject/1937913/)    
 
-	主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
-				目标元素宽度÷上下文元素宽度=百分比宽度	
+	>主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
+	>			目标元素宽度÷上下文元素宽度=百分比宽度	
 
 *	[Filament Group的“响应式图片”(已失效)](http://filamentgroup.com/lab/responsive_images_experi_menting_with_context_aware_image_sizing/)     
 *	[Matt Wilcox 的“自适应图片”](http://adaptive-images.com/)      
@@ -65,8 +65,8 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 *	[Modernizr](http://www.modernizr.com)      
 *	[HTML5样板文件](http://html5boilerplate.com/)     		
 
->样板文件是一个预先做好的融合了“最佳实践”HTML5 文件，包含一些基本样式（如之前提到过的normalize.css）、polyfill 和一些必要的工具如Modernizr。
->它还包含一个自动合并CSS 和JS 文件、自动删除注释以生成生产环境代码的构建工具。
+	>样板文件是一个预先做好的融合了“最佳实践”HTML5 文件，包含一些基本样式（如之前提到过的normalize.css）、polyfill 和一些必要的工具如Modernizr。
+	>它还包含一个自动合并CSS 和JS 文件、自动删除注释以生成生产环境代码的构建工具。
 
 *	[W3C定义-lang](http://dev.w3.org/html5/spec/Overview.html#attr-lang)           
 *	[完整的语言列表](http://www.iana.org/assignments/language-subtag-registry)            
