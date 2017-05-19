@@ -20,13 +20,13 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 我在书中看到的，或学到的：
 
-* 在本书中，我所能学到的响应式想法思维有，对于响应式设计原来是从小处（手机端/低像素）着手，逐步扩大（PC端/大屏幕），并在响应式开发中要遵循的精简原则，在该原则下自然而然的对一些网站判定了不能使用响应式（大型功能性的网站之类的），另外一个原则就是内容优先，内容优先是相对于其他例如图片，杂项元素（侧边栏等），接着一个突破性原则就是不一致性，不必为了一致性而实现网站所有浏览器一致性，这个倘若平常练习还是要做到，在实际当中那是未必了，毕竟一些浏览器下实现一致性花费太多了。
+*	 在本书中，我所能学到的响应式想法思维有，对于响应式设计原来是从小处（手机端/低像素）着手，逐步扩大（PC端/大屏幕），并在响应式开发中要遵循的精简原则，在该原则下自然而然的对一些网站判定了不能使用响应式（大型功能性的网站之类的），另外一个原则就是内容优先，内容优先是相对于其他例如图片，杂项元素（侧边栏等），接着一个突破性原则就是不一致性，不必为了一致性而实现网站所有浏览器一致性，这个倘若平常练习还是要做到，在实际当中那是未必了，毕竟一些浏览器下实现一致性花费太多了。
 
-* 响应式中讲究弹性，将过往传统重要的1px抠，转变为0.001%，或是1pm计算，流式布局占中。
+* 	响应式中讲究弹性，将过往传统重要的1px抠，转变为0.001%，或是1pm计算，流式布局占中。
 
-* HTML5“散漫”、简洁化，CSS3酷炫方便化，让网页设计更加自由和方便，也对响应式效果呈促进效果。
+* 	HTML5“散漫”、简洁化，CSS3酷炫方便化，让网页设计更加自由和方便，也对响应式效果呈促进效果。
 
-* 书中提到了跨浏览器问题解决方法论：渐进增强与优雅降级，一个冷硬拒绝旧浏览器，一个是逐步推进和淘汰不兼容浏览器，同时推荐了Modernizr进行对浏览器兼容的修补。
+* 	书中提到了跨浏览器问题解决方法论：渐进增强与优雅降级，一个冷硬拒绝旧浏览器，一个是逐步推进和淘汰不兼容浏览器，同时推荐了Modernizr进行对浏览器兼容的修补。
 
 该本书已经出版了5年，这本书相对于现在来看，内容略流于表面，但与当时应该是一本不错的入门和了解响应式发展的书本，当然现在也是不错的了解资料
 
@@ -53,10 +53,10 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 *	[伊桑·马科特在A List Apart 上发表的有关响应式网页设计](http://www.alistapart.com/articles/responsive-web-design/)    
 *	[《无懈可击的Web 设计》-Dan Cederholm-2006](https://book.douban.com/subject/1937913/)    
-'''
-主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
+
+	主要为提到伊桑·马科特为其撰写了一章关于流动布局的内容，内容中提供固定像素宽度转换对应百分比宽度：
 				目标元素宽度÷上下文元素宽度=百分比宽度	
-'''
+
 *	[Filament Group的“响应式图片”(已失效)](http://filamentgroup.com/lab/responsive_images_experi_menting_with_context_aware_image_sizing/)     
 *	[Matt Wilcox 的“自适应图片”](http://adaptive-images.com/)      
 
@@ -70,7 +70,7 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 
 *	[W3C定义-lang](http://dev.w3.org/html5/spec/Overview.html#attr-lang)           
 *	[完整的语言列表](http://www.iana.org/assignments/language-subtag-registry)            
-*	HTML 5.2草案](http://w3c.github.io/html/#non-conforming-features)       
+*	[HTML 5.2草案](http://w3c.github.io/html/#non-conforming-features)       
 *	[HTML5.2-语义化标签](http://w3c.github.io/html/sections.html#sections)       
 *	[无障碍网页技术应用阅读](https://www.w3.org/WAI/intro/aria)    
 *	[无障碍阅读技术2](https://www.w3.org/TR/wai-aria/roles#role_definitions)       
@@ -80,7 +80,54 @@ title: 读《响应式Web设计：HTML5和CSS3实战》
 第5章：      
 
 *	[CSS Compatibility and Internet Explorer - CSS在IE9前(包括IE9)对CSS的支持](https://msdn.microsoft.com/en-us/library/cc351024(v=vs.85).aspx)				
+*	[-prefix-free-快速编辑私有前缀工具(JS编写)](http://leaverou.github.io/prefixfree/)      
+*	[CSS兼容性查询网址-caniuse](http://caniuse.com/)      
+*	[浏览器全球统计数据-来自statcounter](http://gs.statcounter.com/)      
+*	[完整的UI 元素状态伪类列表-W3C Recommendation 2011](https://www.w3.org/TR/selectors/#UIstates)
+*	[sIFR字库](http://www.mikeindustries.com/blog/sifr/)
+*	[Cufón](http://cufon.shoqolate.com/generate/)
+*	[CSS3 字体模块-W3C建议](https://www.w3.org/TR/css-fonts-3/)
+*	[@font-face 规则-Google字体资源](https://fonts.google.com/)
+*	[Font Squirre-字体资源](www.fontsquirrel.com)
+*	[Typekit-字体资源](www.typekit.com)
+*	[Font Deck-字体资源](www.fontdeck.com)
+*	[CSS3 字体模块中视口相对字体](https://www.w3.org/TR/css3-values/#relative-lengths)
 
+第6章：
+
+[W3C 对box-shadow 属性的标准定义](https://www.w3.org/TR/css3-background/#the-box-shadow)
+*	[线性渐变的W3C 规范](https://drafts.csswg.org/css-images-3/#linear-gradients)
+*	[渐变生成器](http://www.colorzilla.com/gradient-editor/)
+*	[W3C对重复渐变的标准定义](https://drafts.csswg.org/css-images-3/#repeating-gradients)
+*	[CSS3 背景渐变图案-Lea Verou 收集](http://lea.verou.me/css3patterns/)
+*	[CSS 预处理器-SASS](http://sasslang.com)
+*	[CSS 预处理器-LESS](http://lesscss.org)
+*	[有关CSS 背景的文档](https://www.w3.org/TR/css3-background/#backgrounds)
+
+第7章：
+
+*	[部分属性无法实现过渡](https://drafts.csswg.org/css-transitions-1/)
+*	[理论所有CSS属性都可以过渡](https://drafts.csswg.org/css-transitions-1/#animatable-css)
+*	[过渡调配工具](http://cubic-bezier.com/)
+*	[transform-origin 属性的详细信息](https://www.w3.org/TR/css-transforms-1/#transform-origin-property)
+*	[CSS3 的2D 变形模块](https://www.w3.org/TR/css-transforms-1/#two-d-transform-functions)
+*	[W3C 有关CSS 3D 变形](https://www.w3.org/TR/css-transforms-1/#three-d-transform-functions)
+*	[W3C 有关CSS 动画](https://drafts.csswg.org/css-animations-1/)
+
+第8章：
+
+*	[正则表达式](https://en.wikipedia.org/wiki/Regular_expression)
+*	[HTML5 表单部分的工作草案](https://dev.w3.org/html5/spec-author-view/forms.html#forms)
+*	[Webshims Lib](http://afarkas.github.com/webshim/demos/)
+*	[Modernizr](http://www.modernizr.com)
+
+第9章：
+
+*	[渐进增强与优雅降级-优秀文章](https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement)
+*	[[渐进增强与优雅降级-Aaron Gustafson 的经典之作](https://alistapart.com/article/understandingprogressiveenhancement)
+*	[HTML5验证工具](https://validator.nu/)
+*	[HTML5验证工具](https://validator.w3.org/)
+*	[前端的瑞士军刀：Modernizr](http://www.modernizr.com)
 
 
 未完待续……
