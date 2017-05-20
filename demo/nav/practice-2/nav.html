@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>nav practise 2</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"> -->
+</head>
+<body>
+	<div id="wrapper">
+		<nav>
+			<div id="nav_container">
+				<div id="logo">
+					<a href="#" class="">
+						<img src="logo.png">
+					</a>
+					<button id="nav_toggle">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+				<div id="nav_right">
+					<ul>
+						<li style="padding: 0;"></li>
+						<li class="acitve"><a href="#">HOME</a></li>
+						<li><a href="#">STORE LOCATION  <span>65</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<script type="text/javascript">
+		navToggle = document.getElementById("nav_toggle");
+		navRight = document.getElementById("nav_right");
+		navToggle.onclick = function() {
+			if (navRight.classList.contains('show')) {
+				navRight.classList.remove('show');
+			}else{
+				navRight.classList.add('show');
+			}};
+	</script>
+</body>
+</html>
