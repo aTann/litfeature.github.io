@@ -6,7 +6,6 @@ title: 原生JavaScript提取样式和类操作
 {{ page.title }}
 ================
 <p class="meta">{{ page.date | date_to_string }}</p>
-_dom = document.getElementById("id")
 
 平时常用的JavaScript操作DOM都是使用JQuery库，毕竟JQuery简单易用，操作简单，但是今天的dome只是做一个简单的隐藏显示按钮，同时也不行上传过多的文件，另外一个方面前端DOM操作是绕不开的，如有可能使用原生的JavaScript进行操作使用是很有必要的，所以就尝试了原生JavaScript进行操作。     
 
@@ -35,7 +34,7 @@ document.getElementById("id").offsetWidth;  //取宽度
 ```
 _dom = document.getElementById("id")	
 ```
-
+<br />
 ```
 _dom.style.borderLeftColor = "";
 _dom.style.borderLeftColor()
