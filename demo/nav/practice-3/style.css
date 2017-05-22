@@ -23,6 +23,9 @@
 
 	body {
 		line-height: 1;
+			body {
+		-webkit-text-size-adjust: none;
+	}
 	}
 
 	img {
@@ -102,7 +105,7 @@
 
 
 /* Layout */
-
+/* Font-size */
 
 
 
@@ -111,7 +114,13 @@
 
 /* Type */
 
-
+	@font-face {
+	    font-family: 'FontAwesome';
+	    src: url('fonts/fontawesome-webfont.eot?v=4.2.0');
+	    src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+	    font-weight: normal;
+	    font-style: normal
+	}
 
 
 
@@ -119,17 +128,99 @@
 
 
 /* Navigation */
+	#wrapper {
+		width: 100%;
+	}
+
+		#nav {
+			width: 100%;
+			height: auto;
+			background-color: #fe3;
+			display: block;
+			text-align: center;
+		}
+
+		#nav .nav_header {
+			height: 65px;
+
+		}
+			 #nav .nav_header #nav_toggle {
+			 	float: right;
+			 	width: 30px;
+			 	height: 30px;
+			 	margin-right: 40px;
+			 	margin-top: 20px;
+			 	background-color: transparent;
+			 	border: 0;
+			 	cursor: pointer;
+			 }
+			
+			 #nav .nav_header button {
+			 	font: normal normal normal 14px/1 FontAwesome;
+				display: inline-block;
+				color: #666;
+				width: auto;
+			 }
+
+			 #nav .nav_header button:before {
+				content: "\f0c9";
+			 }
+
+		 #nav .menu {
+		 	width: 90%;
+		 	padding-right: 5%;
+		 	padding-left: 5%;
+		 	margin-left: auto;
+		 	margin-right: auto;
+		 	text-align: center;
+		 	border-bottom: 1px solid #F2F2F2;
+		 	letter-spacing: 1px;
+		 }
+
+		 #nav .menu ul{
+			margin: 0 auto;
+			text-align: center;
+			clear: both;
+			
+
+		 }
+
+			 #nav .menu ul li {
+				/*float: left;*/
+				display: inline-block;
+
+			 }
 
 
-
-
-
-
+				 #nav .menu ul li a {
+					text-transform:uppercase;
+					line-height: 55px;
+					font-weight: bold;
+					text-decoration: none;
+					margin: 0 15px;
+					display: inline-block;
+					color: #000;
+				 }
 
 
 /* Media queries */
 
+	@media screen and (max-width: 768px) {
+		#nav .menu {
+			display: none;
+		}
+	}
 
+	@media screen and (min-width: 768px) {
+		#nav .menu {
+			display: table !important;
+			/*background-color: #efe;*/
+		}
+
+		#nav .nav_header {
+			display: none;
+		}
+	}
 
 
 
