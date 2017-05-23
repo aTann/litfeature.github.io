@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+	<meta charset="UTF-8">
+	<title>背部透明的尝试</title>
+	<style type="text/css">
+		#wrapper{ width: 768px; height: auto; margin: 0 auto; text-align: center; padding-left: 25%;}
+		.bgc{ background-color: #fe2; }
+		.bgc_t{background: transparent;}
+		.bgc_2{ background: #f9f; }
+		.bgc_n{background: none;}
+		.w_h{ width: 200px; height: 200px; margin: 0 auto;}
+		.bd{border: 1px solid #999;}
+		.w_h_100 { height: 100px; width: 100px; margin: 0 auto;}
+		.r{position: relative;}
+		.a{position: absolute;}
+		.index_100 {z-index: 100;} /* 通常内层比外层级别更高，因为通常 */
+		.p_t_l { top: 200px; left: 0;  text-align: left;}
+	</style>
+</head>
+<body>
+	<div id="wrapper" class="r">
+		<div class="bd bgc a w_h_100"></div>
+		<div class="w_h bgc_t bgc_2 a index_100 bd" id="t-div"></div>
+		
+		<p class="a p_t_l">
+			尝试透明效果，是否真的透明：<br />
+			将两个重叠的div，<br />
+			一个上层：width: 200px; height: 200px; position: absolute; top:0; left:0; background: transparent; z-index: 100;
+			<br />
+			一个下层：width: 100px; height: 100px; position: absolute; top:0; left:0;
+			<br />
+			得到结果是：
+			有没有background: transparent; 都可以进行透明效果
+		</p>
+		<button type="submit" id="btn_1">
+			移除上层颜色
+		</button>
+		<button id="btn_2">
+			移除透明效果+颜色
+		</button>
+	</div>
+	<script type="text/javascript">
+		var btn_1 = document.getElementById("btn_1");
+		var btn_2 = document.getElementById('btn_2');
+		var div_t = document.getElementById('t-div');
+		
+		btn_1.addEventListener("click" , function() {
+					div_t.classList.remove('bgc_2');
+				}, false);
+		
+		btn_2.addEventListener("click", function() {
+			div_t.classList.remove('bgc_t');
+			div_t.classList.remove('bgc_2');
+			div_t.classList.add('bgc_n');
+		})	
+
+	</script>
+</body>
+</html>
