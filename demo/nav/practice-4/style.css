@@ -1,0 +1,178 @@
+/* Reset */
+
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	b, i,
+	dl, dd, ol, ul,
+	fieldset, legend,
+	th, td,
+	figure,
+	menu {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+	}
+
+	body {
+		line-height: 1;
+		-webkit-text-size-adjust: none;
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	article, aside, details, figcaption, figure,
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+
+	nav ul {
+		list-style: none;
+	}
+
+	blockquote, q{
+		quotes: none;
+	}
+
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+
+	a {
+		margin: 0;
+		padding: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background-color: transparent;
+		color: #000;
+		text-decoration: none;
+	}
+
+	/* change colours to suit your needs */
+	ins {
+		background-color: #ff9;
+		color: #000;
+		text-decoration: none;
+	}
+
+	/* change colours to suit your needs */
+	mark {
+		align-content: #ff9;
+		color: #000;
+		font-style: italic;
+		font-weight: bold;
+	}
+
+	del {
+		text-decoration: line-through;
+	}
+
+	abbr[title], dfn[title] {
+		border-bottom: 1px dotted;
+		cursor: help;
+	}
+
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	/* change border colour to suit your needs */
+	hr {
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid #ccc;
+		margin: 1em 0;
+		padding: 0;
+	}
+
+	input, select {
+		vertical-align: middle;
+	}
+	
+/* Navigation */
+	body {
+		color: #333;
+	}
+
+	nav {
+		background-color: rgba(59, 59, 59, 0.7) !important;
+
+    	/*opacity: 1;*/
+	}
+
+	.navbar-brand>img {
+		height: 35px;
+		padding: 0;
+	}
+
+	.navbar-right > li > a {
+		color: #b5b5b5 !important;
+		display: inline-block;
+		width: 100%;
+	}
+
+	.navbar-right > li > a:focus{
+		/*background-color: rgba(59, 59, 59, 0.7) !important;*/
+		color: #f39c12 !important;
+		border: 0;
+	}
+
+	.navbar-right > li > a:hover {
+		color: #f39c12 !important;
+	}
+	.navbar-right > .active > a,
+	.navbar-right > .active > a:focus,
+	.navbar-right > .active > a:hover {
+		color: #f39c12 !important;
+		background-color: rgba(59, 59, 59, 0) !important;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

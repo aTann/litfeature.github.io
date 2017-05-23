@@ -175,7 +175,7 @@ ul.posts {
 
     #post pre code {
       border: none;
-      white-space: pre-wrap;
+      white-space: pre-wrap;  /* 单行代码过长转行 */
     }
 
   #post img {
