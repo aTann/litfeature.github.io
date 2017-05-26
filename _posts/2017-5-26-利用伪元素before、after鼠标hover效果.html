@@ -8,13 +8,87 @@ title: 利用::before/::after鼠标:hover效果
     </h2>
     <p class="meta">{{ page.date | date_to_string }}</p>
 	
-    	<div id="wrapper" class="fix">
-    		<ul class="fix">
-    			<li>
-    				<a href="#">摸摸我呗…</a>
-    			</li>
-                <li class="l_2">
-                    <a href="#">摸摸我呗…</a>
-                </li>
-    		</ul>
-    	</div>
+	<div id="wrapper" class="fix">
+        <ul class="fix">
+            <li>
+                <a href="#">摸摸我呗…</a>
+            </li>
+            <li class="l_2">
+                <a href="#">摸摸我呗…</a>
+            </li>
+        </ul>
+        <div>
+            <pre>
+                           
+                <code>
+                    #wrapper ul li{
+                    float: left;
+                    width: 120px;
+                    height: 50px;
+                    line-height: 50px;
+                    background-color: rgba(244, 194, 66, 0.5);
+                    text-align: center;
+                    vertical-align: middle;
+                    margin: 10px;
+                    position: relative;
+                    z-index: 0;
+                }
+                    #wrapper ul li::before, 
+                    #wrapper ul li::after{
+                        background-color: rgba(249, 188, 32, .9);
+                        border-radius: 200px;
+                        content: " ";
+                        height: 0;
+                        margin: auto;
+                        position: absolute; 
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        /* position可以给定效果出现的方向，t-r-b-l都在时候，伪元素位于按钮中间 */
+                        transition: all 0.3s ease 0.1s;
+                        width: 0;
+                        z-index: -1; /* 利用z-index将效果呈现，同时不覆盖嵌套内容 */
+
+                    }
+
+                    #wrapper ul li::after{
+                        /*background-color: rgba(232, 179, 46, 1);*/
+                        background-color: rgba(249, 188, 32, .5);
+                        transition: all 0.3s ease 0s; /* ::before, ::after 时间错开，可以造成光旋展看效果*/
+                            
+                    }
+                    
+                    #wrapper ul li.l_2::before{
+                        transition:  width 1s, height 0s;
+                    }
+                    #wrapper ul li.l_2::after{
+                        transition:  width 0s, height 0.5s;
+                    }
+
+
+                    #wrapper ul li:hover::before, 
+                    #wrapper ul li:hover::after{
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 5px;
+                        left: 0;
+                        /*background-color: #fff;*/
+                    }
+                </code> 
+            </pre>
+
+            <p>
+                1、::before/::after占位于元素之内（我之前一直以为是占位于元素前后，所以消浮动不敢乱用）
+                <br />
+                2、::before/::after占位嵌套于该元素之内，可以利用position进行对::before/::after定位，该定位也决定了效果开始的位置，当T-R-B-L都存在就从中间出现效果
+                <br />
+                3、需要设置覆盖前后权限，也就是z-index，避免效果覆盖了内容，出现喧宾夺主的情况；
+                <br />
+                4、::before/::after只需要其他一个就可以产生一定的效果，但是如果两者同时出现，而且颜色搭配不同、动画延时不同，可以得到更多的搭配效果；
+                <br />
+                5、本例中利用li的::before/::after，不过也是可以利用li嵌套元素，利用外层li元素，少写些代码，同时分层比较容易；
+                <br />
+            </p>
+        </div>
+    </div>
