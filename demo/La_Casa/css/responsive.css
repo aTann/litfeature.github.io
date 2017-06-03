@@ -1,0 +1,31 @@
+/* Media queries */
+
+	@media screen and (max-width: 1100px) {
+	/*	.header-wrapper > .header {
+			width: 73.33%;
+			padding-left: 40px;
+			padding-right: 40px;
+		}*/
+		.header-wrapper > .header > .header-content, 
+		.header-wrapper > .search_wrap {
+			width: 90%;
+			padding-left: 5%;
+			padding-right: 5%;
+			/*display: inline-block;*/
+		}
+
+	}
+
+	@media screen and (max-width: 768px) {
+		.header > .header-content > .header-right {
+			display: none;
+		}
+		.btn-islands{
+				display: inline-block;
+			}
+	}
+
+	@media screen and (min-width: 768px) {
+		
+	}
+
