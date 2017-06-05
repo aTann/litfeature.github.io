@@ -23,7 +23,7 @@
 					</h1>
 
 				</div>
-				<div class="header-right">
+				<div class="header-right hd">
 					<nav class="menu">
 						<ul>
 							<li>
@@ -79,12 +79,14 @@
 	<!-- header search section start	 -->
 		<section class="search_wrap">
 			<div class="search_header">
-				<input type="text" name="searchBox" placeholder="WHAT ARE YOU LOOKING FOR?" />
+				<form>
+					<input type="text" name="searchBox" placeholder="WHAT ARE YOU LOOKING FOR?" />
+				</form>
 				<span class="search_header_islands-icon">
-					<img src="img/La_Casa_03.gif">
+					<img src="img/La_Casa_03.gif" />
 				</span>
 			</div>
-			<div class="search_content hidde">
+			<div class="search_content" id="hidde">
 				<ul>
 					<li><input type="text" placeholder="CHECK IN DATE" /></li>
 					<li><input type="text" placeholder="CHECK OUT DATE" /></li>
@@ -330,7 +332,7 @@
 					<li><a href="#">Appartements</a></li>
 					<li><a href="#">Houses</a></li>
 					<li><a href="#">Villas</a></li>
-					<li><a href="#">Villas</a></li>
+					<li><a href="#">Mansions</a></li>
 					<li><a href="#">…</a></li>
 				</ul>
 			</section>
@@ -385,5 +387,66 @@
 		</div>
 	</footer>
 <!-- footer end -->
+
+<!-- JavaScript Start -->
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		// body...
+		
+		// $(".btn-islands").on('click', function (e) {
+		// 	// body...
+		// 	if ($('.header-right').css('display') == 'none') {
+		// 		$('.header-right').fadeIn('slow');
+		// 	} else {
+		// 		$('.header-right').fadeOut('slow');
+		// 	}
+		// });
+		// 该方法一旦再次展开，需要重写或是抹去style属性中的display，不然会隐藏原来内容
+
+		// $(".search_header_islands-icon").on('click', function (e) {
+		// 	// body...
+		// 	if ($('.search_content').css('display') == 'none') {
+		// 		$('.search_content').fadeIn('slow');
+		// 	} else {
+		// 		$('.search_content').fadeOut('slow');
+		// 	}
+		// });
+
+		// 按钮click开关
+		var hideOrshow = function(btnclassName, showClassName, speed){
+			$(btnclassName).on('click', function (e) {
+			// body...
+			if ($(showClassName).css('display') == 'none') {
+				$(showClassName).fadeIn(speed);
+			} else {
+				$(showClassName).fadeOut(speed);
+			}
+		});
+		};
+
+		// 导航隐现
+		// hideOrshow(".btn-islands", '.header-right', 'slow')
+		// 搜索隐现
+		hideOrshow(".search_header_islands-icon", '.search_content', 'slow');
+
+		// 导航隐现
+		var navHideOrshow = function(btnclassName, ClassName, addOrremoveClass){
+			$(btnclassName).on('click', function (e) { 
+				$(ClassName).toggleClass(addOrremoveClass);
+				// alert($(ClassName.)attr('class'));
+			});
+		};
+
+		navHideOrshow(".btn-islands", '.header-right', "hd");
+
+		
+		
+	});
+	</script>
+
+<!-- JavaScript End -->
+
 </body>
 </html>

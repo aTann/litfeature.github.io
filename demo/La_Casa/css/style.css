@@ -1,25 +1,25 @@
-/* Font */
-	@font-face{
-		font-family: 'P22_Corinthia';
-		src: url('../fonts/p22_corinthia.eot?v=1.0');
-		src: url('../fonts/p22_corinthia.eot?#iefix') format('embedded-opentype'),
-			 url('../fonts/p22_corinthia.svg#P22Corinthia') format('svg'),
-			 url('../fonts/p22_corinthia.ttf') format('truetype'),
-			 url('../fonts/p22_corinthia.woff') format('woff');
-		font-weight: normal;
-		font-style: normal;
-	}
+/*Font*/
+@font-face{
+	font-family: 'P22_Corinthia';
+	src: url('../fonts/p22_corinthia.eot?v=1.0');
+	src: url('../fonts/p22_corinthia.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/p22_corinthia.svg#P22Corinthia') format('svg'),
+		 url('../fonts/p22_corinthia.ttf') format('truetype'),
+		 url('../fonts/p22_corinthia.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 
-	@font-face {
-	    font-family: 'FontAwesome';
-	    src: url('../fonts/fontawesome-webfont.eot?v=4.2.0');
-	    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), 
-		     url('../fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), 
-		     url('../fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), 
-		     url('../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
-	    font-weight: normal;
-	    font-style: normal
-	}
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot?v=4.2.0');
+    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), 
+	     url('../fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), 
+	     url('../fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), 
+	     url('../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
 
 /* Header */
 .header-wrapper{
@@ -160,39 +160,44 @@
 			margin: 0 auto;
 			width: 73.33%;
 			height: 100px;
-			line-height: 100px;
 		}
 
-			.search_wrap > .search_header > input {
-				height: 40px;
-				width: 90%;
-			}
-				
-				.search_wrap  input {
-					background-color: rgba(191, 217, 242, 1);
-					margin: 0;
-					padding: 0;
-					border: 0;
-					font-size: 16px;
-					color: rgba(255, 255, 255, 1);
-					outline-offset: 0;
-				}
+		.search_wrap  input {
+			background-color: rgba(191, 217, 242, 1);
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 16px;
+			color: rgba(255, 255, 255, 1);
+			outline-offset: 0;
+		}
 
-				.search_wrap input:focus {
-					outline: none;
-				}
-				.search_wrap input::placeholder {
-					color: rgba(149, 186, 223, 1);
+		.search_wrap input:focus {
+			outline: none;
+		}
+		.search_wrap input::placeholder {
+			color: rgba(149, 186, 223, 1);
+		}
+			.search_wrap > .search_header > form {
+				width: 90%;
+				height: 100px;
+				display: inline-block;
+			}
+				.search_wrap > .search_header > form > input {
+					font-size: 20px;
+					height: 100px;
+					width: 100%;
+					display: inline-block;
 				}
 			
 			.search_wrap > .search_header > .search_header_islands-icon {
 				width: 9%;
-				display: inline-block;
-				height: 100px;
 				text-align: right;
+				display: inline-block;
+				box-sizing: border-box;
 			}
 			 	.search_wrap > .search_header > .search_header_islands-icon > img {
-			 		margin-top: 10px;
+			 		/*margin-top: 20px;*/
 			 		cursor: pointer;
 			 	}
 			 	.search_wrap > .search_header > .search_header_islands-icon > img:hover {
@@ -236,7 +241,7 @@
 					}
 
 
-.hidde{
+#hidde{
 	display: none;
 }
 
@@ -265,7 +270,7 @@
 			display: -ms-inline-flex;
 			display: -o-inline-flex;
 			display: inline-flex;
-			justify-content: space-around;
+			justify-content: space-between;
 			/*-ms-align-items: stretch;*/
 			/*align-items: stretch;*/
 			flex-flow: row wrap;
@@ -290,6 +295,9 @@
 					height: auto;
 					position: relative;
 				}
+					.content > .listings > ul > li > .pic-show img { 
+						width: 100%;
+					}
 
 					.content > .listings > ul > li > .pic-show > span {
 						display: inline-block;
@@ -372,11 +380,13 @@
 			height: auto;
 			vertical-align: top;
 			font-size: 16px;
+			padding: 50px 0;
 		}
 	
 			.footer > .footer_content > section > ul {
 				width: 100%;
 				height: auto;
+
 			}
 				.footer > .footer_content > section > ul > li {
 					margin-bottom: 25px;
