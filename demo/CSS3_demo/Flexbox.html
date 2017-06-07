@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="view-point" content="width=device-width, initial-scale=1.0">
+	<title>Flexbox</title>
+	<style type="text/css">
+		/*reset*/
+		div, ul, li {
+			margin: 0;
+			padding: 0;
+			border: transparent;
+		}
+
+		ul, li {
+			list-style: none;
+		}
+		
+		.wrapper{
+			margin: 50px auto;
+			width: 768px;
+			height: auto;
+		}
+		.boxs {
+			 position: relative; 
+			 min-height: 300px; 
+			 height: auto;
+			 width: 100%;
+			 margin: 50px 0;
+		}
+			.flex-wrapper {
+				display: inline-block;
+				width: 300px;
+				height: 300px;
+				height: auto;
+				border: 1px solid #f2f;
+				position: relative;
+			}
+			
+				.flexbox {
+					display: flex;
+				}
+
+					.flexbox li {
+						width: 50px;
+						height: 100px;
+						/*margin: 5px;*/
+						border: 1px solid #f2f;
+						text-align: center;
+						line-height: 100px;
+						font-size: 30px;
+					}
+				.flex-wrapper span{
+					position: absolute;
+					top: -20px;
+				}
+			.btns {
+				display: block;
+				width: 400px;
+				position: absolute;
+				right: 0px;
+				top: 0;
+			}
+				em {
+					background-color: #fe3;
+					margin: 3px;
+					display: inline-block;
+					padding: 2px;
+					cursor: pointer;
+					width: 150px;
+				}
+
+		/* property test */
+		/* flex-direction */
+		
+
+		.flex-direction-1 {
+			-webkit-flex-direction: row;
+			flex-direction: row;
+		}
+
+		.flex-direction-2 {
+			-webkit-flex-direction: row-reverse;
+			flex-direction: row-reverse;
+
+		}
+
+		.flex-direction-3 {
+			-webkit-flex-direction: column ;
+			flex-direction: column ;
+		}
+
+		.flex-direction-4 {
+			-webkit-flex-direction: column-reverse;
+			flex-direction: column-reverse;
+		}
+
+		/* flex-wrap : nowrap | wrap | wrap-reverse ; */
+		.flex-wrap-nw {	flex-wrap : nowrap;	}
+		.flex-wrap-w { flex-wrap: wrap; }
+		.flex-wrap-wr { flex-wrap: wrap-reverse; }
+
+		/* flex-flow : <flex-direciont> || <flex-wrap> ; */
+		.flex-flow-1 { flex-flow: row nowrap; }
+		.flex-flow-2 { flex-flow: column nowrap; }
+		.flex-flow-3 { flex-flow: row-reverse nowrap; }
+		.flex-flow-4 { flex-flow: column-reverse nowrap; }
+		
+		.flex-flow-5 { flex-flow: row wrap; }
+		.flex-flow-6 { flex-flow: column wrap; }
+		.flex-flow-7 { flex-flow: row-reverse wrap; }
+		.flex-flow-8 { flex-flow: column-reverse wrap; }
+		
+		.flex-flow-9 { flex-flow: row wrap-reverse; }
+		.flex-flow-10 { flex-flow: column wrap-reverse; }
+		.flex-flow-11 { flex-flow: row-reverse wrap-reverse; }
+		.flex-flow-12 { flex-flow: column-reverse wrap-reverse; }
+
+		/* order */
+		.order-1 { order: 5 }
+		.order-2 { order: 4 }
+		.order-3 { order: 6 }
+		.order-4 { order: 2 }
+		.order-5 { order: 3 }
+		.order-6 { order: 1 }
+
+		.order-7 { order: -1 }
+
+
+
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+	
+	<!-- flex-direction -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox flex-direciton-2" id="flexbox-1">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="r">
+					flex-direction: row;
+				</em>
+				<em id="rr">
+					flex-direction: row-reverse;
+				</em>
+				<em id="c">
+					flex-direction: column;
+				</em>
+				<em id="cr">
+					flex-direction: column-reverse;
+				</em>
+			</div>
+		</div>
+		
+	<!-- flex-wrap : nowrap -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-2">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="nowrap">
+					flex-wrap : nowrap;
+				</em>
+				<em id="wrap">
+					flex-wrap : wrap;
+				</em>
+				<em id="wrap_reverse">
+					flex-wrap : wrap-reverse;
+				</em>
+			</div>
+		</div>
+
+	<!-- flex-flow -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-3">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="flex-flow-1">
+					flex-flow: row nowrap;
+				</em>
+				<em id="flex-flow-2">
+					flex-flow: column nowrap;
+				</em>
+				<em id="flex-flow-3">
+					flex-flow: row-reverse nowrap;
+				</em>
+				<em id="flex-flow-4">
+					flex-flow: column-reverse nowrap;
+				</em>
+				<em id="flex-flow-5">
+					flex-flow: column wrap;
+				</em>
+				<em id="flex-flow-6">
+					flex-flow: row-reverse wrap;
+				</em>
+				<em id="flex-flow-7">
+					flex-flow: column-reverse wrap;
+				</em>
+				<em id="flex-flow-8">
+					flex-flow: row wrap-reverse;
+				</em>
+				<em id="flex-flow-9">
+					flex-wrap : wrap-reverse;
+				</em>
+				<em id="flex-flow-10">
+					flex-flow: column wrap-reverse;
+				</em>
+				<em id="flex-flow-11">
+					flex-flow: row-reverse wrap-reverse;
+				</em>
+				<em id="flex-flow-12">
+					flex-flow: column-reverse wrap-reverse;
+				</em>
+			</div>
+		</div>
+	
+	<!-- order	 -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-4">
+					<li class="order-1">1</li>
+					<li class="order-2">2</li>
+					<li class="order-3">3</li>
+					<li class="order-4">4</li>
+					<li class="order-5">5</li>
+					<li class="order-6">6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em>
+					<pre>
+						<code>
+.order-1 { order: 5 }
+.order-2 { order: 4 }
+.order-3 { order: 6 }
+.order-4 { order: 2 }
+.order-5 { order: 3 }
+.order-6 { order: 1 }
+						</code>
+					</pre>					
+				</em>
+
+			</div>
+		</div>
+
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-5">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li class="order-7">4</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em>
+					<pre>
+						<code>
+.order-7 { order: -1 }
+						</code>
+					</pre>
+				</em>
+				
+			</div>
+		</div>
+	
+	<!-- flex  -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-6">
+					<li style="flex: 10; ">1</li>
+					<li style="flex: auto;">2</li>
+					<li style="flex: 3;">3</li>
+					<li style="flex: auto;">4</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em>
+					flex: 10; 
+				</em>
+				<em>
+					flex: auto;
+				</em>
+				<em>
+					flex: 3;
+				</em>
+				<em>
+					flex: auto;
+				</em>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript">
+		var btnBind = function (flexbox_Id, btn_Id, add_Class) {
+			// body...
+			var flexBox = document.getElementById(flexbox_Id),
+			  btn_click = document.getElementById(btn_Id);
+			btn_click.onclick = function() {
+				// body...
+				// 更换样式
+				flexBox.className = 'flexbox ' + add_Class;
+				console.log(flexBox.className);
+			};
+
+		};
+
+		// flex-direction
+		btnBind('flexbox-1', 'r', "flex-direction-1");
+		btnBind('flexbox-1', 'rr', "flex-direction-2");
+		btnBind('flexbox-1', 'c', "flex-direction-3");
+		btnBind('flexbox-1', 'cr', "flex-direction-4");
+
+		// flex-wrap
+		btnBind('flexbox-2', 'nowrap', "flex-wrap-nw");
+		btnBind('flexbox-2', 'wrap', "flex-wrap-w");
+		btnBind('flexbox-2', 'wrap_reverse', "flex-wrap-wr");
+
+		// flex-flox
+		btnBind('flexbox-3', 'flex-flow-1', "flex-flow-1");
+		btnBind('flexbox-3', 'flex-flow-2', "flex-flow-2");
+		btnBind('flexbox-3', 'flex-flow-3', "flex-flow-3");
+		btnBind('flexbox-3', 'flex-flow-4', "flex-flow-4");
+		btnBind('flexbox-3', 'flex-flow-5', "flex-flow-5");
+		btnBind('flexbox-3', 'flex-flow-6', "flex-flow-6");
+		btnBind('flexbox-3', 'flex-flow-7', "flex-flow-7");
+		btnBind('flexbox-3', 'flex-flow-8', "flex-flow-8");
+		btnBind('flexbox-3', 'flex-flow-9', "flex-flow-9");
+		btnBind('flexbox-3', 'flex-flow-10', "flex-flow-10");
+		btnBind('flexbox-3', 'flex-flow-11', "flex-flow-11");
+		btnBind('flexbox-3', 'flex-flow-12', "flex-flow-12");
+
+		var btnBindn = function (flexbox_Id, btn_Id) {
+			// body...
+			var flexBox = document.getElementById(flexbox_Id),
+			  btn_click = document.getElementById(btn_Id);
+			btn_click.onclick = function() {
+				// body...
+				// 更换样式
+				flexBox.className = 'flexbox ' + btn_Id;
+				console.log(flexBox.className);
+			};
+
+		};
+
+		// justify-content
+		btnBindn('flexbox-7', 'justify-content-1');
+		btnBindn('flexbox-7', 'justify-content-2');
+		btnBindn('flexbox-7', 'justify-content-3');
+		btnBindn('flexbox-7', 'justify-content-4');
+		btnBindn('flexbox-7', 'justify-content-5');
+
+		// align-items
+		btnBindn('flexbox-8', 'align-items-1');
+		btnBindn('flexbox-8', 'align-items-2');
+		btnBindn('flexbox-8', 'align-items-3');
+		btnBindn('flexbox-8', 'align-items-4');
+		btnBindn('flexbox-8', 'align-items-5');
+
+	</script>
+</body>
+</html>
