@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mouse hover to images and transform</title>
+	<style type="text/css">
+		.wrapper {
+			margin: 50px auto;
+			width: 768px;
+			min-height: 500px;
+			height: auto;
+
+		}
+		
+		.pic {
+			width: 400px;
+			height: 300px;
+			margin: 100px auto;
+			cursor: pointer;
+		}
+		
+		img {
+			width: 400px;
+			height: 300px;
+			margin: auto;
+			
+		}
+
+		/* transform: scale(1.1); */
+		.img-1 {
+			transition: transform .5s linear .1s;
+
+			/*transition: height .2s ease-in .1s, width .2s ease-in .1s;*/
+		}
+		.img-1:hover, .img-1:focus {
+			transform: scale(1.1); /* 中心点为定点放大 */
+			/*transform: scaleX(1.1);*/
+			/*transform: scaleY(1.1);*/
+
+			/*height: 330px;
+			width: 440px;*/ /*左上角点为定点放大*/
+		}
+		
+		/* transform: rotate */
+		.img-2 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-2, .pic:focus .img-2 {
+			transform: rotate(30deg);
+		}
+
+		/* transform: rotate + transform-origin 返回时候效果很丑 */
+		.img-3 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-3, .pic:focus .img-3 {
+			transform-origin: 0 60%;
+			transform: rotate(30deg); 
+		}
+
+		/* transform: skew */
+		.img-4 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-4, .pic:focus .img-4 {
+			/*transform-origin: 0 60%;*/
+			transform: skew(10deg, 0); 
+			/*transform: skewX(10deg);*/
+		}
+
+		.img-5 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-5, .pic:focus .img-5 {
+			/*transform-origin: 60%;*/
+			transform: skew(0, 10deg); 
+			/*transform: skewY(10deg);*/
+		}
+		
+		/* transform: translate */
+		.img-6 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-6, .pic:focus .img-6 {
+			transform: translate(100px, 20px); 
+			/*transform: translateX(100px);*/
+			/*transform: translateY(20px);*/
+
+			/*transform: translate3d(10px, 20px, 100px);*/
+		}
+	/* transform: matrix(a,b,c,d,e,f) */
+		.img-7 {
+			transition: transform .5s linear .1s;
+		}
+		.pic:hover .img-7, .pic:focus .img-7 {
+			transform: matrix(1,1,-1,0,0,0); 
+		}
+
+
+
+
+
+		.active {
+			width: 970px;
+			margin: 0 auto 100px;
+		}
+		.active ul {
+		    border-top: 15px solid black;
+		    padding: 0 10px;    
+		 }
+		 .active ul li{
+		    color: #fff;
+		    float: left;
+		    margin: 0 5px;
+		    font-size: 14px;
+		    height: 50px;
+		    line-height: 50px;
+		    text-align: center;
+		    width: 65px;
+		    padding: 10px 5px;
+		    background: #151515;
+		    border-radius: 0 0 5px 5px;
+		    box-shadow: 0 0 1px #ccc,inset 0 0 2px #fff;
+		    text-shadow: 0 1px 1px #686868;
+		    text-decoration: none;
+
+		    list-style-type: none;
+		    cursor: pointer;
+		 }
+		 .active ul li.translate {
+		    background: #2EC7D2;
+		 }
+		 .active ul li.translate-x {
+		    background: #8FDD21;
+		 }
+		 .active ul li.translate-y {
+		    background: #F45917;
+		 }
+		 .active ul li.rotate {
+		    background: #D50E19;
+		 }
+		 .active ul li.scale {
+		    background: #cdddf2;
+		 }
+		 .active ul li.scale-x {
+		   background: #0fDD21;
+		 }
+		 .active ul li.scale-y {
+		   background: #cd5917;
+		 }
+		 .active ul li.skew {
+		   background: #519;
+		 }
+		 .active ul li.skew-x {
+		   background: #D50;
+		 }
+		 .active ul li.skew-y {
+		   background: #E19;
+		 }
+		 .active ul li.matrix {
+		   background: #919;
+		 }   
+		
+
+		 .active ul li.translate:hover {
+		    transform: translate(-10px,-10px);
+		 }
+		.active ul li.translate-x:hover {
+			-webkit-transform: translateX(-10px);
+			-ms-transform: translateX(-10px);
+			-o-transform: translateX(-10px);
+			transform: translateX(-10px);
+		}
+		.active ul li.translate-y:hover {
+			-webkit-transform: translateY(-10px);
+			-ms-transform: translateY(-10px);
+			-o-transform: translateY(-10px);
+			transform: translateY(-10px);
+		}
+
+		.active ul li.rotate:hover {
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			-o-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
+
+		.active ul li.scale:hover {
+			-webkit-transform: scale(0.8, 0.8);
+			-ms-transform: scale(0.8, 0.8);
+			-o-transform: scale(0.8, 0.8);
+			transform: scale(0.8, 0.8);
+		}
+		.active ul li.scale-x:hover {
+			-webkit-transform: scaleX(0.8);
+			-ms-transform: scaleX(0.8);
+			-o-transform: scaleX(0.8);
+			transform: scaleX(0.8);
+		}
+		.active ul li.scale-y:hover {
+			-webkit-transform: scaleY(1.2);
+			-ms-transform: scaleY(1.2);
+			-o-transform: scaleY(1.2);
+			transform: scaleY(1.2);
+		}
+
+		.active ul li.skew:hover {
+			-webkit-transform: skew(45deg, 15deg);
+			-ms-transform: skew(45deg, 15deg);
+			-o-transform: skew(45deg, 15deg);
+			transform: skew(45deg, 15deg);
+		}
+		.active ul li.skew-x:hover {
+			-webkit-transform: skewX(-30deg);
+			-ms-transform: skewX(-30deg);
+			-o-transform: skewX(-30deg);
+			transform: skewX(-30deg);
+		}
+		.active ul li.skew-y:hover {
+			-webkit-transform: skewY(30deg);
+			-ms-transform: skewY(30deg);
+			-o-transform: skewY(30deg);
+			transform: skewY(30deg);
+		}
+		
+		.active ul li.matrix:hover {
+			-webkit-transform: matrix(1, 1, -1, 0, 0, 0);
+			-ms-transform: matrix(1, 1, -1, 0, 0, 0);
+			-o-transform: matrix(1, 1, -1, 0, 0, 0);
+			transform: matrix(1, 1, -1, 0, 0, 0);
+		}
+
+
+		.active-1 ul li.translate {
+		    transform: translate(-10px,-10px);
+		 }
+		.active-1 ul li.translate-x {
+			-webkit-transform: translateX(-10px);
+			-ms-transform: translateX(-10px);
+			-o-transform: translateX(-10px);
+			transform: translateX(-10px);
+		}
+		.active-1 ul li.translate-y {
+			-webkit-transform: translateY(-10px);
+			-ms-transform: translateY(-10px);
+			-o-transform: translateY(-10px);
+			transform: translateY(-10px);
+		}
+
+		.active-1 ul li.rotate {
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			-o-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
+
+		.active-1 ul li.scale {
+			-webkit-transform: scale(0.8, 0.8);
+			-ms-transform: scale(0.8, 0.8);
+			-o-transform: scale(0.8, 0.8);
+			transform: scale(0.8, 0.8);
+		}
+		.active-1 ul li.scale-x {
+			-webkit-transform: scaleX(0.8);
+			-ms-transform: scaleX(0.8);
+			-o-transform: scaleX(0.8);
+			transform: scaleX(0.8);
+		}
+		.active-1 ul li.scale-y {
+			-webkit-transform: scaleY(1.2);
+			-ms-transform: scaleY(1.2);
+			-o-transform: scaleY(1.2);
+			transform: scaleY(1.2);
+		}
+
+		.active-1 ul li.skew {
+			-webkit-transform: skew(45deg, 15deg);
+			-ms-transform: skew(45deg, 15deg);
+			-o-transform: skew(45deg, 15deg);
+			transform: skew(45deg, 15deg);
+		}
+		.active-1 ul li.skew-x {
+			-webkit-transform: skewX(-30deg);
+			-ms-transform: skewX(-30deg);
+			-o-transform: skewX(-30deg);
+			transform: skewX(-30deg);
+		}
+		.active-1 ul li.skew-y {
+			-webkit-transform: skewY(30deg);
+			-ms-transform: skewY(30deg);
+			-o-transform: skewY(30deg);
+			transform: skewY(30deg);
+		}
+		
+		.active-1 ul li.matrix {
+			-webkit-transform: matrix(1, 1, -1, 0, 0, 0);
+			-ms-transform: matrix(1, 1, -1, 0, 0, 0);
+			-o-transform: matrix(1, 1, -1, 0, 0, 0);
+			transform: matrix(1, 1, -1, 0, 0, 0);
+		}
+
+
+	</style>
+</head>
+<body>
+
+	<div class="active">
+		<ul>
+			<li class="translate">Translate</li>
+			<li class="translate-x">TranslateX</li>
+			<li class="translate-y">TranslateY</li>
+			<li class="rotate">Rolate</li>
+			<li class="scale">Scale</li>
+			<li class="scale-x">ScaleX</li>
+			<li class="scale-y">ScaleY</li>
+			<li class="skew">Skew</li>
+			<li class="skew-x">SkewX</li>
+			<li class="skew-y">SkewY</li>
+			<li class="matrix">Matrix</li>
+		</ul>
+	</div>
+
+	<div class="active active-1">
+		<ul>
+			<li class="translate">Translate</li>
+			<li class="translate-x">TranslateX</li>
+			<li class="translate-y">TranslateY</li>
+			<li class="rotate">Rolate</li>
+			<li class="scale">Scale</li>
+			<li class="scale-x">ScaleX</li>
+			<li class="scale-y">ScaleY</li>
+			<li class="skew">Skew</li>
+			<li class="skew-x">SkewX</li>
+			<li class="skew-y">SkewY</li>
+			<li class="matrix">Matrix</li>
+		</ul>
+	</div>
+
+	<div class="active">
+		上述代码和效果来自: <a href="http://www.w3cplus.com/content/css3-transform
+	</div>">W3CPlus-CSS3 Transform </a>对CSS3 Transform有着详细的解释和理解
+
+	<div class="wrapper">
+
+	<!-- transform: scale(1.1); -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-1" />
+		</div>
+
+	<!-- transform: rotate -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-2" />
+		</div>
+		
+	<!-- transform: rotate + transform-origin 返回时候效果很丑 -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-3" />
+		</div>
+	<!-- transform: skew -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-4" />
+		</div>
+	
+	<!-- transform: skew -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-5" />
+		</div>
+
+	<!-- transform: translate -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-6" />
+		</div>
+
+	<!-- transform: matrix(a,b,c,d,e,f) -->
+		<div class="pic">
+			<img src="/images/posts/common/property_1.jpg" class="img-7" />
+		</div>
+
+	</div>
+	
+
+
+
+
+
+
+</body>
+</html>
