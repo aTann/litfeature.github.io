@@ -125,8 +125,32 @@
 		.order-6 { order: 1 }
 
 		.order-7 { order: -1 }
+		
+		/* justify-content */
+		.justify-content-1 { justify-content: flex-start;  }
+		.justify-content-2 { justify-content: flex-end;  }
+		.justify-content-3 { justify-content: center;  }
+		.justify-content-4 { justify-content: space-around;  }
+		.justify-content-5 { justify-content: space-between;  }
 
+		/* align-items */
+		.flexbox-8-height { height: 100px; }
+		#flexbox-8 { height: 100px; }
+		.align-items-1 { align-items: flex-start; }
+		.align-items-2 { align-items: flex-end; }
+		.align-items-3 { align-items: center; }
+		.align-items-4 { align-items: baseline; }
+		.align-items-5 { align-items: stretch; }
 
+		#flexbox-8 li { line-height: auto; }		
+
+		/* align-content : flex-start | flex-end | center | space-between | space-around | stretch ; */
+		/*.align-content-1 { align-content: flex-start; flex-wrap: wrap;}
+		.align-content-2 { align-content: flex-end; flex-wrap: wrap;}
+		.align-content-3 { align-content: center; flex-wrap: wrap;}
+		.align-content-4 { align-content: space-around; flex-wrap: wrap;}
+		.align-content-5 { align-content: space-between; flex-wrap: wrap;}
+		.align-content-6 { align-content: stretch; flex-wrap: wrap;}*/
 
 	</style>
 </head>
@@ -314,6 +338,156 @@
 			</div>
 		</div>
 
+	<!-- justify-content  -->
+		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-7">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="justify-content-1">
+					justify-content: flex-start; 
+				</em>
+				<em id="justify-content-2">
+					justify-content: flex-end;
+				</em>
+				<em id="justify-content-3">
+					justify-content: center;
+				</em>
+				<em id="justify-content-4">
+					justify-content: space-around;
+				</em>
+				<em id="justify-content-5">
+					justify-content: space-between;
+				</em>
+			</div>
+		</div>
+
+
+	<!-- align-items -->
+		<div class="boxs">
+			<div class="flex-wrapper flexbox-8-height">
+				<ul class="flexbox" id="flexbox-8">
+					<li style="height: 40px; line-height: 50px;">1</li>
+					<li style="height: 70px; line-height: 80px;">2</li>
+					<li style="height: 55px; line-height: 60px;">3</li>
+					<li style="height: 95px; line-height: 75px;">4</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="align-items-1">
+					align-items: flex-start;
+				</em>
+				<em id="align-items-2">
+					align-items: flex-end;
+				</em>
+				<em id="align-items-3">
+					align-items: center;
+				</em>
+				<em id="align-items-4">
+					align-items: baseline;
+				</em>
+				<em id="align-items-5">
+					align-items: stretch;
+				</em>
+			</div>
+		</div>
+
+		<div class="boxs">
+			<div class="flex-wrapper flexbox-8-height">
+				<ul class="flexbox align-items-5" id="flexbox-8-2">
+					<li style="min-height: 40px;">1</li>
+					<li style="min-height: 70px;">2</li>
+					<li style="min-height: 55px;">3</li>
+					<li style="min-height: 95px;">4</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em>
+					align-items: stretch;
+				</em>
+			</div>
+		</div>
+	
+	<!-- align-slef -->
+		<div class="boxs">
+			<div class="flex-wrapper flexbox-8-height">
+				<ul class="flexbox" id="flexbox-10">
+					<li style="height: 40px; line-height: 50px; align-self: flex-start;">1</li>
+					<li style="height: 70px; line-height: 80px; align-self: flex-end;">2</li>
+					<li style="height: 55px; line-height: 60px; align-self: center;">3</li>
+					<li style="height: 95px; line-height: 75px; align-self: baseline;">4</li>
+					<li style="height: 60px; line-height: 65px; align-self: baseline;">4</li>
+					<li style="min-height: 65px; line-height: 45px; align-self: baseline;">5</li>
+					<li style="height: 80px; line-height: 80px; align-self: auto;">6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em>
+					align-self: flex-start;
+				</em>
+				<em>
+					align-self: flex-end;
+				</em>
+				<em>
+					align-self: center;
+				</em>
+				<em>
+					align-self: baseline;-4
+				</em>
+				<em>
+					align-self: baseline;-4
+				</em>
+				<em>
+					align-self: stretch;
+				</em>
+				<em>
+					align-self: auto;
+				</em>
+			</div>
+		</div>
+
+	<!-- align-content -->
+<!-- 		<div class="boxs">
+			<div class="flex-wrapper">
+				<ul class="flexbox" id="flexbox-9">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+					<li>5</li>
+					<li>6</li>
+				</ul>
+			</div>
+			<div class="btns">
+				<em id="align-content-1" >
+					align-content: flex-start;
+				</em>
+				<em id="align-content-2" >
+					align-content: flex-end;
+				</em>
+				<em id="align-content-3" >
+					align-content: center;
+				</em>
+				<em id="align-content-4" >
+					align-content: space-around;
+				</em>
+				<em id="align-content-5" >
+					align-content: space-between;
+				</em>
+				<em id="align-content-6">
+					align-content: stretch;
+				</em>
+			</div>
+		</div> -->
+
+
 	</div>
 	<script type="text/javascript">
 		var btnBind = function (flexbox_Id, btn_Id, add_Class) {
@@ -380,6 +554,14 @@
 		btnBindn('flexbox-8', 'align-items-3');
 		btnBindn('flexbox-8', 'align-items-4');
 		btnBindn('flexbox-8', 'align-items-5');
+
+		// align-content
+		// btnBindn('flexbox-9', 'align-content-1');
+		// btnBindn('flexbox-9', 'align-content-2');
+		// btnBindn('flexbox-9', 'align-content-3');
+		// btnBindn('flexbox-9', 'align-content-4');
+		// btnBindn('flexbox-9', 'align-content-5');
+		// btnBindn('flexbox-9', 'align-content-6');
 
 	</script>
 </body>
