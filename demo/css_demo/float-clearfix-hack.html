@@ -215,11 +215,12 @@
 		/* text-align: justify; 对最后一行不作为，这个是第一行也是最后一行*/
 		.ta-j { text-align: justify;} 
 		
-		/* text-align: justify; 对最后一行管用*/
-		.tal-j { text-align-last:justify; } 
-		
+		/* text-align-last: justify; 对最后一行管用*/
+		.tal-j { text-align-last:justify; *text-justify:distribute-all-lines;} 
+
+		/*text-justify 也只在 IE8以下支持 */
 		/* text-align-last: 本应是IE家的，后来慢慢的被其他家Firefox、Chrome等接受并加入*/
-			*text-justify:distribute-all-lines; /*text-justify 也只在 IE8一下支持 */
+			 
 
 		/* IE需要在text-align: justify; 基础上添加 text-align-last:justify; 才起作用得到两边单一行/最后行对齐, IE5,7则进一步需要添加text-justify:distribute-all-lines;才起单一行/最后行作用 */
 
@@ -228,6 +229,9 @@
 		
 		对于两边对齐只一行/最后行，代码见于<a href="http://www.cnblogs.com/rubylouvre/archive/2012/11/28/2792504.html">Ruby`s Louvre-css 文本两端对齐</a>
 		对使用display: inline-block;消浮动还需要注意一些事情，<a href="http://www.zhangxinxu.com/wordpress/?p=1194">张鑫旭-拜拜了,浮动布局-基于display:inline-block的列表布局</a>可以得到进一步了解；
+		<a href="https://drafts.csswg.org/css-text-3/">
+			有关HTML中Text属性text-align，text-align-last，text-justify的W3C草案
+		</a>
 
 		</pre>
 		
