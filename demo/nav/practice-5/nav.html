@@ -9,17 +9,29 @@
 			margin: 0;
 			border: transparent;
 			padding: 0;
+			font-size: 14px;
+			color: #eee;
 		}
 		
 		ul, li{
 			list-style: none;
 		}
 
-		a { text-indent: none; }
+		a { text-indent: none; text-decoration: none; color: #000;}
+
+		img { max-width: 100% }
 
 		.hidden { display: none !important; }
 
 		.d-ib { display: inline-block; }
+
+		.ta-j {text-align: justify;}
+		.tal-j { -ms-text-align-last: justify;
+				 text-align-last: justify; 
+				 *text-justify: distribute-all-lines; /*IE7-*/}
+		.ta { text-align: left; text-align-last:auto; }
+		.pos-r { position: relative; }
+		.pos-a { position: absolute; }
 
 		.wrapper{
 			width: 100%;
@@ -29,40 +41,69 @@
 			.header {
 				width: 100%;
 				margin: 0 auto;
-				
-				
+				/*height: 150px;*/
+				box-sizing: border-box;
+				border-bottom: 1px solid #999;
+				border-top: 3px solid #8D181B;
+								
 			}
 			
-				.header::before {
-					width: 100%;
-					background-color: #8D181B;
-					height: 2px;
-					display: inline-block;
-					content: " ";
-					
-				}
 					.header > .nav {
-						width: 1365px;
+						width: 1080px;
 						margin: 0 auto;
-						padding: 0 70px;
+						/*height: 152px;*/
+						/*overflow: hidden;*/
+						
 					}
 
+					@media screen and (max-width: 1080px) {
+						.header > .nav {
+							width: 100%;
+							padding: 0 40px;
+						}
+					}
+
+					
+
+/*					.nav > .nav-ph {
+						padding: 50px 0;
+					}*/
 
 					.nav > .header-left {
-
+						width: 350px;
+						height: auto;
+						vertical-align: middle;
+						position: relative;
 					}
+						.nav > .header-left > .logo {
+							width: 350px;
+						}
 
 					.nav > .header-menu {
+						width: auto;
+						vertical-align: middle;
+						/*margin-right: -40px;*/
 
 					}
 						.nav > .header-menu > ul {
+							width: auto;
 
 						}
-							.nav > .header-menu > ul li {
+							.nav > .header-menu > ul > li {
 								display: inline-block;
+								
 							}
-								.nav > .header-menu > ul li a {
+
+/*							.nav > .header-menu > ul li:last-child {
+								padding-right: 0px;
+							}*/
+								.nav > .header-menu > ul > li > a {
+									display: inline-block;
 									text-transform: uppercase;
+									font-weight: 500;
+									font-size: 16px;
+									padding: 15px;
+									line-height: 120px;
 								}
 
 
@@ -71,25 +112,30 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<nav class="nav">
-				<div class="header-left d-ib">
-					<div class="logo d-ib"><img src="StanfordArtsLogo.png"></div>
-					<div class="search hidden d-ib">
-						<a href="javascript:void(0);">xxx</a>
-						<input type="text" name="box-search" placeholder="Search">
+			<nav class="nav ta-j tal-j">
+				<div class="header-left d-ib ta">
+					<div class="logo d-ib">
+						<a class="d-ib" href="javascript:void(0);">
+							<img src="StanfordArtsLogo.png" />
+						</a>
 					</div>
+					
 					<div class="btn hidden d-ib">
 						<button>btn</button>
 					</div>
 				</div>
-				<div class="header-menu d-ib">
-					<ul>
+				<div class="header-menu d-ib ta">
+					<ul class="d-ib">
 						<li><a href="javascript:void(0);">Calendar</a></li>
 						<li><a href="javascript:void(0);">About</a></li>
 						<li><a href="javascript:void(0);">For Students</a></li>
 						<li><a href="javascript:void(0);">For Faculty</a></li>
 						<li><a href="javascript:void(0);">For Visitors</a></li>
 					</ul>
+					<div class="search d-ib hidden">
+						<a href="javascript:void(0);">xxx</a>
+						<input type="text" name="box-search" placeholder="Search" class="hidden" />
+					</div>
 				</div>
 			</nav>
 		</div>
