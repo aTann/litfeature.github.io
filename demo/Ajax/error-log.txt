@@ -1,1 +1,0 @@
-1、chrome触发错误： jquery-3.2.1.min.js:4 XMLHttpRequest cannot load file:///D:/Web-Frontend/JavaScript/JQuery/Ajax/ex-book/a.html. Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
