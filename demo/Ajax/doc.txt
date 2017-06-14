@@ -1,0 +1,15 @@
+技术：
+1、服务器交互
+2、XMLHTTPRequest:不同浏览器对XMLHTTPRequest实现不一样
+3、文本文件：XML/HTML/JSON
+
+
+内容点：
+1、不刷新页面而从服务器加载数据
+2、通过JavaScript在浏览器中想服务器发送数据
+3、在客户端使用HTML/XML/JSON等数据
+4、向用户反馈Ajax请求信息
+
+
+$.getJSON()全局JQuery对象(由JQuery库定义的JQuery或$对象)的方法定义，也就是说，它不是个别JQuery对象实例(即通过$()函数创建的对象)的方法
+为了不与其他函数名称发生冲突，这些全局函数使用的是JQuery命名空间
