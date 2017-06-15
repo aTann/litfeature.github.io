@@ -10,6 +10,7 @@
 	/*margin-top: 100px;*/
 	text-align: center;
 	width: 500px;
+	max-width: 100%;
 	height: 600px;
 	/*background-color: red;*/
 }
@@ -17,7 +18,6 @@
 .table-wrap{
 	width: 400px;
 	height: auto;
-
 	position: relative;
 	left: 50%;
 	margin-left: -200px; /*表格居中*/
