@@ -8,8 +8,8 @@
 .wrap{
 	margin:auto;
 	text-align: center;
-	width: 500px;
-	max-width: 80%;
+	/*width: 500px;*/
+	width: 85%;
 	height: 600px;
 }
 
