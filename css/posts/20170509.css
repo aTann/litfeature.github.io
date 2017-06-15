@@ -14,12 +14,13 @@
 }
 
 .table-wrap{
-	width: 400px;
+	/*width: 400px;*/
+	width: 90%;
 	height: auto;
 	position: relative;
 	left: 50%;
 	margin-left: -200px; /*表格居中*/
-
+	margin: 0 auto;
 	margin-bottom: 50px;
 }
 
@@ -34,7 +35,8 @@
 }
 
 .table-wrap tbody{
-	width: 400px;
+	/*width: 400px;*/
+	width: 100%;
 	height: auto;
 	margin: 0 auto;
 }
@@ -45,7 +47,8 @@
 }
 
 .table-wrap td, .table-wrap th{
-	width: 200px;
+	/*width: 200px;*/
+	width: 50%;
 	height: auto;
 	padding: 10px 20px;
 
@@ -75,7 +78,8 @@
 
 .table-2 td{
 	background-color: #ffffff;
-	width: 200px;
+	/*width: 200px;*/
+	width: 50%;
 }
 
 .table-2 td:nth-child(2n+1){
