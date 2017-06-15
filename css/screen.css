@@ -86,6 +86,11 @@ ul.posts {
   line-height: 1.5em;
 }
 
+@media screen and (max-width: 768px) {
+  .site {
+    width: 90%;
+  }
+}
 .title {
   color: #a00;
   font-weight: bold;
