@@ -22,6 +22,7 @@ github.com/users/jquery/repos。
 // 不要一次就显示整个文档，请为左侧的字母列表创建“提示条”，当用户鼠标放到字母上时，从exercises-content.html中加载与该字母有关的内容。
 
 /*
+// 点击，有关字母信息提示出现在该字母下面
 // .load()
 $(function () {
 	$('body').on('click', '.letter h3', function (e) {
@@ -85,6 +86,9 @@ $(function () {
 
 // :hover,包含着两个鼠标事件mouseenter + mouseleave
 
+/*
+
+// 数据显示在$('#dictionary')中，不算是提示条显示
 $(function () {
 
 	$('body').on(
@@ -98,7 +102,6 @@ $(function () {
 				if (id_selected.length > 9) {
 					return false;
 				}
-
 
 				$('#dictionary').load('exercises-content.html ' + id_selected, 
 									  {limit: 25}, 
@@ -118,6 +121,53 @@ $(function () {
 		}, '.letter a'); // 委托.letter
 });
 
+*/
+
+
+$(function () {
+
+	$('body').on(
+		{
+		// 鼠标进入发生事件，触发Ajax请求，获取所触发首字母相关的单词
+			// mouseenter: function (e) {
+			// 使用mouseover相对比mouseenter来得稳定点
+			mouseenter: function (e) {
+
+			// alert(e.pageX);
+
+			// 获取触发字母的div的Id
+				id_selected ='#letter-' + $(this).html().toLowerCase();
+
+				// 简单约束，避免碰到jQuery的链接也触发事件
+				if (id_selected.length > 9) {
+					return false;
+				}
+
+				$('body').append("<div id='letter-show'></div>");
+				$('#letter-show').css({	'position' : 'absolute',
+										'top' : e.pageY - 50, 
+										'left' : e.pageX + 10,
+										'background-color' : '#999',
+										'border' : '1px solid red'
+									})
+
+				$('#letter-show').load('exercises-content.html ' + id_selected, 
+									  {limit: 25}, 
+									  function (responseText, requestState, XMLHttpRequest) {
+									  // alert("data");
+									  		// 错误处理
+											if (XMLHttpRequest.status != 200) {
+												$('#dictionary').html("Sorry, a error occurred: " + XMLHttpRequest.status)
+																.append(XMLHttpRequest.responseText);
+											};
+									   });
+			},
+		// 鼠标离开该字母，删除内容，重新留白
+			mouseleave: function () {
+				$('#letter-show').remove();
+			}
+		}, '.letter a'); // 委托.letter
+});
 
 
 $(function () {
@@ -127,10 +177,13 @@ $(function () {
 		html += "<div class='letter'>";
 		html += "<h3> jQuery项目代码库 </h3>";
 		html += "<ul>";
+		// each提取数据，function(key, val)有着固定的格式和参数输入
 		$.each(data, function (dataIndex, dataItem) {
 		   
 		   html += "<li>";
+		   // 提取该库的链接地址 html_url
 		   html += "<a href = '" + dataItem.html_url + "' >";
+		   // 提取库的全名full_name
 		   html += dataItem.full_name;
 		   html += "</a>";
 		   html += "</li>";
