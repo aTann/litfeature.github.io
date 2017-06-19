@@ -3,11 +3,11 @@ $(function () {
 	
 	var $ajaxForm = $('#ajax-form'),
 		$response = $('#response'),
-		noresults = 'There were no rearch result.',
+		noresults = 'There were no reach result.',
 		failed = 'Sorry, but the request could not' +
-				'reach its destination. Try again later.';
+				' reach its destination. Try again later.';
 
-	// Í¼Æ¬ÏîHTML¹¹½¨
+	// 构建HTML
 	var buildPicture = function (items) {
 		
 			// console.log(itemVal);
@@ -16,8 +16,6 @@ $(function () {
 		// $.each(items.media, function (argument) {
 		// 	// body...
 		// })
-
-
 
 		var html = '';
 		html += '<li>';
@@ -38,37 +36,55 @@ $(function () {
         
         html += '</div>';
         html += '</li>';
-        console.log(items);
+        // console.log(items);
 		
 		return html;
 	};
 
-	// response¹¹½¨
+	// response
 	
 	var response = function (data) {
 		var output = '';
-		output += '<ol>';
-		$.each(data.items, function (itemsIndex, items) {
-			output += buildPicture(items);
-		});
-		output += '</ol>';		
+		
+		console.log(data.length);
+
+		if (data.items && data.items.length) {
+			output += '<ol>';
+			$.each(data.items, function (itemsIndex, items) {
+				output += buildPicture(items);
+			});
+			output += '</ol>';
+		} else {
+			output += noresults;
+		};
+				
 		$response.html(output);
 	};
 
 	$ajaxForm.on('submit', function (event) {
 		event.preventDefault();
 
+		var tag_search = $('#tags').val();
+		// 未输入，不提交
+		if (tag_search == '') {
+			return;
+		}
+
 		$.ajax({
 			url: 'http://api.flickr.com/services/feeds/photos_public.gne',
 			dataType: 'jsonp',
 			jsonp: 'jsoncallback',
 			data: {
-				format: 'json', // json¸ñÊ½
-				tags: $('#tags').val()	// tagsËÑË÷
+				format: 'json', 	// json¸格式读取标明
+				tags: $('#tags').val()	// tags获取
 				
 			},
-			success: response
-		});
+			// 成功获取回应信息
+			// success: response
+		}).done(response)
+		  .fail(function () {
+		  	$response.html(failed);
+		  });
 
 	});
 	
