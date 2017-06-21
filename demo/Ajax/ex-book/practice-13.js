@@ -1,3 +1,21 @@
+/*-----------------------------------------------------------------------------------------------------
+要完成以下练习，读者需要本章的index.html文件，以及complete.js中包含的已经完成的
+JavaScript代码。可以从Packt Publishing网站http://www.packtpub.com/support下载这些文件。
+“挑战”练习有一些难度，完成这些练习的过程中可能需要参考jQuery官方文档：
+http://api.jquery.com/。
+(1) 修改buildItem()函数，以便包含它显示的每个jQuery方法的较长篇幅的说明。
+(2) 挑战：在页面中添加一个表单，指向Flickr的公开图片搜索（http://www.flickr.com/search），
+其中包含一个<input name="q">和一个提交按钮。基于渐进增强的原则从Flickr的
+JSONP数据源服务（http://api.flickr.com/services/feeds/photos_public.gne）取得照片，然后
+把照片插入到页面的内容区域。在向该服务发送data时，使用tags而不是q，把format
+设置为json。还要注意的是，这个服务要求的JSONP回调函数名是jsoncallback，而
+不是callback。
+(3) 挑战：向Flickr请求添加错误处理程序，以防它返回parsererror。为了测试这个错误处
+理程序，把JSONP回调函数名修改为callback，然后测试一下。
+
+都实现了，但是样式比较丑
+
+----------------------------------------------------------------------------------------------------------*/
 
 $(function () {
 	
