@@ -22,19 +22,6 @@ $(document).ready(function () {
 // 要使链接从第四段才开始出现，使得p:gt(4)，表示选择<p>第四个之后才发生效用
 	$('<a href="#top">back to top</a>').insertAfter('.chapter p:gt(4)');
 	$('<a id="top"></a>').prependTo('body'); 
-	
-
-	// $('<a></a>',{
-	// 	id: 'backTotop',
-	// 	href: '#',
-	// 	html: 'To top'
-	// }).appendTo('body')
-	//   .css({'position': 'fixed', 
-	// 		  'bottom': '50px',
-	// 		  'right' : '100px',
-	// 		  'border': '1px solid #f5f',
-	// 		  'display': 'inline-block',
-	// 		  'padding': '10px 20px'});
 });
 
 // (2) 在单击back to top链接时，为每个链接后面添加一个新段落，其中包含You were here字样。
