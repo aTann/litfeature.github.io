@@ -25,7 +25,37 @@ $(document).ready(function () {
 });
 
 
+// 属性选择符:CSS选择符中特别有用的一类选择符。顾名思义，属性选择符通过HTML元素
+// 的属性选择元素，例如链接的title属性或图像的alt属性。例如，要选择带有alt属性的所有
+// 图像元素，可以使用以下代码：
+// $('img[alt]')
 
+$(function () {
+	// [^="mailto:"]以mailto:开头
+	$('a[href^="mailto:"]').addClass('mailto'); 
+	// [$=".pdf"]以.pdf结尾
+	$('a[href$=".pdf"]').addClass('pdflink');
+	// [*="henry"] 包含着henry的<a>
+	$('a[href^="http"][href*="henry"]')
+		.addClass('henrylink');
+	// 选中有horizontal类的顺数第二个<div>
+	// $('div.horizontal:eq(1)')
+
+	// <tr>奇数列改变，:nth-child()jQuery中唯一从1开始计数的选择符
+	// $('tr:even').addClass('alt');
+	// <tr>偶数列改变
+	// $('tr:odd').addClass('alt');
+
+	// 效果同:even
+	// $('tr:nth-child(2n)').addClass('alt');
+	// 同:odd
+	// $('tr:nth-child(2n+1)').addClass('alt');
+
+	// 每一个表格都是单独的开始
+	// 要实现相同的条纹交替效果，并且确保同一文档中的多个表格的效果一致，需要使用nth-child和odd/even参数的配合
+	$('tr:nth-child(odd)').addClass('alt');
+
+});
 
 
 
