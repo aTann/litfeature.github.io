@@ -55,6 +55,21 @@ $(function () {
 	// 要实现相同的条纹交替效果，并且确保同一文档中的多个表格的效果一致，需要使用nth-child和odd/even参数的配合
 	$('tr:nth-child(odd)').addClass('alt');
 
+	// 基于上下文内容选择元素
+	$('td:contains(Henry)').addClass('highlight');
+
+	// 基于表单的选择符
+	// 选 择 符 匹 配
+	// :input 输入字段、文本区、选择列表和按钮元素
+	// :button 按钮元素或type属性值为button的输入元素
+	// :enabled 启用的表单元素
+	// :disabled 禁用的表单元素
+	// :checked 勾选的单选按钮或复选框
+	// :selected 选择的选项元素
+
+	
+
+
 });
 
 
