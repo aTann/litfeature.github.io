@@ -95,7 +95,7 @@ $(document).ready(function () {
 				// 
 				// 在上下左右移动时候，在移动元素不是占据整个页面时候或许不需要每个位置的属性都出现，
 				// 只需要靠边的两个应该就行了，一般靠边的是左(left)/上(top)
-				// 
+				// from: [jQuery实现用方向键控制层的上下左右移动](http://www.jb51.net/article/33223.htm) by 脚本之家(jb51)
 					$switcher.animate({'margin-left': '-=20px'}, 500);
 					// 刚开始对于left实现时候，样式表示 'left': '+20'，无结果
 					// 再次尝试，'left': '+20px'，还是没有效果出现
