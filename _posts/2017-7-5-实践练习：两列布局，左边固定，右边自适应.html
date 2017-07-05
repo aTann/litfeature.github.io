@@ -1,0 +1,76 @@
+---
+layout: post
+title: 实践练习：利用::before/::after制造鼠标:hover动画效果
+---
+    <style type="text/css">
+    div {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #wrap:after {
+        content: ' ';
+        clear: both;
+        display: table;
+    }
+    </style>
+    
+    <h2>
+        {{ page.title }}
+    </h2>
+    <p class="meta">{{ page.date | date_to_string }}</p>
+	
+	<!-- 方法一：使用CSS3属性calc()进行计算。注意：calc()里的运算符两边必须有空格 -->
+    <p>
+        方法一：使用CSS3属性calc()进行计算。注意：calc()里的运算符两边必须有空格
+    </p>
+    <div id="wrap" style="clear:both; width: 100%;">
+        <div id="right" style="float: right; width:calc(100% - 200px); height: 500px; background-color: cyan;">
+
+        </div>
+        <div id="left" style="float: left; width: 200px; height: 500px; background-color:blue;">
+        </div>
+    </div>
+    <div style="clear:both;">
+        <br>
+    </div>
+
+    <!-- 方法二：使用margin负值，使右边容器与左边同一行，并100%宽。再在右边容器中放一个子容器，设置margin-left值为左边容器的宽度。 -->
+
+    <!-- 使用负margin，浏览器会认为这个元素的大小变小了，所以会改变布局，布局会按照元素的大小减去负margin的大小进行布局；然而实际上却没有变小，所以布局变化后显示的大小还是原大小。详情：http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812 -->
+    <p>
+    方法二：使用margin负值，使右边容器与左边同一行，并100%宽。再在右边容器中放一个子容器，设置margin-left值为左边容器的宽度。
+
+    使用负margin，浏览器会认为这个元素的大小变小了，所以会改变布局，布局会按照元素的大小减去负margin的大小进行布局；然而实际上却没有变小，所以布局变化后显示的大小还是原大小。详情：<a href="http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812">http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812</a>
+    </p>
+    <div>
+        <div style="float:left;width:200px;height:500px;background-color:blue;">
+        </div>
+        <div style="float:left;width:100%;height:500px;-background-color:red;margin-left:-200px;">
+            <div style="margin-left:200px;background:yellow;height:500px;">
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;">
+        <br>
+    </div>
+    <!-- 方法三：使用position，右边容器必须设置right -->
+    <p>
+        方法三：使用position，右边容器必须设置right
+    </p>
+    <div style="position:relative; width: 100%; height: 500px;"> <!-- 里面的元素竟然撑不开这个元素 -->
+        <div style="position:absolute;left:0;width:200px;height:500px;background-color:blue;">
+        </div>
+        <div style="position:absolute;left:200px;right:0px;height:500px;background-color:red;">
+        </div>
+    </div>
+    
+    <br />
+    
+    <p>
+        from：<a href="http://www.cnblogs.com/3body/p/5468933.html">
+            Tirion-两列布局，左边固定，右边自适应的三种方法
+        </a>
+    </p>
+    
+    <br />
