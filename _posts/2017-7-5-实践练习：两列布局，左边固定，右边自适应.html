@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 实践练习：利用::before/::after制造鼠标:hover动画效果
+title: 实践练习：两列布局，左边固定，右边自适应
 ---
     <style type="text/css">
     div {
@@ -22,7 +22,7 @@ title: 实践练习：利用::before/::after制造鼠标:hover动画效果
 	
 	<!-- 方法一：使用CSS3属性calc()进行计算。注意：calc()里的运算符两边必须有空格 -->
     <p>
-        方法一：使用CSS3属性calc()进行计算。注意：calc()里的运算符两边必须有空格
+        方法一：使用CSS3属性calc()进行计算。注意：calc()里的运算符两边必须有空格，该种方式想到的人比较多吧，但是，在css里面使用计算calc()对性能优化不友好
     </p>
     <div id="wrap" style="clear:both; width: 100%;">
         <div id="right" style="float: right; width:calc(100% - 200px); height: 500px; background-color: cyan;">
@@ -42,6 +42,8 @@ title: 实践练习：利用::before/::after制造鼠标:hover动画效果
     方法二：使用margin负值，使右边容器与左边同一行，并100%宽。再在右边容器中放一个子容器，设置margin-left值为左边容器的宽度。
 
     使用负margin，浏览器会认为这个元素的大小变小了，所以会改变布局，布局会按照元素的大小减去负margin的大小进行布局；然而实际上却没有变小，所以布局变化后显示的大小还是原大小。详情：<a href="http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812">http://www.cnblogs.com/2050/archive/2012/08/13/2636467.html#2457812</a>
+
+    感觉该种方式会，额外的需要一个&lt;div&gt;嵌套
     </p>
     <div>
         <div style="float:left;width:200px;height:500px;background-color:blue;">
@@ -56,7 +58,7 @@ title: 实践练习：利用::before/::after制造鼠标:hover动画效果
     </div>
     <!-- 方法三：使用position，右边容器必须设置right -->
     <p>
-        方法三：使用position，右边容器必须设置right
+        方法三：使用position，右边容器必须设置right；另外使用该方法需要将环绕的父元素赋height，不然后面元素被遮盖
     </p>
     <div style="position:relative; width: 100%; height: 500px;"> <!-- 里面的元素竟然撑不开这个元素 -->
         <div style="position:absolute;left:0;width:200px;height:500px;background-color:blue;">

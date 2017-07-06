@@ -3,20 +3,35 @@
 <head>
   <title>jQuery Book Browser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link rel="stylesheet" href="booklist.css" type="text/css" />
-  <link rel="stylesheet" href="jquery.mobile/jquery.mobile.css" type="text/css" />
-  <script src="jquery.js"></script>
-  <script src="jquery.mobile/jquery.mobile.js"></script>
+  <!-- <link rel="stylesheet" href="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.css" type="text/css" /> -->
+  <link rel="stylesheet" href="js/jquery.mobile/jquery.mobile.css" type="text/css" />
+  <!-- <script src="http://code.jquery.com/jquery-3.2.1.min.js" 
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
+            crossorigin="anonymous"></script> -->
+
+  <!-- <script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.js"></script> -->
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery.mobile/jquery.mobile.js"></script>
+  <script src="js/js-7-mobile.js"></script>
 </head>
 <body>
-
-<div data-role="page" data-add-back-btn="true">
+<!-- data-role="page" -->
+<!-- 分页 -->
+<div data-role="page">
+  <!-- data-role="header" 头部 标题 -->
   <div data-role="header">
     <h1>Selected jQuery Books</h1>
   </div>
-
+  <!-- data-role="content" 内容部分 -->
   <div data-role="content">
-    <ul data-role="listview" data-inset="true" data-filter="true">
+    <!-- 列表视图 -->
+    <!-- data-role="listview" data-role="true" -->
+    <!-- 添加的data-role="listview"告诉jQuery Mobile把列表中的链接转换成适合手指触摸的
+    大按钮。而data-inset="true"则用于给列表添加一个漂亮的边框，以便它们与周围内容泾渭
+    分明。 -->
+    <ul data-role="listview" data-role="true">
       <li><a href="#drupal-7">Drupal 7 Development by Example</a></li>
       <li><a href="#jq-game">jQuery Game Development Essentials</a></li>
       <li><a href="#jqmobile-cookbook">jQuery Mobile Cookbook</a></li>
@@ -29,7 +44,7 @@
   </div>
 </div>
 
-
+ <!-- 工具栏按钮 -->
 <div id="jq-game" data-role="page" data-add-back-btn="true">
   <div data-role="header">
     <h1>jQuery Game Development Essentials</h1>
@@ -100,12 +115,15 @@
   <div data-role="header">
     <h1>Drupal 7 Development by Example</h1>
   </div>
-  <div data-role="content" class="book">
+  <div data-role="contetn">
     <img src="images/drupal-7.jpg" alt="Drupal 7 Development by Example" />
     <div class="title">Drupal 7 Development by Example</div>
     <div class="author">Kurt Madel</div>
   </div>
 </div>
-
+<!-- 其他高级功能 -->
+<!-- 移动优化的事件 -->
+<!-- 主题定制 -->
+<!-- PhoneGap集成 -->
 </body>
 </html>
