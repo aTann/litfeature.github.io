@@ -452,21 +452,143 @@ $(document).ready(function () {
 });
 
 
+// 使用jQuery UI 部件工厂创建插件
+// jQueryUI库的核心包含了一个工厂方法，叫$.widget()，这个方法能帮我们做很多事情。使用这个方
+// 法可以确保我们的代码达到所有jQuery UI部件用户认可的API标准。
 
 
+// 使用部件工厂创建的插件具有很多不错的特性。只要编写少量代码，就可以额外获得这些功
+// 能（甚至更多）：
+// (1) 插件具有了“状态”，可以检测、修改甚至在应用之后完全颠覆插件的原始效果；
+// (2) 自动将用户提供的选项与定制的选项合并到一起；
+// (3) 多个插件方法无缝组合为一个jQuery方法，这个方法接受一个表明要调用哪个子方法的
+// 字符串；
+// (4) 插件触发的自定义事件处理程序可以访问部件实例的数据。
+// 事实上，鉴于这些功能如此诱人，在构建任何适当的（无论与UI有关还是无关的）复杂插件
+// 时，谁都希望使用部件工厂方法。
+
+// 每次调用$.widget()都会通过部件工厂创建一个jQuery UI插件。这个函数接受部件的名称
+// 和一个包含部件属性的对象作为参数。部件名称必须带命名空间，在这里我们使用ljq作为命名
+// 空间，使用tooltip作为插件名称。这样，在jQuery项目中就可以通过.tooltip()调用我们这
+// 个插件了。
+
+// 创建_create属性
+// 这个属性是一个函数，每当jQuery对象中每个匹配的元素调用.tooltip()时，部件工厂就
+// 会调用它。
+;(function ($) {
+	$.widget('ljq.tooltip', {
+		// 默认设置
+		options: {
+			offsetX: 10,
+			offsetY: 10,
+			content: function () {
+				return $(this).data('tooltip-text');
+			}
+		},
+		// 私有方法
+		_create: function () {
+			this._tooltipDiv = $('<div></div>')
+				.addClass('ljq-tooltip-text ' + 
+					'ui-widget ui-state-highlight ui-corner-all')
+				.hide().appendTo('body');
+			
+			this.element
+				.addClass('ljq.tooltip-trigger')
+				.on('mouseenter.ljq-tooltip',
+					$.proxy(this._open, this))	// 把处理程序传递给$.proxy()函数
+				.on('mouseleave.ljq.tooltip', 	// $.proxy()会修改方法中this的指向，
+					$.proxy(this._close, this)); // 因此才能在._open函数中引用部件的实例
+		},
+
+		// 子方法是destroy，调用.tooltip('destroy')可以从页面中删除提示条部件
+		destroy: function () {
+			// 撤销之前所做的修改
+			this._tooltipDiv.remove();
+			this.element
+				.removeClass('ljq-tooltip-trigger')
+				.off('.ljq-tooltip');
+			// 调用保存在原型对象中的destroy自动完成清理工作
+			$.Widget.prototype.destroy.apply(this, arguments);
+		},
+		// 私有方法
+		_open: function() {
+			// 通过在options传递nable和disable进行部件的禁用和启用
+			// 方法是将this.options.disabled的值设置为true或false
+			if (!this.options.disabled) {
+				var elementOffset = this.element.offset();
+				this._tooltipDiv.css({
+					position: 'absolute',
+					left: elementOffset.left + this.options.offsetX,
+					top: elementOffset.top + this.element.height() + this.options.offsetY
+				}).text(this.options.content.call(this.element[0]));
+
+				this._tooltipDiv.show();
+
+				// 在一个函数中调用this._trigger()可以让代码监听新的自定义事件。
+				// 事件名字会加上部件名作为前缀，因而不必担心它会与其他事件冲突。因为这里在提示条的_open函数中调用了
+				// this._trigger('open')，那么每次打开提示条的时候都会分派tooltipopen事件。而在这
+				// 个元素上调用.on('tooltipopen')可以监听这个事件。
+				this._trigger('open');
+			}				
+		},
+		// 私有方法
+		_close: function () {
+			this._tooltipDiv.hide();
+		},
+		// 添加子方法
+		// 公有方法
+		// 现在就可以使用.tooltip('open')来打开
+		// 提示条，使用.tooltip('close')来关闭提示条了。
+		open: function () {
+			this._open();
+		},
+		close: function () {
+			this._close();
+
+			// 在一个函数中调用this._trigger()可以让代码监听新的自定义事件。
+			this._trigger('close');
+		}
+	});
+})(jQuery);
+
+// 
+
+$(function () {
+	$('a').tooltip();
+});
+
+// 插件设计建议
+
+// 下面我们就列出前面介绍过的和一些未介绍过的插件设计建议。
+
+// 为避免$别名与其他库发生冲突，可以使用jQuery，或者在立即调用的函数表达式（IIFE）
+// 中传入$，使其成为一个局部变量。
+//  无论是以$.myPlugin的方式扩展jQuery，还是以$.fn.myPlugin的方式扩展jQuery的原
+// 型，给$命名空间添加的属性都不要超过一个。更多的公有方法和属性应该添加到插件的
+// 命名空间中（例如，$.myPlugin.publicMethod或$.fn.myPlugin.plugin Property）。
+//  别忘了为插件提供一个默认选项的对象： $.fn.myPlugin.defaults = {size:
+// 'large'}。
+//  要允许插件用户有选择地覆盖任何默认选项，包括影响后续方法的调用($.fn.myPlugin.
+// defaults.size = 'medium';）和单独调用（$('div').myPlugin ({size: 'small'});）。
+//  多数情况下，扩展jQuery原型时（$.fn.myPlugin）要返回this，以便插件用户通过连
+// 缀语法调用其他jQuery方法（如$('div').myPlugin().find('p').addClass('foo')）。
+//  在扩展jQuery原型时（$.fn.myPlugin），通过调用this.each()强制执行隐式迭代。
+//  合适的时候，利用回调函数支持灵活地修改插件行为，从而不必修改插件代码。
+//  如果插件是为了实现用户界面元素，或者需要跟踪元素的状态，使用jQuery UI部件工厂
+// 来创建。
+//  利用QUnit等测试框架为自己的插件维护一组自动的单元测试，以确保插件能够按预期工
+// 作。有关QUnit的更多信息，请参考附录B。
+//  使用Git或其他版本控制系统跟踪代码的版本。可以考虑把插件公开托管到Github
+// （http://github.com）上，以便其他人帮你改进。
+//  在把自己的插件提供给别人使用时，务必明确许可条款。建议考虑使用MIT许可，这也是
+// jQuery使用的许可。
 
 
-
-
-
-
-
-
-
-
-
-
-
+// 按照上面所述准备好插件的代码，还应该在分发插件之前，给它配上完整的文档。可以
+// 选择一种恰当的文档格式，也可以利用现有的文档标准，例如JSDoc（http://www.usejsdoc.org/）。
+// 另外，还有doco（http://jashkenas.github.io/docco/）和dox（https://github.com/visionmedia/dox）等
+// 可以自动生成文档的工具。不过，这些工具有赖于Node.js等的安装配置，要求相对高一些。无
+// 论最终采用什么格式，都要保证把与插件的方法相关的每一个参数、每一个选项都说清楚。
 
 
 
