@@ -6,7 +6,7 @@
 // 或多个文本字符串。使用正则表达式匹配文本的模式，这样脚本就可以轻松地识别和操纵文本。
 
 
-// 验证电子邮件地址
+// 验证文件名
 
 window.onload = initForms;		// .onload写成load 出错  , 绑定是用initForm，调用用initForm()，绑定使用调用格式出错
 
@@ -20,7 +20,7 @@ function initForms() {
 
 
 // 验证Form处理
-function validForm() {
+function validForm(event) {
 	var allGood = true;
 	var allTags = document.getElementsByTagName('*');
 
@@ -29,7 +29,8 @@ function validForm() {
 			allGood = false;
 		}
 	}
-	return allGood;
+	return false;
+	// event.preventDefault();
 
 	function validTag(thisTag) {
 		var outClass = '';
@@ -60,8 +61,8 @@ function validForm() {
 				case '':
 				case 'invalid':
 					break;
-				case 'email':
-					if(allGood && !validEmail(thisTag.value)) { 
+				case 'imgURL':
+					if(allGood && !imgUrl(thisTag.value)) { 
 						classBack = 'invalid ';
 					}
 				default:
@@ -70,13 +71,15 @@ function validForm() {
 			return classBack;	
 		}
 		
-		function validEmail(email) {
-			// var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+{2,3})+$/;  // 多个一个空格出错
-			var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		function imgUrl(newURL) {
+			var re = /^(file|http|https):\/\/\S+\/\S+\.(gif|jpg|pnd)$/i;
+			
+			if (re.test(newURL)) {
+				document.getElementById('chgImg').src = newURL;
+				return true;
+			}
 
-			// /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+{2,3})+$/;
-
-			return re.test(email);
+			return false;
 		}
 
 		function invalidLabel(parentTag) {
@@ -88,151 +91,3 @@ function validForm() {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
