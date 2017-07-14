@@ -42,7 +42,7 @@ function getPreview(evt) {
 	else {
 		if (window.ActiveXObject) {
 			try {
-				xhr = new ActiveXObject('Microsoft XMLHTTP')
+				xhr = new ActiveXObject('Microsoft.XMLHTTP')
 			} catch(e) {
 				console.log(e);
 			}

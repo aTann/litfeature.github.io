@@ -17,7 +17,7 @@ function initAll() {
 	else {
 		if (window.ActiveXObject) {
 			try {
-				xhr = new ActiveXObject('Microsoft XMLHTTP');
+				xhr = new ActiveXObject('Microsoft.XMLHTTP');
 			} catch(e) {
 				// statements
 				console.log(e);
@@ -65,11 +65,11 @@ function searchSuggest() {
 		
 		for (var i = 0; i < statesArray.length; i++) {
 			var thisState = statesArray[i].nodeValue;
-
 			if (thisState.toLowerCase().indexOf(str.toLowerCase()) == 0) {
+				// alert(thisState);
 				var tempDiv = document.createElement('div');
-				tempDiv.innerHtml = thisState;
-				// tempDiv.onclick = makeChoice;
+				tempDiv.innerHTML = thisState;
+				tempDiv.onclick = makeChoice;
 				tempDiv.className = 'suggestions';
 				document.getElementById('popups').appendChild(tempDiv);
 			}

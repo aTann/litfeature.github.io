@@ -10,7 +10,7 @@ function initAll() {
 	else {
 		if (window.ActiveXObject) {
 			try {
-				xhr = new ActiveXobject('Microsoft XMLHTTP');
+				xhr = new ActiveXobject('Microsoft.XMLHTTP');
 			} catch(e) {
 				// statements
 				console.log(e);
