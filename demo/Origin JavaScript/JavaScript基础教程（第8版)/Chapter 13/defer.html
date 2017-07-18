@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>defer</title>
+	<script>
+		var test1 = 'Test 1 : fail';
+	</script>
+	<script sync defer>
+		console.log(test1);
+		// document.write(test1);
+	</script>
+	<script>
+		test1 = 'Test 1 : pass';
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
