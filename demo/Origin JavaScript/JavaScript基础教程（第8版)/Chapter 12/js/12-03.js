@@ -17,15 +17,23 @@ function initAll() {
 
 // 点击事件
 function clickHandler(evt) {
-	if (evt) {
+	// 检查是否有事件对象——也就是evt 是否存在
+	if (evt) {  // 该事件也可以用enter触发
+		// IE11也进入这个判断里面
+		// 如果它是字符串，就把事件和它的目标传递给toggleMenu()
 		if (typeof(evt.target) == 'string') {
+			// console.log(evt.target);
 			toggleMenu(evt, evt.target);
-			console.log(evt.target);
+		
+		// 如果target 属性不是字符串，就通过调用toString()方法把它转换为字符串，
+		// 然后使用这个字符串（和evt）作为toggleMenu()的参数。
 		}else {
+			// console.log(evt.target.toString());
 			toggleMenu(evt, evt.target.toString());
 		}
 	}else {
-		toggleMenu(evt, window.event.serElement.hreft);
+
+		toggleMenu(evt, window.event.srcElement.href);
 	}
 
 	return false;
