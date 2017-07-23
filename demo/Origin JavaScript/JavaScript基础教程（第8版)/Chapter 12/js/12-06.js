@@ -59,7 +59,7 @@ function chgChart() {
 			for (var j = 0; j < thisChart.fieldnames.length; j++) {
 				chartBody += '<tr class="horiz"><td>' + thisChart.fieldnames[j];
 				chartBody += '</td><td><img alt="horiz bar" src="' + imgSrc;
-				chartBody += '" width="' + thisChart.fields[j][i]*3 + '>&nbsp;&nbsp;';
+				chartBody += '" width="' + thisChart.fields[j][i]*3 + '">&nbsp;&nbsp;';
 				chartBody += thisChart.fields[j][i] + '</td></tr>';
 			}
 		}
@@ -68,7 +68,7 @@ function chgChart() {
 			chartBody += '<tr class="vert"><th rowspan="2">' + thisChart.years[i] + '</th>';
 			for (var j = 0; j < thisChart.fieldnames.length; j++) {
 				chartBody += '<td><img alt="vert bar" src="' + imgSrc;
-				chartBody += '" height="' + thisChart.fields[j][i]*3 + '></td>';
+				chartBody += '" height="' + thisChart.fields[j][i]*3 + '"></td>';
 			}
 			chartBody += '</tr><tr class="vert">';
 			for (var j = 0; j < thisChart.fieldnames.length; j++) {
