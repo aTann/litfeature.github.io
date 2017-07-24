@@ -52,10 +52,10 @@ function chgChart() {
 	var chartBody = '<h2>' + thisChart.name + '</h2><table>';
 
 	for (var i = 0; i < thisChart.years.length; i++) {
-		if (currDirection == 'horrizontal') {
+		if (currDirection == 'horizontal') {
 			chartBody += '<tr class="horiz"><th rowspan="4">' + thisChart.years[i];
 			chartBody += '</th><td colspan="2"></td></tr>';
-
+			// 这个是两组<td>存放，一组放标题，一组放图形，但是需要多个<tr>才能存放一个year数据
 			for (var j = 0; j < thisChart.fieldnames.length; j++) {
 				chartBody += '<tr class="horiz"><td>' + thisChart.fieldnames[j];
 				chartBody += '</td><td><img alt="horiz bar" src="' + imgSrc;
@@ -65,6 +65,7 @@ function chgChart() {
 		}
 		else 
 		{
+			// 两组<tr>存放内容，一组放图形，一组放标题
 			chartBody += '<tr class="vert"><th rowspan="2">' + thisChart.years[i] + '</th>';
 			for (var j = 0; j < thisChart.fieldnames.length; j++) {
 				chartBody += '<td><img alt="vert bar" src="' + imgSrc;
