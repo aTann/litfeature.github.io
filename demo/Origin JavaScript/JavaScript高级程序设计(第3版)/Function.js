@@ -221,5 +221,235 @@ outputNumbers(2);
 	}
 })();
 
+// 私有变量：函数的参数、局部变量和函数内部定义的其他函数
+// 任何在函数中定义的变量
+/*
+function add(num1, num2) {
+	var sum = num1 + num2;
+	return sum;
+}
+
+// add()：私有变量 num1, num2, sum
+*/
+// 闭包，特权方法，访问私有变量的共有方法
+
+// 在构造函数中定义特权方法
+/*function MyObject() {
+	// 私有变量和私有函数
+	var privateVariable = 10;
+
+	function privateFunction() {
+		return false;
+	}
+
+	// 特权方法
+	this.publicMethod = function () {
+		privateVariable ++;
+		return privateFunction();
+	}
+}
+
+var obj = new MyObject();
+console.log(obj.publicMethod());
+// console.log(obj.privateVariable);	// undefined
+*/
+
+// 利用私有和特权成员，可以隐藏那些不应该被直接修改的数据
+/*function Person(name) {
+	this.getName = function () {
+		return name;
+	};
+
+	this.setName = function (value) {
+		name = value;
+	}
+
+
+}
+
+var person = new Person('Nicholas');
+console.log(person.getName());
+person.setName('Greg');
+console.log(person.getName());
+*/
+
+// 静态私有变量
+/*// 
+var MyObject;		// 事先创建全局变量
+(function () {
+	
+	// 私有变量和私有函数
+	var privateVariable = 10;
+
+	function privateFunction() {
+		return false;
+	};
+
+	// 构造函数，未用var声明，初始化未经声明的变量，总会创建一个全局变量，
+	// 在严格模式会出错
+	MyObject = function () {
+		
+	};
+
+	// 原型上定义方法，所有实例可共享
+	MyObject.prototype.publicMethod = function () {
+		privateVariable ++;
+		return privateFunction();
+	}
+
+})();
+
+var myobj = new MyObject();
+console.log(myobj.publicMethod());
+*/
+
+/*
+(function () {
+	var name = '';
+
+	Person = function (value) {
+		name = value;
+	};
+	// 因为使用原型而增进代码复用
+	Person.prototype.getName = function () {
+		return name;
+	};
+
+	Person.prototype.setName = function (value) {
+		name = value;
+	};
+})();
+
+var Person;	// Person is not defined
+
+var person1 = new Person('Nicholas');
+console.log(person1.getName()); 	// Nicholas
+person1.setName('Greg');
+console.log(person1.getName());		// Greg
+
+var person2 = new Person('Michael');
+// 但每个实例都没有自己的私有变量
+console.log(person1.getName());		// Michael
+console.log(person2.getName());		// Michael
+*/
+
+
+// 模块模式：为单例创建私有变量和特权方法
+// 单例：只有一个实例的对象
+// 惯例：以对象字面量的方式来创建单例对象
+/*
+var singleton = {
+	name : value,
+	method : function () {
+		// 这个是方法的代码
+	}
+}
+*/
+
+// 为单例添加私有变量和特权方法
+/*var singleton = function () {
+	
+	// 私有变量和私有函数
+	var privateVariable = 10;
+
+	function privateFunction() {
+		return false;
+	}
+
+	// 特权/公有方法和属性
+	return {
+		publicProperty : true,
+
+		publicMethod : function () {
+			privateVariable ++;
+			return privateFunction();		
+		}
+	};
+}();
+
+console.log(singleton.publicProperty);
+console.log(singleton.publicMethod());
+*/
+
+// 对单例进行某些初始化，同时又需要维护其私有变量时非常有用的。
+/*
+var application = function () {
+	
+	// 私有变量和函数
+	var components = new Array();
+
+	// 初始化
+	components.push(new BaseComponent());
+
+	// 公共
+	return {
+		getComponentsCount : function () {
+			return components.length;	
+		},
+
+		registerComponents : function (components) {
+			if (typeof components == 'object') {
+				components.push(components);
+			}
+		}
+	};
+
+}();
+*/
+
+// 增强的模块模式
+// 
+var singleton = function () {
+	
+	// 私有变量和私有函数
+	var privateVariable = 10;
+
+	function privateFunction() {
+		return false;
+	}
+
+	// 创建对象
+	var object = new CustomType();
+
+	// 添加特权/公有属性和方法
+	object.publicProperty = true;
+	object.publicMethod = function () {
+		privateVariable ++;
+		return privateFunction();	
+	};
+
+	// 返回这个对象
+	return object;
+}
+
+// 如果前面演示模块模式的例子中的application 对象必须是BaseComponent 的实例，那么就可
+// 以使用以下代码。
+
+var application = function () {
+	
+	// 私有变量和函数
+	var components = new Array();
+
+	// 初始化
+	components.push(new BaseComponent());
+
+	// 创建application的一个局部副本
+	var app = new BaseComponent();
+
+	// 公共接口
+	app.getComponentsCount = function () {
+		return components.length;
+	};
+
+	app.registerComponents = function (components) {
+		if (typeof components == 'object') {
+			components.push(components);
+		}
+	};
+
+	// 返回这个副本
+	return app;
+
+}();
 
 
