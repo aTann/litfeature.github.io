@@ -450,11 +450,383 @@ var hasXMLDom = document.implementation.hasFeature("XML", "1.0");
 
 // 		Element
 
+// Element最常用的类型之一，用于表现XML或HTML元素，提供了对元素标签名、子节点及特性的访问
+
+// nodeType = 1
+// nodeName = TagName
+// nodeValue = null
+// parentValue = Document/Element
+// childNodes = Element/Text/Comment/ProcessingInstruction/CDATASection
+// 		/EntityReference
+
+// 访问元素的标签名
+
+/*console.log(someNode.nodeName);		// DIV
+console.log(someNode.tagName);		// DIV
+
+console.log(someNode.nodeName === someNode.tagName);	// true
+*/
+
+// HTML中标签名始终都以大写表示，XML标签名始终会与源代码中保持一致
+// 最好是在比较之前将标签名转换为相同的大小写形式
+/*
+if (element.tagName.toLowerCase() == 'div') {	// 适用性更强
+	// 执行操作
+}
+*/
+
+
+// HTML元素直接或是间接由HTMLElement类型表示
+// HTMLElement 类型直接继承自Element 并添加了一些属性
+
+// 属性返回的是string类型数据，可以做String.prototype操作
+
+/*
+var element=someNode;
+// element.id：元素在文档中的唯一标识符
+console.log(element.id);	// somenode
+
+// element.id = 'myDiv';
+// console.log(element.id);	// myDiv
+
+element.id += ' myDiv';
+console.log(element.id);	// somenode myDiv
+
+// element.title：元素的附加说明信息
+console.log(element.title);		// 我是一个Element node
+// element.title = '我是添加的Title';
+// console.log(element.title);		// 我是添加的Title
+
+element.title += '我是添加的Title';
+console.log(element.title);		// 我是一个Element node我是添加的Title
+
+// element.lang：语言代码
+console.log(element.lang);	// zh-cn
+element.lang = "en";
+console.log(element.lang);	// en
+
+// element.dir：语言方向，值为"ltr"（left-to-right，从左至右）或"rtl"（right-to-left，从右至左）
+console.log(element.dir);	// ltr
+element.dir = "rtl";
+console.log(element.dir);	// rtl
+
+// element.className，为元素的class指定CSS类，返回的是一个class的字符串
+console.log(element.className);		// bd dd
+// element.className = 'ft';
+// console.log(element.className);		// ft
+
+element.className += ' ft';
+console.log(element.className);		// bd dd ft
+
+*/
+
+
+// 特性，给出相应元素或其内容的附加信息
+// 操作DOM方法主要有3个：
+
+var element=someNode;
+
+/*// getAttribute()	获取属性，属性名为HTML中出现的属性名，也获取可以自定义
+console.log(element.getAttribute('id'));	// somenode
+console.log(element.getAttribute('class'));	// bd dd
+// 获取自定义属性
+console.log(element.getAttribute('data-self'));		// self_special
+*/
+
+// 只有公认的（非自定义的）特性才会以属性的形式添加到DOM对象中
+// element.id/element.className/element.style/element.onclick
+
+/*有两类特殊的特性，它们虽然有对应的属性名，但属性的值与通过getAttribute()返回的值并不
+相同。第一类特性就是style，用于通过CSS 为元素指定样式。在通过getAttribute()访问时，返
+回的style 特性值中包含的是CSS 文本，而通过属性来访问它则会返回一个对象。由于style 属性是
+用于以编程方式访问元素样式的（本章后面讨论），因此并没有直接映射到style 特性。
+第二类与众不同的特性是onclick 这样的事件处理程序。当在元素上使用时，onclick 特性中包
+含的是JavaScript 代码，如果通过getAttribute()访问，则会返回相应代码的字符串。而在访问
+onclick 属性时，则会返回一个JavaScript 函数（如果未在元素中指定相应特性，则返回null）。这是
+因为onclick 及其他事件处理程序属性本身就应该被赋予函数值。*/
+
+
+// 由于存在这些差别，在通过JavaScript 以编程方式操作DOM 时，开发人员经常不使用getAttribute()，
+// 而是只使用对象的属性。只有在取得自定义特性值的情况下，才会使用getAttribute()方法
+
+
+// setAttribute()	设置属性
+// 接受两个参数：要设置的特性名和值
+// 如果特性已经存在，setAttribute()会以指定的值替换现有的值；
+// 如果特性不存在，setAttribute()则创建该属性并设置相应的值。
+
+/*// element.setAttribute("id", "someOtherId");
+// console.log(element.id);	// someOtherId
+element.id = "someOtherId";
+console.log(element.getAttribute('id'));	// someOtherId
+
+element.setAttribute("data-my-special", "my-special");
+console.log(element.getAttribute("data-my-special"));*/
+
+/*// removeAttribute() 	彻底删除特性
+var attrRemove = element.removeAttribute("data-self");
+console.log(attrRemove);	// undefined
+*/
+
+// Element 类型是使用attributes 属性的唯一一个DOM 节点类型
+// attributes属性
+// 返回NameNodeMap，动态(实时)集合
+// 元素的每一个特性都由一个Attr 节点表示，
+// 每个节点都保存在NamedNodeMap 对象中。
+
+// console.log(element.attributes);
+// NamedNodeMap {0: id, 1: class, 2: title, 3: lang, 4: dir, 5: data-self, length: 6}
+
+// getNamedItem(name)：返回nodeName属性等于name节点
+// removeNamedItem(name)：移除nodeName属性等于name节点
+// seNamedItem(node)：添加节点，以节点的nodeName属性为索引
+// item(pos)：返回位于数字pos位置处的节点
+
+// attributes 属性中包含一系列节点，每个节点的nodeName 就是特性的名称，而节点的nodeValue
+// 就是特性的值。
+// 其实attributes属性获取得到的就是与该Element同在的Attribute节点
+/*var id = element.attributes.getNamedItem("id").nodeValue;
+console.log(id);
+*/
+
+// 使用这种语法来设置特性的值，即先取得特性节点，然后再将其nodeValue 设置为新值
+// element.attributes.getNamedItem('id').nodeValue = "someOtherId";
+// console.log(element.attributes.getNamedItem("id").nodeValue);	// someOtherId
+
+// removeNamedItem(name)：移除nodeName属性等于name节点
+// 返回被移除的属性
+// 效果 == removeAttibure()
+
+// var removeAttr = element.attributes.removeNamedItem("id");
+// console.log(removeAttr);	// id="somenode"
+
+// setNamedItem()是一个很不常用的方法，通过这个方法可以为元素添加一个新特性，为此
+// 需要为它传入一个特性节点，如下所示。
+// element.attributes.setNamedItem(newAttr);
+
+// 一般来说，由于前面介绍的attributes 的方法不够方便，因此开发人员更多的会使用
+// getAttribute()、removeAttribute()和setAttribute()方法。
+
+// 如果想要遍历元素的特性，attributes 属性倒是可以派上用场
+// attributes 对象中的特性，不同浏览器返回的顺序不同
+// 可能会返回HTML 元素中所有可能的特性，包括没有指定的特性
+
+// 迭代元素的每一个特性，将它们构造成name="value" name="value"这样的名值对字符串格式。
+function outputAttributes(element) {
+	var pairs = new Array(),
+		attrName,
+		attrValue,
+		i,
+		len;
+
+	for (i = 0, len = element.attributes.length; i < len; i++) {
+		attrName = element.attributes[i].nodeName;
+		attrValue = element.attributes[i].nodeValue;
+		if (element.attributes[i].specified) {
+			pairs.push(attrName + "=\"" + attrValue + "\"");
+		}
+		
+	}
+	return pairs.join(" ");
+}
+
+// console.log(outputAttributes(element));
+// id="somenode" class="bd dd" title="我是一个Element node" lang="zh-cn" dir="ltr" data-self="self_special"
+
+// 创建元素
+// document.createElement()方法创建新元素，
+// 方法只接受一个参数，要创建元素的标签名，HTML标签名部分大小写，XML标签名分大小写
+
+/*var div = document.createElement('div');
+
+// 添加元素
+div.id = "someOtherId";
+div.className = "box";
+
+// 添加在文档中(.appendChild()/.insertBefore()/.replaceChild())
+document.body.appendChild(div);
+
+// 一旦将元素添加到文档树中，浏览器就会立即呈现该元素。
+console.log(document.getElementById('someOtherId'));
+// <div id="someOtherId" class="box"></div>
+
+// 在IE中使用createElement()会有不一样的用法，或是bug(IE7)
+// document.body.appendChild(document.createElement("<div>我是在IE里面作用的<\/div>"));
+// 没起作用
+*/
+
+
+// 元素的子节点
+// 这些子节点有可能是元素、文本节点、注释或处理指令。
+// 不同浏览器在看待这些节点方面存在显著的不同
+// 有的浏览器一旦有空白符/转行就会有Text节点产生，childNodes就是多很多，而IE不会
+// 如果需要通过childNodes 属性遍历子节点，那么一定不要忘记浏览器间的这一差别。
+// 这意味着在执行某项操作以前，通常都要先检查一下nodeTpye 属性
+/*
+for (var i = 0, len = element.childNodes.length ; i < len; i++) {
+	// 检测得到元素节点才执行某些操作
+	if (element.childNodes[i].nodeType == 1) {
+		// 执行操作
+	}
+}
+*/
+
+// Element也支持getElementsByTagname()
+// var myp = element.getElementsByTagName("p");
+// console.log(myp);	// 获取element中所有的<p>
+
+// element.getElementById is not a function
+// var myP = element.getElementById("myP");
+// console.log(myP);
+
+
+
 // 		Text
+// 纯文本内容
+// 纯文本中可以包含转义后的HTML 字符，但不能包含HTML 代码
+// nodeType = 3
+// nodeName = #text
+// nodeValue = 节点所包含的文本
+// parentNode = Element
+// 无childNodes
+
+// nodeValue属性或data属性访问Text节点中包含的文本，得到值相同
+// 对任意一个(nodeValue/data)修改，另外一个也会(data/nodeValue)反映出来
+
+// appendData(text)：将text 添加到节点的末尾。
+// deleteData(offset, count)：从offset 指定的位置开始删除count 个字符。
+// insertDate(offset, text)：在offset 指定的位置插入text。
+// replaceData(offset, count, text):用text 替换从offset 指定的位置开始到offset+count 为止处的文本。
+// splitText(offset)：从offset 指定的位置将当前文本节点分成两个文本节点。
+// substringData(offset, count)：提取从offset 指定的位置开始到offset+count 为止处的字符串。
+
+// 在默认情况下，每个可以包含内容的元素最多只能有一个文本节点，而且必须确实有内容存在。
+
+/*<!-- 没有内容，也就没有文本节点 -->
+<div></div>
+<!-- 有空格，因而有一个文本节点 -->
+<div> </div>
+<!-- 有内容，因而有一个文本节点 -->
+<div>Hello World!</div>
+*/
+
+// var textNode = document.getElementById("myP").firstChild;
+// var textNode = document.getElementById("myP").childNodes[0];
+// console.log(textNode);
+// /*
+// 			我是第一个<p>;
+// 		*/
+
+/*document.getElementById('myP').firstChild.nodeValue = "我是文字节点修改后文字";
+console.log(document.getElementById('myP').firstChild);		// 我是文字节点修改后文字
+*/
+/*如果这个文本节点当前存在于文档树中，那么修改文本节点的结果就会立即得到反映。另外，在修
+改文本节点时还要注意，此时的字符串会经过HTML（或XML，取决于文档类型）编码。换句话说，
+小于号、大于号或引号都会被转义。*/
+
+/*document.getElementById('myP').firstChild.nodeValue = "<strong>我是文字节点修改后文字</strong>";
+console.log(document.getElementById('myP').firstChild);		// &lt;strong&gt;我是文字节点修改后文字&lt;/strong&gt;
+// 向DOM 文档中插入文本之前，先对其进行HTML 编码的一种有效方式。
+*/
+
+// 创建文字节点
+// document.createTextNode()
+// 接受一个参数——要插入节点中的文本。
+// 与设置已有文本节点的值一样，作为参数的文本也将按照HTML 或XML 的格式进行编码。
+// 
+
+// 创建一个<p>元素
+var element = document.createElement('p');
+// 为<p>指定class=message
+element.className = 'message';
+
+// 创建一个文字节点
+var textNode = document.createTextNode('Hello world!');
+// 将新建的文字节点放进新建的<p>中
+element.appendChild(textNode);
+
+// 将<p>+textNode放到<div[id=somenode]>末尾中
+// someNode.appendChild(element);
+
+// 一般情况下，每个元素只有一个文字节点。
+// 不过，某些情况下也可能包含多个文字节点
+
+var anotherTextNode = document.createTextNode(' Yippee!');
+element.appendChild(anotherTextNode);
+
+// 将<p>+textNode放到<div[id=somenode]>末尾中
+someNode.appendChild(element);
+// 如果两个文本节点是相邻的同胞节点，那么这两个节点中的文本就会连起来显示，中间不会有空格。
+
+// var ps = someNode.getElementsByTagName('p');
+/*for (var i = 0, len = ps.length; i < len; i++) {
+	let p = ps[i];
+	if (p.className.indexOf("message") > -1) {
+		console.log(p.childNodes);
+		// (2) [text, text]length: 2
+		// 0: text
+		// 1: text
+		// __proto__: NodeList
+		console.log(p.childNodes.length);	// 2
+	}
+}*/
+
+
+// 规范化文本节点
+// normalize() 父元素上调用，对两个或多个文本节点的父元素进行子文字节点进行拼合成一个
+/*for (i = 0, len = ps.length; i < len; i++) {
+	let p = ps[i];
+	if (p.className.indexOf("message") > -1) {
+		p.normalize();
+		console.log(p.childNodes);
+		// [text]
+		// length: 1
+		// 0: text
+		// __proto__: NodeList
+		console.log(p.childNodes.length);	// 1
+	}
+}*/
+
+// 浏览器在解析文档时永远不会创建相邻的文本节点。这种情况只会作为执行DOM操作的结果出现。
+
+
+// 分割文字节点
+// splitText()
+// 将一个文本节点分成两个文本节点，即按照指定的位置分割nodeValue 值。
+// 原来的文本节点将包含从开始到指定位置之前的内容，新文本节点将包含剩下的文本。
+// 这个方法会返回一个新文本节点，该节点与原节点的parentNode 相同
+
+/*var myp = document.getElementById("myP");
+var newNode = myp.firstChild.splitText(5);
+console.log(myp.firstChild.nodeValue);	// "			我"
+// 新文本节点将包含剩下的文本
+console.log(newNode.nodeValue);		// 是第一个<p>;
+console.log(myp.childNodes.length);	// 2
+*/
+// 分割文本节点是从文本节点中提取数据的一种常用DOM 解析技术。
 
 // 		Comment
+// 注释
+// nodeType = 8
+// nodeName = #comment
+// nodeVAlue = 注释内容
+// parentNode = Document/ Element
+// 无childNodes
+
+// Comment 类型与Text 类型继承自相同的基类，因此它拥有除splitText()之外的所有字符串操
+// 作方法。与Text 类型相似，也可以通过nodeValue 或data 属性来取得注释的内容。
+// 注释节点可以通过其父节点来访问
+/*var div = document.getElementById("mydiv");
+var comment = div.firstChild;
+console.log(comment.data);
+ // 这是一个注释 */
+
+/*// 使用document.createComment()并为其传递注释文本也可以创建注释节点
+var comment = document.createComment("A comment ");
+document.getElementById("mydiv").appendChild(comment);*/
 
 // 		CDATASection
+// 只针对基于XML的文档
 
 // 		DocumentType
 
