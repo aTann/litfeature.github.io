@@ -108,8 +108,9 @@ $(function() {
 				data: {
 					format: 'json', // json¸格式读取标明
 					tags: tag_search, // tags获取
-					timeout: 15000
-				}
+				},
+				timeout: 15000
+
 				// 成功获取回应信息
 				// success: response
 			});

@@ -280,6 +280,9 @@ $(function () {
 					src: settings.url
 				});
 				img = $img[0];
+				// 在HTML 5中，新增加了两个用来判断图片的真实宽度和真实高度的属性，
+				// 分别为.naturalWidth和.naturalHeight属性
+				// 必须在图片完全下载到客户端浏览器才能判断
 				prop = typeof img.naturalWidth === 'undefined' ? 'width' : 'naturalWidth';
 				if (img.complete) {
 					callback(!!img[prop]);
