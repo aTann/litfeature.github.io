@@ -73,8 +73,8 @@ function setSliderItemActive(direction, ulElem, timeMs) {
 	n += direction;
 
 	var liItems = ulElem.getElementsByTagName('li');
-	console.log(liItems);
-	console.log(n);
+	// console.log(liItems);
+	// console.log(n);
 	if (n == liItems.length) {
 		n = 0;
 	}else if (n < 0) {
@@ -88,15 +88,15 @@ function setSliderItemActive(direction, ulElem, timeMs) {
 		}
 		liItems[i].className = liItems[i].className.replace(/slider_item_active/g, "").trim();
 	}
-	console.log(n);
+	// console.log(n);
 
 	liItems[n].className += " slider_item_active";
 	
 	fadeOut(liItems[actived]);
-	liItems[n].style.opacity = 1;
-	liItems[n].style.zIndex  = 1;
+	// liItems[n].style.opacity = 1;
+	// liItems[n].style.zIndex  = 1;
 	
-	// fadeIn(liItems[n]);
+	fadeIn(liItems[n]);
 
 	
 }
@@ -109,53 +109,61 @@ setSliderItem(uls);
 setSliderItemActive(1, uls);
 
 
-setInterval(function () {
-	setSliderItemActive(1, uls, 2000);
-}, 2000);
-
 
 // 淡入
 function fadeIn(elem) {
 	// 先设置为透明opacity = 0
 	setOpacity(elem, 0);
 	setzIndex(elem, 0);
-
+	
 	for (var i = 1; i < 21; i++) {		// 透明度改变 20 * 5 = 100
-		
+		console.log(i);
 		(function () {
 			var level = i * 5; // 透明度每次变化值
 			setTimeout(function () {
 				setzIndex(elem, level);
 				setOpacity(elem, level);
+				console.log(level);
 			}, i*25);  // i * 25 即为每次改变透明度的时间间隔，自行设定
 		})(i);		// 每次循环变化一次
 	}
 }
 
 
+
+
 // 淡出
 function fadeOut(elem) {
 	// 先设置为透明opacity = 1
 	setOpacity(elem, 100);
+	setzIndex(elem, 100);
 	for (var i = 1; i < 21; i++) {		// 透明度改变 20 * 5 = 100
+// 不能使用for(var i = 19; i >= 0; i--)
+// 因为i进入立即执行函数中，和setTimeout()进行作用
+// i的方向是 19 - 0
+// 得到的levev 大小方向是 0 - 95的，发生了堆栈收藏
+// 和我们想要的不一样
 		(function () {
 			var level = 100 - i * 5;		// 每次改变 i * 5
 			setTimeout(function () {
 				setzIndex(elem, level);
 				setOpacity(elem, level);
-				console.log(level);
+				// console.log(level);
 			}, i*25);		// i*25 为每次改变透明度的时间间隔
 		})(i);
 	}
 }
 
+
+
 // 设置透明度
 function setOpacity(elem, level) {
-	// if (elem.filters) {
-		// elem.style.filter = "alpha(opacity=" + level + ")";
-	// }else {
+	// 兼容IE8-
+	if (elem.filters) {
+		elem.style.filter = "alpha(opacity=" + level + ")";
+	}else {
 		elem.style.opacity = level/100;
-	// }
+	}
 }
 
 function setzIndex(elem, level) {
