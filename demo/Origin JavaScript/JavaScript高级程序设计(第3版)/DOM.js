@@ -826,17 +826,117 @@ var comment = document.createComment("A comment ");
 document.getElementById("mydiv").appendChild(comment);*/
 
 // 		CDATASection
-// 只针对基于XML的文档
+// 只针对基于XML的文档，表示CDATA区域
+// 与Comment 类似，CDATASection 类型继承自Text 类型，因此拥有除splitText()之外的所有字符串操作方法。
+// nodeType = 4
+// nodeName = #cdata-section
+// nodeValue = CDATA区域中内容
+// parentNode = Document/Element
+// 不支持(没有子节点)
 
-// 		DocumentType
+/*CDATA 区域只会出现在XML 文档中，因此多数浏览器都会把CDATA 区域错误地解析为Comment
+或Element。以下面的代码为例：
+<div id="myDiv"><![CDATA[This is some content.]]></div>
+这个例子中的<div>元素应该包含一个CDATASection 节点。可是，四大主流浏览器无一能够这样
+解析它。即使对于有效的XHTML 页面，浏览器也没有正确地支持嵌入的CDATA 区域。
+在真正的XML 文档中，可以使用document.createCDataSection()来创建CDATA 区域，只需
+为其传入节点的内容即可*/
+
+
+// 		DocumentType(不常用)
+// nodeType = 10
+// nodeName = doctype的名称
+// nodeValue = null
+// parentNode = Document
+// 无childNodes
+
+// DocumentType 对象保存在document.doctype 中
+/*DOM1 级描述了
+DocumentType 对象的3 个属性：name、entities 和notations。其中，name 表示文档类型的名称；
+entities 是由文档类型描述的实体的NamedNodeMap 对象；notations 是由文档类型描述的符号的
+NamedNodeMap 对象。通常，浏览器中的文档使用的都是HTML 或XHTML 文档类型，因而entities
+和notations 都是空列表（列表中的项来自行内文档类型声明）。但不管怎样，只有name 属性是有用
+的。*/
+
+/*这个属性中保存的是文档类型的名称，也就是出现在<!DOCTYPE 之后的文本。以下面严格型HTML
+4.01 的文档类型声明为例：
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+DocumentType 的name 属性中保存的就是"HTML"：
+alert(document.doctype.name); //"HTML"*/
 
 // 		DocumentFragment
+// 在所有节点类型中，只有DocumentFragment 在文档中没有对应的标记。DOM 规定文档片段
+// （document fragment）是一种“轻量级”的文档，可以包含和控制节点，但不会像完整的文档那样占用
+// 额外的资源
+
+// nodeType = 11
+// nodeName = #document-fragment
+// nodeValue = null
+// parentNode = null
+// childNodes = Element/ProcessingInstruvtion/Comment/Text/CDATASection/EntityReference
+
+// 创建document.createDocumentFragment()
+
+/*文档片段继承了Node 的所有方法，通常用于执行那些针对文档的DOM操作。如果将文档中的节
+点添加到文档片段中，就会从文档树中移除该节点，也不会从浏览器中再看到该节点。添加到文档片段
+中的新节点同样也不属于文档树。可以通过appendChild()或insertBefore()将文档片段中内容添
+加到文档中。在将文档片段作为参数传递给这两个方法时，实际上只会将文档片段的所有子节点添加到
+相应位置上；文档片段本身永远不会成为文档树的一部分。*/
+
+/*假设我们想为这个<ul>元素添加3 个列表项。如果逐个地添加列表项，将会导致浏览器反复渲染（呈
+现）新信息。为避免这个问题，可以像下面这样使用一个文档片段来保存创建的列表项，然后再一次性
+将它们添加到文档中。*/
+
+var fragment = document.createDocumentFragment();
+var ul = document.getElementById('list');
+var li = null;
+
+for (var i = 0; i < 3; i++) {
+	li = document.createElement('li');
+	li.appendChild(document.createTextNode('Item ' + (i+1)));
+	fragment.appendChild(li);
+}
+
+ul.appendChild(fragment);
+
 
 // 		Attr
+// 元素的特性在DOM 中以Attr 类型来表示。
+// 在所有浏览器中（包括IE8），都可以访问Attr 类型
+// 的构造函数和原型。从技术角度讲，特性就是存在于元素的attributes 属性中的节点
+// nodeType = 2
+// nodeName = 特性的名称
+// nodeValue = 特性的值
+// parentNode = null
+// HTML中无子节点
+// XML childNodes = Text/EntityReference
 
+// 常使用的是getAttribute()、setAttribute()和remveAttribute()方法
+
+// Attr 对象有3 个属性：name、value 和specified。
+// name 是特性名称（与nodeName 的值相同），value 是特性的值（与nodeValue 的值相同），
+// 而specified 是一个布尔值，用以区别特性是在代码中指定的，还是默认的。
+// 使用document.createAttribute()并传入特性的名称可以创建新的特性节点。
+
+/*var attr = document.createAttribute("align");
+attr.value = "left";
+ul.setAttributeNode(attr);
+console.log(ul.attributes["align"].value);			// left
+console.log(ul.getAttributeNode("align").value);	// left
+console.log(ul.getAttribute("align"));				// left
+*/
 
 // DOM操作技术
 // 		动态脚本
+// 使用<script>元素可以向页面中插入JavaScript 代码，一种方式是通过其src 特性包含外部文件，
+// 另一种方式就是用这个元素本身来包含代码
+
+// 动态脚本，指的是在页面加载时不存在，
+// 但将来的某一时刻通过修改DOM 动态添加的脚本。跟操作HTML 元素一样，创建动态脚本也有两种方
+// 式：插入外部文件和直接插入JavaScript 代码。
+
+
 // 		动态样式
 // 		操作表格
 // 		使用NodeList
