@@ -112,6 +112,9 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 件处理程序，就要改动两个地方：HTML 代码和JavaScript 代码
 */
 
+function showMessage(){
+	alert('Hello Wolrd!');
+}
 
 
 
@@ -134,6 +137,24 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 	将事件处理程序设置为null 之后，再单击按钮将不会有任何动作发生
 */
 
+/*
+window.onload = function () {
+	var btn = document.getElementById('myBtn');
+	
+	// 每个元素（包括window 和document）都有自己的事件处理程序属性，这些属性通常全部小写，
+	// 例如onclick。将这种属性的值设置为一个函数，就可以指定事件处理程序
+	btn.onclick = function () {
+		
+		// alert("Clicked");
+
+		// 在元素的作用域里面进行
+		alert(this.id);	// myBtn
+
+		// 删除DOM0级 方法，将事件处理程序属性值设置为null即可
+		btn.onclick = null;		//删除事件处理程序
+	}
+}
+*/
 
 
 
@@ -160,6 +181,26 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 */
 
 
+var btn = document.getElementById('myBtn');
+btn.addEventListener('click', function () {		// 为btn添加click事件
+	alert(this.id);
+}, false);
+
+// 可添加多个事件处理程序
+btn.addEventListener('click', function aa() {		// 为btn添加click事件
+	alert("Hello Wolrd!");
+}, false);
+
+// 移除，addEventListener()只能用removeEventListener()，输入参数一样
+// addEveneListener()添加的匿名函数，不能通过removeEventListener()
+
+function sayHi() {		// 为btn添加click事件
+	alert("Hi!");
+}
+
+btn.addEventListener('click', sayHi, false);
+
+btn.removeEventListener('click', sayHi, false);
 
 // 4、IE事件处理程序
 /*
@@ -250,7 +291,7 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
  */
 
 // UI事件
-	/*
+/*
 	
 	load:
 
@@ -267,11 +308,11 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 	scroll:
 
 
+*/
 
-	 */
 // 焦点事件
 
-	/*
+/*
 	
 	blur:
 
@@ -281,11 +322,11 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 
 	focusout:
 
-	 */
+*/
 
 // 鼠标事件和滚轮事件
 
-	/*
+/*
 	
 	click:
 
@@ -321,10 +362,10 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 	
 
 
-	 */
+*/
 
 // 文本和键盘事件
-	/*
+/*
 	keydown：
 
 	keypress：
@@ -333,10 +374,142 @@ HTML 元素一出现在页面上就触发相应的事件，但当时的事件处
 
 	textIput: 
 
-	 */
+*/
 
 // 合成事件
-// 变动事件
 
+/*
+	compositionstart：在IME的文本复合系统打开时触发，表示要输入了
+
+	compositionupdate：在向输入字段中插入新字符时触发
+
+	compositioned：在IME的文字复合系统关闭时触发，表示返回正常键盘输入状态
+ */
+
+// 变动事件
+/*
+
+	DOMSubtreeModified：在DOM结构中发生任何变化时触发。这个事件在其他任何事件触发后都会触发。
+
+	DOMNodeIserted：在一个节点作为子节点被插入到另一个节点中时被触发。
+
+	DOMNodeRemoved：在节点从其父节点中被移除时触发。
+
+	DOMNodeInsertedIntoDocument：在一个节点被直接插入文档或通过子树间接插入文档之后触发。这个事件在DOMNodeDocument之后触发。
+
+	DOMNodeRemovedFromDocument：在一个节点被直接从文档中移除或通过子树间接从文档中移除之前触发。这个事件在DOMNodeRemoved之后触发。
+
+	DOMAttriModified：在特性被修改之后触发。
+
+	DOMCharacterDataModified：在文本节点的值发生变化时触发。
+
+ */
+
+// 使用下列代码可以检测出浏览器是否支持变动事件：
+
+// var isSupported = document.implementation.hasFeature('MutationEvents', '2.0');
+
+
+
+// HTML5事件
+
+/*
+	contextmenu：上文文菜单
+	
+	beforeunload：为了让开发人员有可能在页面卸载前阻止这一操作
+	
+	DOMContentLoaded：形成完整的DOM 树之后就会触发，不理会图像、JavaScript 文件、CSS 文件或其他资源是否已经下载完毕。
+
+	readystatechange：这个事件的目的是提供与文档或元素的加载状态有关的信息，但这个事件的行为有时候也很难预料。
+	
+	pageshow：在页面显示时触发，无论该页面是否来自bfcache。在重新加载的页面中，pageshow 会在load 事件触发后触发；而对于bfcache 中的页面，pageshow 会在页面状
+			  态完全恢复的那一刻触发。另外要注意的是，虽然这个事件的目标是document，但必须将其事件处理
+			  程序添加到window。
+
+	pagehide：该事件会在浏览器卸载页面的时候触发，而且是在unload 事件之前触发。与pageshow 事件一样，pagehide 在document 上面触发，但其事件处理程
+			  序必须要添加到window 对象。
+	
+	hashchange：以便在URL 的参数列表（及URL 中“#”号后面的所有字符串）发生变化时通知开发人员	
+	
+ */
+
+
+// 设备事件
+
+/*
+	orientationchange：能够确定用户何时将设备由横向查看模式切换为纵向查看模式。
+	
+	MozOrientation：当设备的加速计检测到设备方向改变时，就会触发这个事
+					件。但这个事件与iOS 中的orientationchange 事件不同，该事件只能提供一个平面的方向变化。由
+					于MozOrientation 事件是在window 对象上触发的
+	
+	deviceorientation：在加速计检测到设备方向变化时在window 对象上触发，而且具有与MozOrientation 事件
+					   相同的支持限制。不过，deviceorientation 事件的意图是告诉开发人员设备在空间中朝向哪儿，而
+					   不是如何移动。
+	
+	devicemotion：设备什么时候移动，而不仅仅是设备方向如何改变。
+
+ */
+
+
+// 触摸和手势事件
+/*
+	触摸事件：
+
+	touchstart：当手指触摸屏幕时触发；即使已经有一个手指放在了屏幕上也会触发。
+	
+	touchmove：当手指在屏幕上滑动时连续地触发。在这个事件发生期间，调用preventDefault()可以阻止滚动。
+
+	touchend：当手指从屏幕上移开时触发。
+
+	touchcancel：当系统停止跟踪触摸时触发。关于此事件的确切触发时间，文档中没有明确说明。
+		触摸事件还包含下列三个用于跟踪触摸的属性：
+		 - touches：表示当前跟踪的触摸操作的Touch 对象的数组。
+		 - targetTouchs：特定于事件目标的Touch 对象的数组。
+		 - changeTouches：表示自上次触摸以来发生了什么改变的Touch 对象的数组。
+
+		Touch 对象包含下列属性：
+		 - clientX：触摸目标在视口中的x 坐标。
+		 - clientY：触摸目标在视口中的y 坐标。
+		 - identifier：标识触摸的唯一ID。
+		 - pageX：触摸目标在页面中的x 坐标。
+		 - pageY：触摸目标在页面中的y 坐标。
+		 - screenX：触摸目标在屏幕中的x 坐标。
+		 - screenY：触摸目标在屏幕中的y 坐标。
+		 - target：触摸的DOM 节点目标。
+
+		在触摸屏幕上的元素时，这些事件（包括鼠标事件）发生的顺序如下：
+
+			(1) touchstart
+			(2) mouseover
+			(3) mousemove（一次）
+			(4) mousedown
+			(5) mouseup
+			(6) click
+			(7) touchend
+	
+	手势事件：
+	gesturestart：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。
+	gesturechange：当触摸屏幕的任何一个手指的位置发生变化时触发。
+	gestureend：当任何一个手指从屏幕上面移开时触发。
+		还包含两个额外的属性：rotation 和scale。其中，rotation 属性表
+		示手指变化引起的旋转角度，负值表示逆时针旋转，正值表示顺时针旋转（该值从0 开始）。而scale
+		属性表示两个手指间距离的变化情况（例如向内收缩会缩短距离）；这个值从1 开始，并随距离拉大而
+		增长，随距离缩短而减小。
+ */
+
+
+// 内存和性能
+
+//  事件委托
+
+//  移除事件处理程序
+
+
+
+// 模拟事件
+// 	DOM中的时间模拟
+
+// 	IE中的事件模拟
 
 
