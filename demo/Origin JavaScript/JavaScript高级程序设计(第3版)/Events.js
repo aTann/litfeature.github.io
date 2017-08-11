@@ -181,7 +181,7 @@ window.onload = function () {
 */
 
 
-var btn = document.getElementById('myBtn');
+/*var btn = document.getElementById('myBtn');
 btn.addEventListener('click', function () {		// 为btn添加click事件
 	alert(this.id);
 }, false);
@@ -194,13 +194,13 @@ btn.addEventListener('click', function aa() {		// 为btn添加click事件
 // 移除，addEventListener()只能用removeEventListener()，输入参数一样
 // addEveneListener()添加的匿名函数，不能通过removeEventListener()
 
-function sayHi() {		// 为btn添加click事件
+function handler() {		// 为btn添加click事件
 	alert("Hi!");
 }
 
-btn.addEventListener('click', sayHi, false);
-
-btn.removeEventListener('click', sayHi, false);
+btn.addEventListener('click', handler, false);
+btn.removeEventListener('click', handler, false);
+*/
 
 // 4、IE事件处理程序
 /*
@@ -228,6 +228,27 @@ btn.removeEventListener('click', sayHi, false);
  */
 
 
+/*var btn = document.getElementById('ieBtn');
+
+// 添加事件
+// IE11+ 对象不支持“attachEvent”属性或方法
+// on-前缀，兼容IE8-
+btn.attachEvent('onclick', function () {
+	// alert('Clicked');
+	// 作用域是window
+	alert(this);	// [object Window]
+});
+
+// 可以添加多个事件处理程序
+
+// detachEvent()移除程序
+
+var handler = function () {
+	alert("Hi!");
+}
+btn.attachEvent('onclick', handler);
+btn.detachEvent('onclick', handler);   // 匿名函数不可删除
+*/
 
 // 5、跨浏览器的事件处理程序
 
@@ -254,7 +275,36 @@ btn.removeEventListener('click', sayHi, false);
 	此外还要注意，DOM0 级对每个事件只支持一个事件处理程序。
  */
 
+// EventUtil
+var EventUtil = {
+	addHandler: function (element, type, handler) {
+		if (element.addEventListener) {
+			element.addEventListener(type, handler, false);
+		} else if (event.attachEvent) {
+			element.attachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = handler;
+		}
+	},
 
+	removeHandler: function (element, type, handler) {
+		if (element.removeEventListener) {
+			element.removeEventListener(type, handler, false);
+		} else if (element.detachEvent) {
+			element.detachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = null;
+		}		
+	}
+};
+
+var btn = document.getElementById('EUBtn');
+var handler = function () {
+	alert("Clicked!");
+};
+
+EventUtil.addHandler(btn, "click", handler);
+EventUtil.removeHandler(btn, "click", handler);
 
 
 // 事件对象
@@ -267,6 +317,94 @@ btn.removeEventListener('click', sayHi, false);
  */
 
 // 1、DOM中的事件对象
+// 兼容DOM 的浏览器会将一个event 对象传入到事件处理程序中。无论指定事件处理程序时使用什
+// 么方法（DOM0 级或DOM2 级），都会传入event 对象。
+
+var btn = document.getElementById('EOBtn');
+/*btn.onclick = function (event) {
+	alert(event.type);	// click
+};*/
+
+/*btn.addEventListener("click", function (event) {
+	alert(event.type);		// click
+}, false);*/
+
+/*
+属性/方法 						类 型 				读/写 		说 明
+bubbles 						Boolean 			只读 		表明事件是否冒泡
+cancelable 						Boolean 			只读 		表明是否可以取消事件的默认行为
+currentTarget 					Element 			只读 		其事件处理程序当前正在处理事件的那个元素
+defaultPrevented 				Boolean 			只读 		为true 表示已经调用了preventDefault()
+																（DOM3级事件中新增）
+detail 							Integer 			只读 		与事件相关的细节信息
+eventPhase 						Integer 			只读 		调用事件处理程序的阶段：1表示捕获阶段，2表
+																示“处于目标”，3表示冒泡阶段
+preventDefault() 				Function 			只读 		取消事件的默认行为。如果cancelable是
+																true，则可以使用这个方法
+stopImmediatePropagation() 		Function 			只读 		取消事件的进一步捕获或冒泡，同时阻止任何
+																事件处理程序被调用（DOM3级事件中新增）
+stopPropagation() 				Function 			只读 		取消事件的进一步捕获或冒泡。如果bubbles
+为true，则可以使用这个方法
+target 							Element 			只读 		事件的目标
+trusted 						Boolean 			只读 		为true表示事件是浏览器生成的。为false表
+示事件是由开发人员通过JavaScript 创建的
+（DOM3级事件中新增）
+type 							String 				只读 		被触发的事件的类型
+view 							AbstractView 		只读 		与事件关联的抽象视图。等同于发生事件的
+																window对象
+*/
+
+/*在事件处理程序内部，对象this 始终等于currentTarget 的值，而target 则只包含事件的实
+际目标。如果直接将事件处理程序指定给了目标元素，则this、currentTarget 和target 包含相同
+的值。*/
+
+/*btn.onclick = function (event) {
+	alert(event.currentTarget === this);	// true
+	alert(event.target === this);	// true
+}*/
+
+// 如果事件处理程序存在于按钮的父节点中（例如document.body），那么这些值是
+// 不相同的。
+
+/*document.body.onclick = function (event) {
+	alert(event.currentTarget === document.body);	// true
+	alert(this === document.body);	// true
+	alert(event.target === document.getElementById('EOBtn'));	// true
+}
+*/
+
+// 在需要通过一个函数处理多个事件时，可以使用type 属性。
+
+var handler = function (event) {
+	switch (event.type) {
+		case "click":
+			alert("Clicked");
+			break;
+
+		case "mouseover":
+			event.target.style.backgroundColor = "red";
+			break;
+
+		case "mouseout":
+			event.target.style.backgroundColor = "";
+			break;
+
+		default:
+			// statements_def
+			break;
+	}
+}
+
+btn.onclick = handler;
+btn.onmouseover = handler;
+btn.onmouseout = handler;
+
+// 阻止特定事件的默认行为，可以使用preventDefualt()
+
+var link = document.getElementById("myLink");
+link.onclick = function (event) {
+	event.preventDefault();
+}
 
 // 2、IE中的事件对象
 
