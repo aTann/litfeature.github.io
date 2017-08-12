@@ -276,7 +276,17 @@ btn.detachEvent('onclick', handler);   // 匿名函数不可删除
  */
 
 // EventUtil
+
 var EventUtil = {
+
+	/**
+	 * @param element {nodeElement} 需要绑定事件处理的元素
+	 *
+	 *
+	 * 
+	 */
+		
+
 	addHandler: function (element, type, handler) {
 		if (element.addEventListener) {
 			element.addEventListener(type, handler, false);
@@ -344,11 +354,11 @@ preventDefault() 				Function 			只读 		取消事件的默认行为。如果ca
 stopImmediatePropagation() 		Function 			只读 		取消事件的进一步捕获或冒泡，同时阻止任何
 																事件处理程序被调用（DOM3级事件中新增）
 stopPropagation() 				Function 			只读 		取消事件的进一步捕获或冒泡。如果bubbles
-为true，则可以使用这个方法
+																为true，则可以使用这个方法
 target 							Element 			只读 		事件的目标
 trusted 						Boolean 			只读 		为true表示事件是浏览器生成的。为false表
-示事件是由开发人员通过JavaScript 创建的
-（DOM3级事件中新增）
+																示事件是由开发人员通过JavaScript 创建的
+																（DOM3级事件中新增）
 type 							String 				只读 		被触发的事件的类型
 view 							AbstractView 		只读 		与事件关联的抽象视图。等同于发生事件的
 																window对象
@@ -402,14 +412,214 @@ btn.onmouseout = handler;
 // 阻止特定事件的默认行为，可以使用preventDefualt()
 
 var link = document.getElementById("myLink");
-link.onclick = function (event) {
+/*link.onclick = function (event) {
 	event.preventDefault();
-}
+}*/
+
+// 只有cancelable属性设置为true的事件，才可以使用preventDefault()来取消其默认行为。
+/*link.onclick = function (event) {
+	event.cancelable = false;
+	event.preventDefault();
+	console.log(event.cancelable);  // true
+	
+}*/
+
+// stopPropagation()方法用于立即停止事件在DOM层次中的传播，即取消进一步的事件捕获或冒泡。
+
+var div1 = document.getElementById('div_1');
+var div2 = document.getElementById('div_2');
+var div3 = document.getElementById('div_3');
+
+/*div1.addEventListener('click', function (event) {
+	console.log('event div1');
+	// DOM先开始捕获，一旦同一个事件串里面，
+	// 父层发生捕获禁止，事件就只传播到这里，
+	// 其他子元素不能再接受事件
+	// 如果冒泡是最后传达到父层的，禁止发生也不会影响子层事件继续，只是那还有禁止的意义吗
+	event.stopPropagation();	
+}, true); // 设置捕获事件
+
+div2.addEventListener('click', function (event) {
+	console.log('event div2');
+}, false); // 设置捕获事件
+
+div3.addEventListener('click', function (event) {
+	console.log('event div3');
+}, false); // 设置捕获事件
+*/
+
+// 能不能click1只触发div1
+// click2触发div2
+// click3触发div3
+/*div1.addEventListener('click', function (event) {
+	console.log('event div1');
+	console.log(event.eventPhase);  
+}, false); // 设置捕获事件
+
+div2.addEventListener('click', function (event) {
+	console.log('event div2');
+	event.stopPropagation();
+}, false); // 设置捕获事件
+
+div3.addEventListener('click', function (event) {
+	console.log('event div3');
+	event.stopPropagation();
+}, false); // 设置捕获事件*/
+
+// eventPhase 可以用来确定事件当前正位于事件流的哪个阶段
+// 捕获阶段 1
+// 目标阶段 2
+// 冒泡阶段 3
+/*div1.addEventListener('click', function (event) {
+	console.log('event div1');
+	console.log(event.eventPhase);  
+}, false); // 设置捕获事件
+
+div2.addEventListener('click', function (event) {
+	console.log('event div2');
+	console.log(event.eventPhase);  
+}, true); // 设置捕获事件
+
+div3.addEventListener('click', function (event) {
+	console.log('event div3');
+	console.log(event.eventPhase);  
+}, false); // 设置捕获事件
+
+// event div2
+// 1
+// event div3
+// 2
+// event div1
+// 3
+*/
+
+// 只有在事件处理程序执行期间，event 对象才会存在；一旦事件处理程序执行完
+// 成，event 对象就会被销毁。
 
 // 2、IE中的事件对象
 
+// 要访问IE 中的event 对象有几种不同的方式，取决于指定事
+// 件处理程序的方法。在使用DOM0 级方法添加事件处理程序时，event 对象作为window 对象的一个
+// 属性存在
+
+var btn = document.getElementById('ieBtn');
+/*btn.onclick = function () {
+	var event = window.event;
+	console.log(event.type);	// click
+};*/
+
+// 可是，如果事件处理程序是使用attachEvent()添加的，那
+// 么就会有一个event 对象作为参数被传入事件处理程序函数中
+
+/*btn.attachEvent('onclick', function () {
+	// IE11 对象不支持“attachEvent”属性或方法
+	console.log(event.type);	// click IE10
+});*/
+
+
+// 如果是通过HTML特性指定的事件处理程序，那么还可以通过一个名叫event 的变量来访问event
+// 对象（与DOM 中的事件模型相同）。
+// <input type="button" value="Click Me" onclick="alert(event.type)">
+
+// IE 的event 对象同样也包含与创建它的事件相关的属性和方法。
+// 所有事件对象都会包含下表所列的属性和方法。
+/*
+属性/方法 				类 型 		读/写 		说 明
+cancelBubble 			Boolean 	读/写 		默认值为false，但将其设置为true就可以取消事件冒泡（与DOM中
+												的stopPropagation()方法的作用相同）
+
+returnValue 			Boolean 	读/写 		默认值为true，但将其设置为false就可以取消事件的默认行为（与
+												DOM中的preventDefault()方法的作用相同）
+
+srcElement 				Element 	只读 		事件的目标（与DOM中的target属性相同）
+
+type 					String 		只读 		被触发的事件的类型
+*/
+
+// 因为事件处理程序的作用域是根据指定它的方式来确定的，所以不能认为this 会始终等于事件目
+// 标。故而，最好还是使用event.srcElement 比较保险。
+
+/*btn.onclick = function  () {
+	console.log(window.event.srcElement === this); 		// true
+	console.log(event.srcElement);	// <input name="" id="ieBtn" type="button" value="Click Me_IE"></input>
+};
+
+btn.attachEvent('onclick', function (event) {
+	console.log(event.srcElement === this);			// false
+	console.log(event.srcElement);	// <input name="" id="ieBtn" type="button" value="Click Me_IE"></input>
+	console.log(this);	// [object Window]
+});*/
+
+// IE10 - 
+/*link.onclick = function () {
+	window.event.returnValue = false;
+}*/
+
+// cancelBubble属性与DOM中的stopPropagation()方法相同，都是用来停止事件冒泡的
+/*btn.onclick = function () {
+	console.log('clicked');
+	window.event.cancelBubble = true;
+};
+
+document.body.onclick = function () {
+	console.log('Body clicked');
+};*/
+
 // 3、跨浏览器的事件对象
 
+
+
+	
+
+var EventUtil = {
+	addHandler: function (element, type, handler) {
+		if (element.addEventListener) {
+			element.addEventListener(type, handler, false);
+		} else if (event.attachEvent) {
+			element.attachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = handler;
+		}
+	},
+
+	// 获取事件
+	getEvent: function (event) {
+		return event ? event : window.event;
+	},
+
+	// 获取事件绑定元素
+	getTarget: function (event) {
+		return event.target || event.srcElement;
+	},
+
+	// 阻止默认事件
+	preventDefault: function (event) {
+		if (event.preventDefault) {
+			event.preventDefault();	
+		} else {
+			event.returnValue = false;
+		}
+	},
+
+	// 移除事件
+	removeHandler: function (element, type, handler) {
+		if (element.removeEventListener) {
+			element.removeEventListener(type, handler, false);
+		} else if (element.detachEvent) {
+			element.detachEvent("on" + type, handler);
+		} else {
+			element["on" + type] = null;
+		}		
+	},
+
+	stopPropagation: function (event) {
+		if (event.stopPropagation) {
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = ture;
+		}
+	}
+}
 
 
 // 事件类型
@@ -431,21 +641,100 @@ link.onclick = function (event) {
 // UI事件
 /*
 	
-	load:
+	load: 当页面完全加载后在window 上面触发，
+		  当所有框架都加载完毕时在框架集上面触发，
+		  当图像加载完毕时在<img>元素上面触发，
+		  或者当嵌入的内容加载完毕时在<object>元素上面触发。
 
-	unload:
+	unload: 当页面完全卸载后在window 上面触发，
+			当所有框架都卸载后在框架集上面触发，
+			或者当嵌入的内容卸载完毕后在<object>元素上面触发。
 
-	abort:
+	abort: 在用户停止下载过程时，如果嵌入的内容没有加载完，则在<object>元素上面触发。
 	
-	error:
+	error:  当发生JavaScript 错误时在window 上面触发，
+			当无法加载图像时在<img>元素上面触发，
+			当无法加载嵌入内容时在<object>元素上面触发，
+			或者当有一或多个框架无法加载时在框架集上面触发。
 
-	select:
+	select: 当用户选择文本框（<input>或<texterea>）中的一或多个字符时触发。
 
-	resize:
+	resize: 当窗口或框架的大小变化时在window 或框架上面触发。
 
-	scroll:
+	scroll: 当用户滚动带滚动条的元素中的内容时，在该元素上面触发。
+			<body>元素中包含所加载页面的滚动条。
+	
+	多数这些事件都与window 对象或表单控件相关。
+	其他事件在DOM2 级事件中都归为HTML 事件（DOMActivate 在DOM2
+	级中仍然属于UI 事件）。
+
+*/
+// 要确定浏览器是否支持DOM2 级事件规定的HTML 事件，可以使用如下代码：
+
+var isSupported = document.implementation.hasFeature('HTMLEvents', '2.0');
+// console.log(isSupported);	// true
+
+// load，常用于window，保证window文档下载渲染完毕才开始操作DOM和事件处理
+// 		 image，添加image前进行布置load事件
+
+// image，一旦添加了.src就会下载图片，可以利用DOM中Image()进行先行添加图片
+/*EventUtil.addHandler(window, "load", function () {
+	var image = new Image();
+	EventUtil.addHandler(image, "load", function(event){
+		alert("Image loaded!");
+	})
+	image.src = "http://n1.itc.cn/img8/wb/recom/2015/12/22/145078405442878857.JPEG";
+});*/
+
+// <script>元素也会触发load事件，开发人员确定动态加载的JavaScript文件是否加载完毕
+/*只有在设置了<script>元素的src 属性并将该元素添加到文档后，才会开始下
+载JavaScript 文件。换句话说，对于<script>元素而言，指定src 属性和指定事件处理程序的先后顺
+序就不重要了。*/
+
+/*EventUtil.addHandler(window, 'load', function () {
+	var script = document.createElement('script');
+	EventUtil.addHandler(script, 'load', function (event) {
+		alert('loaded!');
+	});
+
+	script.src = "https://code.jquery.com/jquery-3.2.1.slim.min.js";
+	document.body.appendChild(script);
+});
+*/
+
+// unload
+// 与load 事件对应的是unload 事件，这个事件在文档被完全卸载后触发。只要用户从一个页面切
+// 换到另一个页面，就会发生unload 事件。而利用这个事件最多的情况是清除引用，以避免内存泄漏。
+// IE11 刷新时候触发，GC59没反应
+/*EventUtil.addHandler(window, 'unload', function (event) {
+	alert('Unloaded!');
+});*/
 
 
+// resize事件
+// 当浏览器窗口被调整到一个新的高度或宽度时，就会触发resize事件。
+/*EventUtil.addHandler(window, 'resize', function (event) {
+	alert("Resized");
+});*/
+
+
+// scroll事件
+/*虽然scroll 事件是在window 对象上发生的，但它实际表示的则是页面中相应元素的变化。在混
+杂模式下，可以通过<body>元素的scrollLeft 和scrollTop 来监控到这一变化；而在标准模式下，
+除Safari 之外的所有浏览器都会通过<html>元素来反映这一变化（Safari 仍然基于<body>跟踪滚动位
+置）
+*/
+/*
+EventUtil.addHandler(window, "scroll", function (event) {
+	if (document.compatMode == "CSS1Compat") {
+		alert(document.documentElement.scrollTop);
+	} else {
+		alert(document.body.scrollTop);		// 0
+	}
+});
+
+// scroll 事件也会在文档被滚动期间重复被触发，所以有必要尽量保持事件
+// 处理程序的代码简单。
 */
 
 // 焦点事件
