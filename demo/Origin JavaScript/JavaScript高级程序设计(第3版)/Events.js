@@ -346,28 +346,28 @@ var btn = document.getElementById('EOBtn');
 }, false);*/
 
 /*
-属性/方法 						类 型 				读/写 		说 明
-bubbles 						Boolean 			只读 		表明事件是否冒泡
-cancelable 						Boolean 			只读 		表明是否可以取消事件的默认行为
-currentTarget 					Element 			只读 		其事件处理程序当前正在处理事件的那个元素
-defaultPrevented 				Boolean 			只读 		为true 表示已经调用了preventDefault()
-																（DOM3级事件中新增）
-detail 							Integer 			只读 		与事件相关的细节信息
-eventPhase 						Integer 			只读 		调用事件处理程序的阶段：1表示捕获阶段，2表
-																示“处于目标”，3表示冒泡阶段
-preventDefault() 				Function 			只读 		取消事件的默认行为。如果cancelable是
-																true，则可以使用这个方法
-stopImmediatePropagation() 		Function 			只读 		取消事件的进一步捕获或冒泡，同时阻止任何
-																事件处理程序被调用（DOM3级事件中新增）
-stopPropagation() 				Function 			只读 		取消事件的进一步捕获或冒泡。如果bubbles
-																为true，则可以使用这个方法
-target 							Element 			只读 		事件的目标
-trusted 						Boolean 			只读 		为true表示事件是浏览器生成的。为false表
-																示事件是由开发人员通过JavaScript 创建的
-																（DOM3级事件中新增）
-type 							String 				只读 		被触发的事件的类型
-view 							AbstractView 		只读 		与事件关联的抽象视图。等同于发生事件的
-																window对象
+	属性/方法 						类 型 				读/写 		说 明
+	bubbles 						Boolean 			只读 		表明事件是否冒泡
+	cancelable 						Boolean 			只读 		表明是否可以取消事件的默认行为
+	currentTarget 					Element 			只读 		其事件处理程序当前正在处理事件的那个元素
+	defaultPrevented 				Boolean 			只读 		为true 表示已经调用了preventDefault()
+																	（DOM3级事件中新增）
+	detail 							Integer 			只读 		与事件相关的细节信息
+	eventPhase 						Integer 			只读 		调用事件处理程序的阶段：1表示捕获阶段，2表
+																	示“处于目标”，3表示冒泡阶段
+	preventDefault() 				Function 			只读 		取消事件的默认行为。如果cancelable是
+																	true，则可以使用这个方法
+	stopImmediatePropagation() 		Function 			只读 		取消事件的进一步捕获或冒泡，同时阻止任何
+																	事件处理程序被调用（DOM3级事件中新增）
+	stopPropagation() 				Function 			只读 		取消事件的进一步捕获或冒泡。如果bubbles
+																	为true，则可以使用这个方法
+	target 							Element 			只读 		事件的目标
+	trusted 						Boolean 			只读 		为true表示事件是浏览器生成的。为false表
+																	示事件是由开发人员通过JavaScript 创建的
+																	（DOM3级事件中新增）
+	type 							String 				只读 		被触发的事件的类型
+	view 							AbstractView 		只读 		与事件关联的抽象视图。等同于发生事件的
+																	window对象
 */
 
 /*在事件处理程序内部，对象this 始终等于currentTarget 的值，而target 则只包含事件的实
@@ -530,16 +530,16 @@ var btn = document.getElementById('ieBtn');
 // IE 的event 对象同样也包含与创建它的事件相关的属性和方法。
 // 所有事件对象都会包含下表所列的属性和方法。
 /*
-属性/方法 				类 型 		读/写 		说 明
-cancelBubble 			Boolean 	读/写 		默认值为false，但将其设置为true就可以取消事件冒泡（与DOM中
-												的stopPropagation()方法的作用相同）
+	属性/方法 				类 型 		读/写 		说 明
+	cancelBubble 			Boolean 	读/写 		默认值为false，但将其设置为true就可以取消事件冒泡（与DOM中
+													的stopPropagation()方法的作用相同）
 
-returnValue 			Boolean 	读/写 		默认值为true，但将其设置为false就可以取消事件的默认行为（与
-												DOM中的preventDefault()方法的作用相同）
+	returnValue 			Boolean 	读/写 		默认值为true，但将其设置为false就可以取消事件的默认行为（与
+													DOM中的preventDefault()方法的作用相同）
 
-srcElement 				Element 	只读 		事件的目标（与DOM中的target属性相同）
+	srcElement 				Element 	只读 		事件的目标（与DOM中的target属性相同）
 
-type 					String 		只读 		被触发的事件的类型
+	type 					String 		只读 		被触发的事件的类型
 */
 
 // 因为事件处理程序的作用域是根据指定它的方式来确定的，所以不能认为this 会始终等于事件目
@@ -762,9 +762,11 @@ var isSupported = document.implementation.hasFeature('HTMLEvents', '2.0');
 });*/
 
 // <script>元素也会触发load事件，开发人员确定动态加载的JavaScript文件是否加载完毕
-/*只有在设置了<script>元素的src 属性并将该元素添加到文档后，才会开始下
-载JavaScript 文件。换句话说，对于<script>元素而言，指定src 属性和指定事件处理程序的先后顺
-序就不重要了。*/
+/*
+	只有在设置了<script>元素的src 属性并将该元素添加到文档后，才会开始下
+	载JavaScript 文件。换句话说，对于<script>元素而言，指定src 属性和指定事件处理程序的先后顺
+	序就不重要了。
+*/
 
 /*EventUtil.addHandler(window, 'load', function () {
 	var script = document.createElement('script');
@@ -794,10 +796,11 @@ var isSupported = document.implementation.hasFeature('HTMLEvents', '2.0');
 
 
 // scroll事件
-/*虽然scroll 事件是在window 对象上发生的，但它实际表示的则是页面中相应元素的变化。在混
-杂模式下，可以通过<body>元素的scrollLeft 和scrollTop 来监控到这一变化；而在标准模式下，
-除Safari 之外的所有浏览器都会通过<html>元素来反映这一变化（Safari 仍然基于<body>跟踪滚动位
-置）
+/*
+	虽然scroll 事件是在window 对象上发生的，但它实际表示的则是页面中相应元素的变化。在混
+	杂模式下，可以通过<body>元素的scrollLeft 和scrollTop 来监控到这一变化；而在标准模式下，
+	除Safari 之外的所有浏览器都会通过<html>元素来反映这一变化（Safari 仍然基于<body>跟踪滚动位
+	置）
 */
 /*
 Eve
@@ -914,9 +917,11 @@ var Supported = document.implementation.hasFeature('MouseEvent', '3.0');	// Mous
 
 
 // 客户区坐标位置
-// 鼠标事件都是在浏览器视口中的特定位置上发生的。
-// 位置信息保存在事件对象的 clientX 和 clientY属性中。
-// 所有浏览器都支持这两个属性，它们的值表示事件发生时鼠标指针在视口中的水平和垂直坐标。
+/*
+	鼠标事件都是在浏览器视口中的特定位置上发生的。
+	位置信息保存在事件对象的 clientX 和 clientY属性中。
+	所有浏览器都支持这两个属性，它们的值表示事件发生时鼠标指针在视口中的水平和垂直坐标。
+*/
 
 // 获取鼠标事件的客户端坐标信息：
 /*var div = document.getElementById('myDiv');
@@ -939,9 +944,9 @@ EventUtil.addHandler(div, 'click', function (event) {
 // 在页面没有滚动的情况下，pageX 和pageY 的值与clientX 和clientY 的值相等。
 
 /*
-IE8 及更早版本不支持事件对象上的页面坐标，不过使用客户区坐标和滚动信息可以计算出来。这
-时候需要用到document.body（混杂模式）或document.documentElement（标准模式）中的
-scrollLeft 和scrollTop 属性。
+	IE8 及更早版本不支持事件对象上的页面坐标，不过使用客户区坐标和滚动信息可以计算出来。这
+	时候需要用到document.body（混杂模式）或document.documentElement（标准模式）中的
+	scrollLeft 和scrollTop 属性。
 */
 /*var div = document.getElementById('myDiv');
 EventUtil.addHandler(div, 'click', function (event) {
@@ -973,14 +978,14 @@ EventUtil.addHandler(div, 'click', function (event) {
 
 // 修改键
 /*
-虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要
-采取的操作。这些修改键就是Shift、Ctrl、Alt 和Meta（在Windows 键盘中是Windows 键，在苹果机中
-是Cmd 键），它们经常被用来修改鼠标事件的行为。
+	虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要
+	采取的操作。这些修改键就是Shift、Ctrl、Alt 和Meta（在Windows 键盘中是Windows 键，在苹果机中
+	是Cmd 键），它们经常被用来修改鼠标事件的行为。
 
-DOM 为此规定了4 个属性，表示这些修改键的状
-态：shiftKey、ctrlKey、altKey 和metaKey。这些属性中包含的都是布尔值，如果相应的键被按
-下了，则值为true，否则值为false。当某个鼠标事件发生时，通过检测这几个属性就可以确定用户
-是否同时按下了其中的键。
+	DOM 为此规定了4 个属性，表示这些修改键的状
+	态：shiftKey、ctrlKey、altKey 和metaKey。这些属性中包含的都是布尔值，如果相应的键被按
+	下了，则值为true，否则值为false。当某个鼠标事件发生时，通过检测这几个属性就可以确定用户
+	是否同时按下了其中的键。
 
 */
 
@@ -1146,31 +1151,32 @@ handleMouseWheel()函数可以用作两个事件的处理程序（如果指定�
 // 触摸设备
 
 /*
-iOS 和Android 设备的实现非常特别，因为这些设备没有鼠标。在面向iPhone 和iPod 中的Safari
-开发时，要记住以下几点。
-. 不支持dblclick 事件。双击浏览器窗口会放大画面，而且没有办法改变该行为。
-. 轻击可单击元素会触发mousemove 事件。如果此操作会导致内容变化，将不再有其他事件发生；
-如果屏幕没有因此变化，那么会依次发生mousedown、mouseup 和click 事件。轻击不可单
-击的元素不会触发任何事件。可单击的元素是指那些单击可产生默认操作的元素（如链接），或
-者那些已经被指定了onclick 事件处理程序的元素。
-. mousemove 事件也会触发mouseover 和mouseout 事件。
-. 两个手指放在屏幕上且页面随手指移动而滚动时会触发mousewheel 和scroll 事件。
+	iOS 和Android 设备的实现非常特别，因为这些设备没有鼠标。在面向iPhone 和iPod 中的Safari
+	开发时，要记住以下几点。
+	. 不支持dblclick 事件。双击浏览器窗口会放大画面，而且没有办法改变该行为。
+	. 轻击可单击元素会触发mousemove 事件。如果此操作会导致内容变化，将不再有其他事件发生；
+	如果屏幕没有因此变化，那么会依次发生mousedown、mouseup 和click 事件。轻击不可单
+	击的元素不会触发任何事件。可单击的元素是指那些单击可产生默认操作的元素（如链接），或
+	者那些已经被指定了onclick 事件处理程序的元素。
+	. mousemove 事件也会触发mouseover 和mouseout 事件。
+	. 两个手指放在屏幕上且页面随手指移动而滚动时会触发mousewheel 和scroll 事件。
 */
 
 
 // 无障碍性问题
-/*如果你的Web 应用程序或网站要确保残疾人特别是那些使用屏幕阅读器的人都能访问，那么在使
-用鼠标事件时就要格外小心。前面提到过，可以通过键盘上的回车键来触发click 事件，但其他鼠标
-事件却无法通过键盘来触发。为此，我们不建议使用click 之外的其他鼠标事件来展示功能或引发代
-码执行。因为这样会给盲人或视障用户造成极大不便。以下是在使用鼠标事件时应当注意的几个易访问
-性问题。
-. 使用click 事件执行代码。有人指出通过onmousedown 执行代码会让人觉得速度更快，对视
-力正常的人来说这是没错的。但是，在屏幕阅读器中，由于无法触发mousedown 事件，结果就
-会造成代码无法执行。
-. 不要使用onmouseover 向用户显示新的选项。原因同上，屏幕阅读器无法触发这个事件。如果
-确实非要通过这种方式来显示新选项，可以考虑添加显示相同信息的键盘快捷方式。
-. 不要使用dblclick 执行重要的操作。键盘无法触发这个事件。
-遵照以上提示可以极大地提升残疾人在访问你的Web 应用程序或网站时的易访问性。
+/*
+	如果你的Web 应用程序或网站要确保残疾人特别是那些使用屏幕阅读器的人都能访问，那么在使
+	用鼠标事件时就要格外小心。前面提到过，可以通过键盘上的回车键来触发click 事件，但其他鼠标
+	事件却无法通过键盘来触发。为此，我们不建议使用click 之外的其他鼠标事件来展示功能或引发代
+	码执行。因为这样会给盲人或视障用户造成极大不便。以下是在使用鼠标事件时应当注意的几个易访问
+	性问题。
+	. 使用click 事件执行代码。有人指出通过onmousedown 执行代码会让人觉得速度更快，对视
+	力正常的人来说这是没错的。但是，在屏幕阅读器中，由于无法触发mousedown 事件，结果就
+	会造成代码无法执行。
+	. 不要使用onmouseover 向用户显示新的选项。原因同上，屏幕阅读器无法触发这个事件。如果
+	确实非要通过这种方式来显示新选项，可以考虑添加显示相同信息的键盘快捷方式。
+	. 不要使用dblclick 执行重要的操作。键盘无法触发这个事件。
+	遵照以上提示可以极大地提升残疾人在访问你的Web 应用程序或网站时的易访问性。
 */
 
 
@@ -1217,38 +1223,38 @@ EventUtil.addHandler(textbox, 'keyup', function (event) {
 
 /*
 
-键 键 						码 		键 键 码
-退格（Backspace）			 8 		数字小键盘1 				97
-制表（Tab） 				 9 		数字小键盘2 				98
-回车（Enter） 				13 		数字小键盘3 				99
-上档（Shift）		    	16 		数字小键盘4 				100
-控制（Ctrl） 				17 		数字小键盘5 				101
-Alt 						18 		数字小键盘6 				102
-暂停/中断（Pause/Break） 	19 		数字小键盘7 				103
-大写锁定（Caps Lock） 		20 		数字小键盘8 				104
-退出（Esc） 				27 		数字小键盘9 				105
-上翻页（Page Up） 			33 		数字小键盘+ 				107
-下翻页（Page Down） 		34 		数字小键盘及大键盘上的- 	109
-结尾（End） 				35 		数字小键盘 . 				110
-开头（Home） 				36 		数字小键盘 / 				111
-左箭头（Left Arrow） 		37 		F1 							112
-上箭头（Up Arrow） 			38 		F2 							113
-右箭头（Right Arrow） 		39 		F3 							114
-下箭头（Down Arrow） 		40 		F4 							115
-插入（Ins） 				45 		F5 							116
-删除（Del） 				46 		F6 							117
-左Windows键 				91 		F7 							118
-右Windows键 				92 		F8 							119
-上下文菜单键 				93 		F9							120
-数字小键盘0 				96 		F10 						121
-F11 						122 	正斜杠 						191
-F12 						123 	沉音符（`） 				192
-数字锁（Num Lock） 			144 	等于 						61
-滚动锁（Scroll Lock） 		145 	左方括号 					219
-分号（IE/Safari/Chrome中） 	186 	反斜杠（\） 				220
-分号（Opera/FF中） 			59 		右方括号 					221
-小于 						188 	单引号 						222
-大于 						190
+	键 键 						码 		键 键 码
+	退格（Backspace）			 8 		数字小键盘1 				97
+	制表（Tab） 				 9 		数字小键盘2 				98
+	回车（Enter） 				13 		数字小键盘3 				99
+	上档（Shift）		    	16 		数字小键盘4 				100
+	控制（Ctrl） 				17 		数字小键盘5 				101
+	Alt 						18 		数字小键盘6 				102
+	暂停/中断（Pause/Break） 	19 		数字小键盘7 				103
+	大写锁定（Caps Lock） 		20 		数字小键盘8 				104
+	退出（Esc） 				27 		数字小键盘9 				105
+	上翻页（Page Up） 			33 		数字小键盘+ 				107
+	下翻页（Page Down） 		34 		数字小键盘及大键盘上的- 	109
+	结尾（End） 				35 		数字小键盘 . 				110
+	开头（Home） 				36 		数字小键盘 / 				111
+	左箭头（Left Arrow） 		37 		F1 							112
+	上箭头（Up Arrow） 			38 		F2 							113
+	右箭头（Right Arrow） 		39 		F3 							114
+	下箭头（Down Arrow） 		40 		F4 							115
+	插入（Ins） 				45 		F5 							116
+	删除（Del） 				46 		F6 							117
+	左Windows键 				91 		F7 							118
+	右Windows键 				92 		F8 							119
+	上下文菜单键 				93 		F9							120
+	数字小键盘0 				96 		F10 						121
+	F11 						122 	正斜杠 						191
+	F12 						123 	沉音符（`） 				192
+	数字锁（Num Lock） 			144 	等于 						61
+	滚动锁（Scroll Lock） 		145 	左方括号 					219
+	分号（IE/Safari/Chrome中） 	186 	反斜杠（\） 				220
+	分号（Opera/FF中） 			59 		右方括号 					221
+	小于 						188 	单引号 						222
+	大于 						190
 
  */
 
@@ -1256,11 +1262,12 @@ F12 						123 	沉音符（`） 				192
 // 发生keypress 事件意味着按下的键会影响到屏幕中文本的显示。在所有浏览器中，按下能够插入
 // 或删除字符的键都会触发keypress 事件；按下其他键能否触发此事件因浏览器而异。
 
-/*event 对象都支持一个charCode 属性，这个属性只有在发生
-keypress 事件时才包含值，而且这个值是按下的那个键所代表字符的ASCII 编码。此时的keyCode
-通常等于0 或者也可能等于所按键的键码*/
+/*
+	event 对象都支持一个charCode 属性，这个属性只有在发生
+	keypress 事件时才包含值，而且这个值是按下的那个键所代表字符的ASCII 编码。此时的keyCode
+	通常等于0 或者也可能等于所按键的键码*/
 
-// 要想以跨浏览器的方式取得字符编码，必须首先检测charCode 属性是否可用，如果不可用则使用keyCode
+	// 要想以跨浏览器的方式取得字符编码，必须首先检测charCode 属性是否可用，如果不可用则使用keyCode
 /* 
 
 这个方法首先检测charCode 属性是否包含数值（在不支持这个属性的浏览器中，值为undefined），
@@ -1278,7 +1285,8 @@ var EventUtil = {
 }
 */
 
-/*var textbox = document.getElementById('myText');
+/*
+var textbox = document.getElementById('myText');
 EventUtil.addHandler(textbox, 'keyup', function (event) {
 	event = EventUtil.getEvent(event);
 	var charCode = EventUtil.getCharCode(event);
@@ -1329,9 +1337,14 @@ EventUtil.addHandler(textbox, 'keyup', function (event) {
 });*/
 
 // getModifierState()方法，
-/*这个方法接收一个参数，即等于Shift、Control、AltGraph 或Meta 的字符串，
-表示要检测的修改键。如果指定的修改键是活动的（也就是处于被按下的状态），
-这个方法返回true，否则返回false。*/
+/*
+
+	这个方法接收一个参数，即等于Shift、Control、AltGraph 或Meta 的字符串，
+	表示要检测的修改键。如果指定的修改键是活动的（也就是处于被按下的状态），
+	这个方法返回true，否则返回false。
+
+*/
+
 /*var textbox = document.getElementById('myText');
 EventUtil.addHandler(textbox, 'keyup', function (event) {
 	event = EventUtil.getEvent(event);
@@ -1640,11 +1653,13 @@ EventUtil.addHandler(window, "load", function (event) {
 
 
 // beforeunload 事件
-/*为了让开发人员有可能在页面卸载前
-阻止这一操作。这个事件会在浏览器卸载页面之前触发，可以通过它来取消卸载并继续使用原有页面。
-但是，不能彻底取消这个事件，因为那就相当于让用户无法离开当前页面了。为此，这个事件的意图是
-将控制权交给用户。显示的消息会告知用户页面行将被卸载（正因为如此才会显示这个消息），询问用
-户是否真的要关闭页面，还是希望继续留下来*/
+/*
+	为了让开发人员有可能在页面卸载前
+	阻止这一操作。这个事件会在浏览器卸载页面之前触发，可以通过它来取消卸载并继续使用原有页面。
+	但是，不能彻底取消这个事件，因为那就相当于让用户无法离开当前页面了。为此，这个事件的意图是
+	将控制权交给用户。显示的消息会告知用户页面行将被卸载（正因为如此才会显示这个消息），询问用
+	户是否真的要关闭页面，还是希望继续留下来
+*/
 
 // 解释中说明，这个事件时有事件反馈的，但是我们需要改变事件反馈达到我们的效果
 /*var message = EventUtil.addHandler(window, "beforeunload", function (event) {
@@ -1708,13 +1723,14 @@ EventUtil.addHandler(window, "load", function (event) {
 	readystatechange 事件经常会少于4 次，而readyState 属性的值也不总是连续的。
  */
 
-/*对于document 而言，值为"interactive"的readyState 会在与DOMContentLoaded 大致相
-同的时刻触发readystatechange 事件。此时，DOM树已经加载完毕，可以安全地操作它了，因此就
-会进入交互（interactive）阶段。但与此同时，图像及其他外部文件不一定可用。下面来看一段处理
-readystatechange 事件的代码。
+/*
+	对于document 而言，值为"interactive"的readyState 会在与DOMContentLoaded 大致相
+	同的时刻触发readystatechange 事件。此时，DOM树已经加载完毕，可以安全地操作它了，因此就
+	会进入交互（interactive）阶段。但与此同时，图像及其他外部文件不一定可用。下面来看一段处理
+	readystatechange 事件的代码。
 
-交互(interactive)阶段，DOM树加载完成，与DOM进行交互，但有可能其他外部资源还没有加载完成，
-是否和DOMContentLoaded发生些什么呢？
+	交互(interactive)阶段，DOM树加载完成，与DOM进行交互，但有可能其他外部资源还没有加载完成，
+	是否和DOMContentLoaded发生些什么呢？
 */
 
 /*EventUtil.addHandler(document, 'readystatechange', function (event) {
@@ -1726,20 +1742,23 @@ readystatechange 事件的代码。
 */
 
 /*
-在与load 事件一起使用时，无法预测两个事件触发的先后顺序。在包含较多或较大的外部资源的
-页面中，会在load 事件触发之前先进入交互阶段；而在包含较少或较小的外部资源的页面中，则很难
-说readystatechange 事件会发生在load 事件前面。
-让问题变得更复杂的是，交互阶段可能会早于也可能会晚于完成阶段出现，无法确保顺序。在包含
-较多外部资源的页面中，交互阶段更有可能早于完成阶段出现；而在页面中包含较少外部资源的情况下，
-完成阶段先于交互阶段出现的可能性更大。因此，为了尽可能抢到先机，有必要同时检测交互和完成阶
-段，如下面的例子所示。
+	在与load 事件一起使用时，无法预测两个事件触发的先后顺序。在包含较多或较大的外部资源的
+	页面中，会在load 事件触发之前先进入交互阶段；而在包含较少或较小的外部资源的页面中，则很难
+	说readystatechange 事件会发生在load 事件前面。
+	让问题变得更复杂的是，交互阶段可能会早于也可能会晚于完成阶段出现，无法确保顺序。在包含
+	较多外部资源的页面中，交互阶段更有可能早于完成阶段出现；而在页面中包含较少外部资源的情况下，
+	完成阶段先于交互阶段出现的可能性更大。因此，为了尽可能抢到先机，有必要同时检测交互和完成阶
+	段，如下面的例子所示。
 */
 
-/*当readystatechange 事件触发时，会检测document.readyState 的值，
-看当前是否已经进入交互阶段或完成阶段。如果是，则移除相应的事件处理程序以免在其他阶段再执行。
-注意，由于事件处理程序使用的是匿名函数，因此这里使用了arguments.callee 来引用该函数。然
-后，会显示一个警告框，说明内容已经加载完毕。这样编写代码可以达到与使用DOMContentLoaded
-十分相近的效果。*/
+/*
+	当readystatechange 事件触发时，会检测document.readyState 的值，
+	看当前是否已经进入交互阶段或完成阶段。如果是，则移除相应的事件处理程序以免在其他阶段再执行。
+	注意，由于事件处理程序使用的是匿名函数，因此这里使用了arguments.callee 来引用该函数。然
+	后，会显示一个警告框，说明内容已经加载完毕。这样编写代码可以达到与使用DOMContentLoaded
+	十分相近的效果。
+
+*/
 /*EventUtil.addHandler(document, "readystatechange", function (event) {
 	if (document.readyState == 'interactive' || document.readyState == 'complete') {
 		EventUtil.removeHandler(document, 'readystatechange', arguments.callee);
@@ -1748,14 +1767,16 @@ readystatechange 事件的代码。
 	}
 });*/
 
-// DOM树完成，HTML的渲染也完成了呢？ 没有，DOM先完成，然后才渲染的
-// 一般发生的过程：
-// 发送请求：发送GET，请求url.html
-// 解析HTML并发送请求：解析HTML并且构建DOM树，发送GET请求，请求style.css和main.js
-// 解析样式：根据style.css创建CSSOM
-// 解析评估：main.js评估
-// 布局：基于HTML中的视窗meta生成布局
-// 绘制：绘制页面
+/*
+	DOM树完成，HTML的渲染也完成了呢？ 没有，DOM先完成，然后才渲染的
+	一般发生的过程：
+	发送请求：发送GET，请求url.html
+	解析HTML并发送请求：解析HTML并且构建DOM树，发送GET请求，请求style.css和main.js
+	解析样式：根据style.css创建CSSOM
+	解析评估：main.js评估
+	布局：基于HTML中的视窗meta生成布局
+	绘制：绘制页面
+*/
 
 // 部分浏览器<script><link>也会触发readystatechange事件，可以用来确定外部的JavaScript和CSS文件是否加载完成
 // <script> <link>添加到页面才会开始下载外部资源
@@ -1821,13 +1842,15 @@ readystatechange 事件的代码。
 });*/
 
 // haschange事件
-// HTML5 新增了hashchange 事件，以便在URL 的参数列表（及URL 中“#”号后面的所有字符串）
-// 发生变化时通知开发人员。之所以新增这个事件，是因为在Ajax 应用中，开发人员经常要利用URL 参
-// 数列表来保存状态或导航信息。
-// 必须要把hashchange 事件处理程序添加给window 对象，然后URL 参数列表只要变化就会调用
-// 它。此时的event 对象应该额外包含两个属性：oldURL 和newURL。这两个属性分别保存着参数列表
-// 变化前后的完整URL。
-// 
+/*
+	HTML5 新增了hashchange 事件，以便在URL 的参数列表（及URL 中“#”号后面的所有字符串）
+	发生变化时通知开发人员。之所以新增这个事件，是因为在Ajax 应用中，开发人员经常要利用URL 参
+	数列表来保存状态或导航信息。
+	必须要把hashchange 事件处理程序添加给window 对象，然后URL 参数列表只要变化就会调用
+	它。此时的event 对象应该额外包含两个属性：oldURL 和newURL。这两个属性分别保存着参数列表
+	变化前后的完整URL。
+*/
+
 
 /*EventUtil.addHandler(window, "hashchange", function(event){
 	alert("Old URL: " + event.oldURL + "\nNew URL: " + event.newURL);
@@ -1870,6 +1893,9 @@ var isSupported = ("onhashchange" in window) && (document.documentMode ===
 	devicemotion：设备什么时候移动，而不仅仅是设备方向如何改变。
 	
 	Android 版WebKit 实现了devicemotion 事件。
+	
+	Tingglelaoo - 探讨判断横竖屏的最佳实现 - 凹凸实验室
+	https://aotu.io/notes/2017/01/31/detect-orientation/
  */
 
 
@@ -2021,32 +2047,34 @@ EventUtil.addHandler(list, 'click', function (event) {
 
 // 事件委托技术，限制建立的链接数量
 
+
 //  移除事件处理程序：在不需要的时候移除事件处理程序
 //  内存中留有那些过时不用的“空事件处理程序”（dangling event handler），也是造成Web 应用程序内存与性能问题的主要原因。
 
-// 可能造成不需要的事件处理程序：
-// 		1、从文档中移除带有事件处理程序的元素时，没有移除在DOM上的事件处理程序
-// 			removeChild()/replacechild()/innerHTML()，造成原来的事件处理程序极有可能无法被当做垃圾回收。
-// 			的浏览器（尤其是IE）在这种情况下不会作出恰当地处理，它们很有可能会将对元素和
-//			对事件处理程序的引用都保存在内存中。如果你知道某个元素即将被移除，那么最好手工移除事件处理程序
-// 			
-// 			解决方案：
-// 			
-// 			// 设置innerHTML属性前，先执行移除操作
-// 			btn.onclick = null;  	// 移除事件处理程序
-// 			document.getElementById('myDiv').innerHTML = "Processing ……";
-// 		
-// 		2、卸载页面的时候。。如果在页面被卸载之前没有清理干净事件处理程序，那它们就会滞留在内存中。
-// 			每次加载完页面再卸载页面时（可能是在两个页面间来回切换，
-// 			也可以是单击了“刷新”按钮），内存中滞留的对象数目就会增加，
-// 			因为事件处理程序占用的内存并没有被释放
-// 			
-// 			解决方案：
-// 			页面卸载之前，通过onunload事件处理程序移除所有事件处理程序。
-// 			利用事件委托情况下，---需要跟踪的事件处理程序越少，移除透明就越容易。
-// 			
-// 			使用onunload 事件处理程序意味着页面不会被缓存在bfcache 中。
-
+/*
+	可能造成不需要的事件处理程序：
+		1、从文档中移除带有事件处理程序的元素时，没有移除在DOM上的事件处理程序
+			removeChild()/replacechild()/innerHTML()，造成原来的事件处理程序极有可能无法被当做垃圾回收。
+			的浏览器（尤其是IE）在这种情况下不会作出恰当地处理，它们很有可能会将对元素和
+			对事件处理程序的引用都保存在内存中。如果你知道某个元素即将被移除，那么最好手工移除事件处理程序
+			
+			解决方案：
+			
+			// 设置innerHTML属性前，先执行移除操作
+			btn.onclick = null;  	// 移除事件处理程序
+			document.getElementById('myDiv').innerHTML = "Processing ……";
+		
+		2、卸载页面的时候。。如果在页面被卸载之前没有清理干净事件处理程序，那它们就会滞留在内存中。
+			每次加载完页面再卸载页面时（可能是在两个页面间来回切换，
+			也可以是单击了“刷新”按钮），内存中滞留的对象数目就会增加，
+			因为事件处理程序占用的内存并没有被释放
+			
+			解决方案：
+			页面卸载之前，通过onunload事件处理程序移除所有事件处理程序。
+			利用事件委托情况下，---需要跟踪的事件处理程序越少，移除透明就越容易。
+			
+			使用onunload 事件处理程序意味着页面不会被缓存在bfcache 中。
+*/
 
 
 // 模拟事件
@@ -2095,10 +2123,10 @@ EventUtil.addHandler(list, 'click', function (event) {
 // 	button
 // 	relatedTarget
 /*
-显而易见，initMouseEvent()方法的这些参数是与鼠标事件的event 对象所包含的属性一一对
-应的。其中，前4 个参数对正确地激发事件至关重要，因为浏览器要用到这些参数；而剩下的所有参数
-只有在事件处理程序中才会用到。当把event 对象传给dispatchEvent()方法时，这个对象的target
-属性会自动设置
+	显而易见，initMouseEvent()方法的这些参数是与鼠标事件的event 对象所包含的属性一一对
+	应的。其中，前4 个参数对正确地激发事件至关重要，因为浏览器要用到这些参数；而剩下的所有参数
+	只有在事件处理程序中才会用到。当把event 对象传给dispatchEvent()方法时，这个对象的target
+	属性会自动设置
 */
 
 
@@ -2141,7 +2169,12 @@ var textbox = document.getElementById('myTextbox'),
 EventUtil.addHandler(textbox, 'keydown', function (event) {
 	event = EventUtil.getEvent(event);
 	// var key = EventUtil.getCharCode(event);
-	alert(event.data);
+	// if (event.getModifierState) {
+	// 	console.log(event.getModifierState('Shift'));		// GC/IE11/FF 数字键盘 3，其他无反应
+	// };
+	// alert(EventUtil.getCharCode(event));
+	var key = EventUtil.getCharCode(event)
+	console.log(key);
 });
 
 
