@@ -280,11 +280,10 @@ btn.detachEvent('onclick', handler);   // 匿名函数不可删除
 var EventUtil = {
 
 	/**
-	 * @param element {nodeElement} 需要绑定事件处理的元素
-	 * @param type {String} 需要绑定事件处理类型，如[on]click
-	 * @param handler {Function} 需要绑定事件处理
-	 *
-	 * @return {null} 绑定一个事件
+	 * 添加一个DOM事件处理程序
+	 * @param {[type]} element 需要绑定事件处理的元素
+	 * @param {[type]} type    需要绑定事件处理类型，如[on]click
+	 * @param {[type]} handler 需要绑定事件处理
 	 */
 	addHandler: function (element, type, handler) {
 		if (element.addEventListener) {
@@ -297,11 +296,11 @@ var EventUtil = {
 	},
 
 	/**
-	 * @param element {nodeElement} 需要移除的事件处理的元素
-	 * @param type {String} 需要移除的事件处理类型，如[on]click
-	 * @param handler {Function} 需要移除的事件处理
-	 *
-	 * @return {null} 移除的一个事件
+	 * EventUtil跨浏览器实现移除为DOM添加的监听事件
+	 * @param  {nodeElement} element 需要移除的事件处理的元素
+	 * @param  {String} type    需要移除的事件处理类型，如'on'click
+	 * @param  {Function} handler 需要移除的事件处理
+	 * @return {[null]}         移除事件处理
 	 */
 	removeHandler: function (element, type, handler) {
 		if (element.removeEventListener) {
@@ -576,11 +575,10 @@ document.body.onclick = function () {
 
 var EventUtil = {
 	/**
-	 * @param element {nodeElement} 需要绑定事件处理的元素
-	 * @param type {String} 需要绑定事件处理类型，如[on]click
-	 * @param handler {Function} 需要绑定事件处理
-	 *
-	 * @return {null} 绑定一个事件
+	 * 添加一个DOM事件处理程序
+	 * @param {[type]} element 需要绑定事件处理的元素
+	 * @param {[type]} type    需要绑定事件处理类型，如[on]click
+	 * @param {[type]} handler 需要绑定事件处理
 	 */
 	addHandler: function (element, type, handler) {
 		if (element.addEventListener) {
@@ -668,13 +666,12 @@ var EventUtil = {
 		}
 	},
 
-	// 移除事件
 	/**
-	 * @param element {nodeElement} 需要移除的事件处理的元素
-	 * @param type {String} 需要移除的事件处理类型，如[on]click
-	 * @param handler {Function} 需要移除的事件处理
-	 *
-	 * @return {null} 移除的一个事件
+	 * EventUtil跨浏览器实现移除为DOM添加的监听事件
+	 * @param  {nodeElement} element 需要移除的事件处理的元素
+	 * @param  {String} type    需要移除的事件处理类型，如'on'click
+	 * @param  {Function} handler 需要移除的事件处理
+	 * @return {[null]}         移除事件处理
 	 */
 	removeHandler: function (element, type, handler) {
 		if (element.removeEventListener) {

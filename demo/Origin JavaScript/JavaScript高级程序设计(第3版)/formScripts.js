@@ -60,12 +60,12 @@ console.log(form);
 
 // 使用EventUtil对象，以便于跨浏览器处理事件
 var EventUtil = {
+
 	/**
-	 * @param element {nodeElement} 需要绑定事件处理的元素
-	 * @param type {String} 需要绑定事件处理类型，如[on]click
-	 * @param handler {Function} 需要绑定事件处理
-	 *
-	 * @return {null} 绑定一个事件
+	 * 添加一个DOM事件处理程序
+	 * @param {[type]} element 需要绑定事件处理的元素
+	 * @param {[type]} type    需要绑定事件处理类型，如[on]click
+	 * @param {[type]} handler 需要绑定事件处理
 	 */
 	addHandler: function (element, type, handler) {
 		if (element.addEventListener) {
@@ -77,17 +77,31 @@ var EventUtil = {
 		}
 	},
 
-	// 获取事件
+
+	/**
+	 * getEvent获取事件
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getEvent: function (event) {
 		return event ? event : window.event;
 	},
 
-	// 获取事件绑定元素
+	/**
+	 * getTarget获取事件绑定元素
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getTarget: function (event) {
 		return event.target || event.srcElement;
 	},
 
-	// 相关元素获取
+
+	/**
+	 * getRelatedTarget相关元素获取
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getRelatedTarget: function (event) {
 		if (event.relatedTarget) {  // mouseover 和 mouseout事件才包含
 			return event.relatedTarget;
@@ -100,7 +114,11 @@ var EventUtil = {
 		}
 	},
 
-	// 获取鼠标按钮标记
+	/**
+	 * getButton获取鼠标按钮标记
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getButton: function (event) {
 		if (document.implementation.hasFeature("MouseEvent", "2.0")) {
 			return event.button;
@@ -122,7 +140,12 @@ var EventUtil = {
 		}
 	},
 
-	// 滚轮事件方向确定
+
+	/**
+	 * getWheelDelta滚轮事件方向确定
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getWheelDelta: function (event) {
 		if (event.wheelDelta) {
 			/*return (client.engine.opera && client.engine.opera < 9.5 :  // opera < 9.5 符号和上下滚相反
@@ -133,7 +156,12 @@ var EventUtil = {
 		}
 	},
 
-	// 获取字符编码
+
+	/**
+	 * getCharCode获取字符编码
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	getCharCode: function (event) {
 		if (typeof event.charCode == "number" && 
 			event.charCode != '0') {	// GC59 FF IE11打出来都是0
@@ -144,7 +172,12 @@ var EventUtil = {
 		}
 	},
 
-	// 阻止默认事件
+
+	/**
+	 * preventDefault阻止默认事件
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	preventDefault: function (event) {
 		if (event.preventDefault) {
 			event.preventDefault();	
@@ -153,13 +186,13 @@ var EventUtil = {
 		}
 	},
 
-	// 移除事件
+
 	/**
-	 * @param element {nodeElement} 需要移除的事件处理的元素
-	 * @param type {String} 需要移除的事件处理类型，如[on]click
-	 * @param handler {Function} 需要移除的事件处理
-	 *
-	 * @return {null} 移除的一个事件
+	 * EventUtil跨浏览器实现移除为DOM添加的监听事件
+	 * @param  {nodeElement} element 需要移除的事件处理的元素
+	 * @param  {String} type    需要移除的事件处理类型，如'on'click
+	 * @param  {Function} handler 需要移除的事件处理
+	 * @return {[null]}         移除事件处理
 	 */
 	removeHandler: function (element, type, handler) {
 		if (element.removeEventListener) {
@@ -171,7 +204,12 @@ var EventUtil = {
 		}		
 	},
 
-	// 阻止事件传播
+
+	/**
+	 * 阻止事件流传播，这里是统一为冒泡事件机制
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	stopPropagation: function (event) {
 		if (event.stopPropagation) {
 			event.stopPropagation();
@@ -194,17 +232,61 @@ var EventUtil = {
 
 var form = document.getElementById('myForm');
 
-// P431
+/*
+var form = document.getElementById('myForm');
+
+EventUtil.addHandler(form, 'submit', function (event) {
+	// 取得事件对象
+	event = EventUtil.getEvent(event);
+
+	// 阻止默认事件
+	EventUtil.preventDefault(event);
+});
+*/
+
+/*
+在JavaScript 中，以编程方式调用submit()方法也可以提交表单。而且，这种方式无需表单包含
+提交按钮，任何时候都可以正常提交表单。
+在以调用submit()方法的形式提交表单时，不会触发submit 事件，因此要记得在调用此方法之前先验证表单数据。*/
+/*var form = document.getElementById('myForm');
+// 提交表单
+form.submit();		// 会触发无限重交
+*/
 
 
+/*	
+提交表单可能出现的最大问题，就是重复提交表单。
+	原因：第一次提交表单后，如果长时间没有响应
+	表现：反复单击提交按钮
+	影响：1）服务器要重复处理请求；2）造成错误(例如，多次下订单)
+	解决：1）第一次提交表单之后禁用提交按钮
+		  2）利用onsubmit事件处理取消表单提交操作
+*/
 
 
+// 重置表单
+// type 特性值 reset <input> 或 <button>
+// 在重置表单时，所有表单字段都会恢复到页面刚加载完毕时的初始值。
+// 如果某个字段的初始值为空，就会恢复为空；而带有默认值的字段，也会恢复为默认值。
+/*<!-- 通用重置按钮 -->
+<input type="reset" name="" value="重置表单">
+
+<!-- 自定义重置按钮 -->
+<button type="reset">重置表单</button>*/
+
+// 阻止表单重置
+/*EventUtil.addHandler(form, 'reset', function (event) {
+	// 取得事件对象
+	event = EventUtil.getEvent(event);
+
+	// 阻止表单重置
+	EventUtil.preventDefault(event);
+});*/
+// 是否一个表单，只要把操作的事件绑定在form即可，不要绑定在精确的按钮？
 
 
-
-
-
-
+// 重置表单
+// form.reset();
 
 
 

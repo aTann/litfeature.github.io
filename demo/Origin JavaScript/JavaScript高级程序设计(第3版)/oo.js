@@ -3,18 +3,53 @@
 // 面向对象(Object-Oriented, OO)：
 
 // 对象 基于一个引用类型创建
+// “无序属性的集合，其属性可以包含基本值、对象或者函数”
 
 // 创建自定义对象的最简单方式就是创建一个Object 的实例，然后再为它添加
 // 属性和方法
 // 
-// 先流行对象字面量创建对象
+// 现流行对象字面量创建对象
 
 
 // 属性类型：
 
+// 数据属性
+/*
+	[[Configurable]] ：表示能否通过delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。默认值为true
+	
+	[[Enumerable]]：表示能否通过for-in 循环返回属性。默认值为true。
+	
+	[[Writable]]：表示能否修改属性的值。默认值为true
+	
+	[[Value]]：包含这个属性的数据值。读取属性值的时候，从这个位置读；
+			   写入属性值的时候，把新值保存在这个位置。这个特性的默认值为undefined。
+
+*/
+
+// 访问器属性
+/*
+	[[Configurable]]：表示能否通过delete 删除属性从而重新定义属性，
+					  能否修改属性的特性，或者能否把属性修改为数据属性。
+					  对于直接在对象上定义的属性，这个特性的默认值为true。
+
+	[[Enumerable]]：表示能否通过for-in 循环返回属性。
+					对于直接在对象上定义的属性，这个特性的默认值为true。
+
+	[[Get]]：在读取属性时调用的函数。默认值为undefined。
+
+	[[Set]]：在写入属性时调用的函数。默认值为undefined。
+	
+	这是使用访问器属性的常见方式，即设置一个属性的值会导致其他属性发生变化。
+*/
+
+// 
 
 // 创建对象：
 // 工厂模式：
+
+// 抽象了创建具体对象的过程。
+// 具体实现：使用一种函数，用函数来封装以特定接口创建对象的细节
+
 /*
 function createPerson(name, age, job) {
 	var o = new Object();
@@ -405,8 +440,28 @@ var friend = Person('Nicholas', 29, 'Software Engineer');
 friend.sayName(); 	// Nicholas
 
 */
+
+
+
+
+
+
+
+
 // 继承
-// 原型链
+/*
+	Function.prototype  
+	Function.constructor
+
+	原型链 - 包含引用类型值的原型属性会被所有实例共享
+	基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法
+	基本概念：让原型对象等于另一个类型的实例，此时的原型对象将包含一个指向另一个原型的指针，
+			  相应地，另一个原型中也包含着一个指向另一个构造函数的指针。
+			  假如另一个原型又是另一个类型的实例，那么上述关系依然成立，
+			  如此层层递进，就构成了实例与原型的链条。
+	继承实现的本质：重写原型对象，代之以一个新类型的实例。从而让新类型的实例中的属性和方法也存在与 被重写原型对象的对象中。
+
+*/
 
 // 基本模式
 // 
@@ -443,6 +498,11 @@ console.log(instance.subproperty); // false
 console.log(instance.constructor)  // [Function: SuperType]  因改写过指向 SuperType
 console.log();
 */
+
+
+// 默认的原型：Object实例
+// 我们知道，所有引用类型默认都继承了Object，而这个继承也是通过原型链实现的。
+// 所有函数的默认原型都是Object 的实例，因此默认原型都会包含一个内部指针，指向Object.prototype
 
 // 确定原型和实例的关系
 // 1、instanceof 确认
@@ -521,7 +581,7 @@ function SubType() {
 // 继承了SuperType
 SubType.prototype = new SuperType();
 
-// 添加新方法
+// 利用字面量添加新方法
 SubType.prototype = {
 	getSubValue : function () {
 		return this.subproperty;
@@ -536,11 +596,12 @@ SubType.prototype = {
 
 var instance = new SubType();
 // console.log(instance.getSuperValue());	// TypeError: instance.getSuperValue is not a function
+// 使用字面量添加新方法，会导致继承失败，原型链被切开
 
 */
 
 
-// 原型链的问题
+// 原型链的问题：复合数据引用类型，会被所有的子类进行共享
 /*
 function SuperType() {
 	this.colors = ['red', 'blue', 'green'];
@@ -562,6 +623,9 @@ console.log(instance2.colors);	// [ 'red', 'blue', 'green', 'black' ]
 console.log(SuperType.prototype.isPrototypeOf('instance1')); // false
 console.log(SubType.prototype);  	// SuperType { colors: [ 'red', 'blue', 'green', 'black' ] }
 */
+
+
+
 
 
 // 借用构造函数 --函数无法复用
@@ -607,12 +671,22 @@ console.log(instance.age);		// 29
 */
 
 
+
+
+
 // 组合继承(combination inheritance)
 // 原型链和构造函数技术组合
-// 实现函数复用
-// 保证每个实例都有它自己的属性
-/*
-function SuperType(name) {
+// 其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。
+// 运行链：实现函数复用
+// 构造函数：保证每个实例都有它自己的属性
+
+// 组合继承最大的问题[ --- 解决方法：寄生式组合继承]
+// 			就是无论什么情况下，都会调用两次超类型构造函数：
+// 				一次是在创建子类型原型的时候，
+// 				另一次是在子类型构造函数内部。
+// 				子类型最终会包含超类型对象的全部实例属性，但我们不得不在调用子类型构造函数时重写这些属性。
+
+/*function SuperType(name) {
 	this.name = name;
 	this.colors = ['red', 'blue', 'green'];
 }
@@ -633,7 +707,11 @@ function SubType(name, age) {
 SubType.prototype = new SuperType();
 // console.log(SubType.prototype.constructor);		// [Function: SuperType]
 
-// SubType.prototype.constructor = SubType;	// 为什么要重置构造函数呢？
+// 为什么要重置构造函数呢？
+// 1、重写原型之后，会失去构造函数(constructor)
+		// 2、既然已经获取了超类的构造函数，那么没有必要再去使用超类的构造函数
+		// 3、作为子类需要有自己独特的构造函数
+SubType.prototype.constructor = SubType;	
 
 SubType.prototype.sayAge = function () {
 	console.log(this.age);
@@ -650,13 +728,28 @@ console.log(instance2.colors);	// [ 'red', 'blue', 'green' ]
 instance2.sayName();	// Greg
 instance2.sayAge();		// 27
 
+// SubType 构造函数指向 SuperType，有着 SuperType 的方法和属性，但构造函数还是自身的
+console.log(SubType.prototype);		
+// SubType {
+//   name: undefined,
+//   colors: [ 'red', 'blue', 'green' ],
+//   constructor: [Function: SubType],
+//   sayAge: [Function] }
+
+console.log(instance2 instanceof SubType);		// true
+console.log(instance2 instanceof SuperType);		// true
+
+console.log(SubType.prototype.isPrototypeOf(instance2));  // true
+
 */
 
 
 // 原型式继承
 // 借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。
+// 使用空间：在没有必要兴师动众地创建构造函数，而只想让一个对象与另一个对象保持类似的情况下，原型式继承时完全可以胜任的
+// 不足：包含引用类型的属性始终都会共享相应的值，就像使用原型模式一样
 
-
+/*
 function object(o) {
 	// 创建临时性的构造函数
 	function F() { }
@@ -672,7 +765,7 @@ function object(o) {
 var person = {
 	name : 'Nicholas',
 	friends : ['Shelby', 'Court', 'Van']
-};
+};*/
 
 /*var anotherPerson = object(person);
 anotherPerson.name = 'Greg';
@@ -686,7 +779,12 @@ console.log(person.friends);	// [ 'Shelby', 'Court', 'Van', 'Rob', 'Barbie' ]
 
 */
 
-// ES5 Object.create()方法
+// ES5 Object.create()方法：其实就是上面 object() 函数的规范化
+// 接受两个参数：
+// 		一个用作新对象原型的对象：例子中person
+// 		一个为新对象定义额外属性的对象(可选)：与Object.defineProperties()方法的第二个参数格式相同：
+// 											  每个属性都是通过自己的描述符定义的。
+// 											  以这种方式指定的任何属性都会覆盖原型对象上的同名属性。
 /*
 var anotherPerson = Object.create(person);
 anotherPerson.name = 'Greg';
@@ -699,8 +797,33 @@ yetAnotherPerson.friends.push('Baribie');
 console.log(person.friends);	// [ 'Shelby', 'Court', 'Van', 'Rob', 'Baribie' ]
 */
 
-// 寄生式继承
+
+
+
+
+
+
+
+// 寄生式继承 --  增强对象 主要考虑对象而不是自定义类型和构造函数
+// 思路：与寄生构造函数和工厂模式类似，
+// 		 即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真地是它做了所有工作一样返回对象。
+//  使用空间：在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式。
+//  		  示范继承模式时使用的object()函数不是必需的
+//  		 任何能够返回新对象的函数都适用于此模式。
+// 不足：使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率
+
 /*
+// 原型式继承 范式
+function object(o) {
+	// 创建临时性的构造函数
+	function F() { }
+	// 传入对象作为这个构造函数的原型
+	F.prototype = o;
+	// 返回这个临时类型的一个新实例
+	return new F();
+	// object()对传入其中的对象执行了一次浅复制
+}
+
 function createAnother(original) {
 	var clone = object(original);	// 通过调用函数创建一个新对象
 	clone.sayHi = function () {		// 以某种方式来增强这个对象
@@ -717,9 +840,14 @@ var person = {
 var anotherPerson = createAnother(person);
 anotherPerson.sayHi();	// Hi
 
-// 主要考虑对象而不是自定义类型和构造函数
-// 不能做到函数复用而降低效率（和构造函数模式类似）
 */
+
+
+
+
+
+
+
 
 // 寄生组合式继承
 // 组合继承：无论什么情况下，都会调用两次超类型构造函数，
@@ -745,7 +873,7 @@ function SubType(name, age) {
 // 继承方法
 SubType.prototype = new SuperType();	// 第一次调用SuperType()
 // console.log(SubType.prototype.constructor);		// [Function: SuperType]
-SubType.prototype.constructor = SubType;	// 抛弃原型链式继承属性，但是测试有没有一个样子啊？
+SubType.prototype.constructor = SubType;
 // console.log(SubType.prototype.constructor);		// [Function: SubType]
 SubType.prototype.sayAge = function () {
 	console.log(this.age);
@@ -758,19 +886,38 @@ console.log(friend1.colors);	// [ 'red', 'blue', 'green', 'black' ]
 var friend2 = new SubType();
 console.log(friend2.colors);	// [ 'red', 'blue', 'green' ]
 
-// console.log(SuperType.prototype.isPrototypeOf(SubType));	// false
+// console.log(SuperType.prototype.isPrototypeOf(friend2));	// true
+// console.log(SubType.prototype.isPrototypeOf(friend2));	// true
 // console.log(SubType.prototype.constructor);		// [Function: SuperType]
 */
 
 
 // 所谓寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。
-// 背后的基本思想：不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型原型的一个副本而已。
+// 基本思想：不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型原型的一个副本而已。
 // 本质上，就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。
 // 寄生组合式继承的基本模式如下所示：
+/*
+// 原型式继承 范式
+// object()对传入其中的对象执行了一次浅复制
+function object(o) {
+	// 创建临时性的构造函数
+	function F() { }
+	// 传入对象作为这个构造函数的原型
+	F.prototype = o;
+	// 返回这个临时类型的一个新实例
+	return new F();
+	
+}
+
+// 基本思想：只要超类型原型的一个副本，不要属性
+// 本质上：就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。
 function inheritPrototype(subType, superType) {
-	var prototype = object(superType.prototype);	// 创建对象
-	prototype.constructor = subType;	// 增强对象
-	subType.prototype = prototype;		// 指定对象
+	// 利用object()函数[原型式继承]，进行了本来第一次进行的对象调用
+	// 因为object()函数调用，退出之后作用域/变量对象会销毁，这样就本来保留的两组属性，少了第一组
+	var prototype = object(superType.prototype);	// 创建对象，	
+	
+	prototype.constructor = subType;				// 增强对象
+	subType.prototype = prototype;					// 指定对象
 }
 
 function SuperType(name) {
@@ -813,3 +960,8 @@ console.log(SuperType.prototype.isPrototypeOf(instance));	// true
 console.log(SubType.prototype.isPrototypeOf(instance));	// true
 
 console.log(friend instanceof SubType);	// true
+*/
+
+			// 2017-8-16 15:41:14 再读+更新 
+
+
