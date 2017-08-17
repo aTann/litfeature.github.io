@@ -288,13 +288,171 @@ form.submit();		// 会触发无限重交
 // 重置表单
 // form.reset();
 
+/*
+	在Web 表单设计中，重置表单通常意味着对已经填写的数据不满意。重置表单
+	经常会导致用户摸不着头脑，如果意外地触发了表单重置事件，那么用户甚至会很恼
+	火。事实上，重置表单的需求是很少见的。更常见的做法是提供一个取消按钮，让用
+	户能够回到前一个页面，而不是不分青红皂白地重置表单中的所有值。
+
+*/
 
 
+// 表单字段
+// 使用原生DOM方法访问表单元素
+// 每个表单都有elements属性，该属性是表单中所有表单元素(字段)的集合。
+// 这个elements集合是一个有序列表，其中包含着表单中所有的字段，例如<input>、<textarea>、<button>、<fieldset>.
+// 每个表单字段在elements集合中的顺序，与它们出现在标记中的顺序相同，可以按照位置和name特性来访问它们。
+/*
+// 取得表单中第一个字段
+var field = form.elements[0];
+
+// 取得名为 textbox1 的字段
+var filed2 = form.elements['textbox1'];
+
+// 取得表单中包含的字段的数量
+var fieldCount = form.elements.length;
+
+console.log(field);		// <fieldset>我是一个表单元素</fieldset>
+
+console.log(filed2);	// <input type="text" name="textbox1">
+
+console.log(fieldCount);		// 6
+*/
+
+// 如果有多个表单控件都在使用一个 name (如单选按钮)，那么就会返回以该 name 命名的一个 NodeList。
+
+/*
+var colorFields = form.elements['color'];
+console.log(colorFields.length);	//3
+
+var firstColorField = colorFields[0];
+var firstFormField = form.elements[0];
+console.log(firstColorField == firstFormField);		// true
+
+// 通过form.elements[0]访问到的第一个表单字段，与包含在form.elements["color"]中的第一个元素相同。
+*/
+/*
+	也可以通过访问表单的属性来访问元素，例如form[0]可以取得第一个表单字
+	段，而form["color"]则可以取得第一个命名字段。这些属性与通过elements 集
+	合访问到的元素是相同的。但是，我们应该尽可能使用elements，通过表单属性访
+	问元素只是为了与旧浏览器向后兼容而保留的一种过渡方式。
+*/
+
+// 公有的表单字段属性：
+// disabled：布尔值，表示当前字段是否被禁用
+// form：指向当前字段所属表单的指针；只读
+// name：当前字段的名称
+// readOnly：布尔值，表示当前字段是否只读，可以用DOM event.blur()实现
+// tabIndex：表示当前字段的切换(tab)序号
+// type：当前字段的类型，如“checkbox”、“radio”
+// value：当前字段将被提交给服务器的值。对文件字段来说，这个属性是只读，包含着文件在计算机中的路径
+/*
+var field = form.elements[0];
+
+// 修改value的属性
+field.value = 'pink';
+
+// 检查 form 属性的值
+console.log(field.form == form);	// true
+
+// 把焦点设置到当前字段
+field.focus();
+
+// 禁用当前字段
+field.disabled = true;
+
+// 修改type属性(不推荐，但对<input>来说是可行的)
+field.type = 'checkbox';
+*/
+// 能够动态修改表单字段属性，意味着我们可以在任何时候，以任何方式来动态操作表单。
+
+// 很多用户可能会重复单击表单的提交按钮。在涉及信用卡消费时，这就是个问题：因为会导致费用翻番。为此，最常见的解决方案，就是在第一次单击后就禁用提交按钮。只要侦听submit 事件，并在该事件发生时禁用提交按钮即可。
 
 
+// 避免多次提交按钮
+// 一旦提交之后就会跳转，重新进入页面，禁用是否有用呢？
+EventUtil.addHandler(form, "submit", function (event) {
+	
+	event = EventUtil.getEvent(event);
+	// event.preventDefault();
+	var target = EventUtil.getTarget(event);
+
+	// 获取提交按钮
+	var btn = target.elements["submit-btn"];
+
+	// 禁用它
+	btn.disabled = true;
+	// alert(btn.disabled);
+});
+// 最好是通过submit 事件来禁用提交按钮。不过，这种方式不适合表单中不包含提交按钮的情况
+
+// 注意，不能通过onclick 事件处理程序来实现这个功能，原因是不同浏览器之间存在“时差”：有的浏览器会在触发表单的submit 事件之前触发click 事件，而有的浏览器则相反。
 
 
+/*
+	说 明 				HTML示例 							type属性的值
+	单选列表 			<select>...</select> 				"select-one"
+	多选列表 			<select multiple>...</select> 		"select-multiple"
+	自定义按钮 			<button>...</button> 				"submit"
+	自定义非提交按钮 	<button type="button">...</button> 	"button"
+	自定义重置按钮 		<button type="reset">...</buton> 	"reset"
+	自定义提交按钮 		<button type="submit">...</buton> 	"submit"
+
+*/
 
 
+// 公有的表单字段方法
 
+// focus()	用于将浏览器的焦点设置到表单字段，即激活表单字段，使其可以响应键盘事件。
+// 			使用focus()方法，可以将用户的注意力吸引到页面中的某个部位
+// 			可以侦听页面的load 事件，并在该事件发生时在表单的第一个字段上调用focus()方法
+// 			如第一个是<input type="hidden">，代码会发生错误，需要代码进行过滤input[type=hidden]
+// 			HTML5 autofocus属性，不需要js focus
 
+/*
+EventUtil.addHandler(window, 'load', function (event) {
+	var element = document.forms[0].elements[0];
+	// 因为autofocus 是一个布尔值属性，所以在支持的浏览器中它的值应该是true。
+	// （在不支持的浏览器中，它的值将是空字符串）
+	if (element.autofocus != true) {
+		element.focus();
+	}
+
+	// 前提：tabIndex = -1; 
+	// div.focus(); 确实可以聚焦
+	// var div = document.getElementsByTagName('div')[1];
+	// div.focus();
+	// console.log(div);
+});*/
+
+	/*
+		在默认情况下，只有表单字段可以获得焦点。对于其他元素而言，如果先将其tabIndex 属性设置为1，然后再调用focus()方法，也可以让这些元素获得焦点。只有Opera 不支持这种技术。
+	*/
+
+// blur()
+// 那时候的表单字段还没有readonly 特性，因此就可以使用blur()方法来创建只读字段。
+// 现在，虽然需要使用blur()的场合不多了，但必要时还可以使用的
+
+// document.forms[0].elements[0].blur();
+
+// 公有的表单字段事件
+/*
+除了支持鼠标、键盘、更改和HTML 事件之外，所有表单字段都支持下列3 个事件。
+. blur：当前字段失去焦点时触发。
+. change：对于<input>和<textarea>元素，在它们失去焦点且value 值改变时触发；对于
+<select>元素，在其选项改变时触发。
+. focus：当前字段获得焦点时触发。
+*/
+/*
+当用户改变了当前字段的焦点，或者我们调用了blur()或focus()方法时，都可以触发blur 和
+focus 事件。这两个事件在所有表单字段中都是相同的。但是，change 事件在不同表单控件中触发的
+次数会有所不同。对于<input>和<textarea>元素，当它们从获得焦点到失去焦点且value 值改变时，
+才会触发change 事件。对于<select>元素，只要用户选择了不同的选项，就会触发change 事件；
+换句话说，不失去焦点也会触发change 事件。
+*/
+/*
+通常，可以使用focus 和blur 事件来以某种方式改变用户界面，要么是向用户给出视觉提示，要
+么是向界面中添加额外的功能（例如，为文本框显示一个下拉选项菜单）。而change 事件则经常用于
+验证用户在字段中输入的数据。例如，假设有一个文本框，我们只允许用户输入数值。此时，可以利用
+focus 事件修改文本框的背景颜色，以便更清楚地表明这个字段获得了焦点。可以利用blur 事件恢复
+文本框的背景颜色，利用change 事件在用户输入了非数值字符时再次修改背景颜色。*/

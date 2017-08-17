@@ -3,6 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Form Scripts</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<style type="text/css">
+		div:focus{background-color: red;}
+	</style>
 </head>
 <body>
 <!-- 
@@ -20,20 +24,48 @@
 	
 	</form> 
 -->
+	<div class="container">
+		<!-- <form id="myForm" class="col-sm-12">
+			<fieldset>我是一个表单元素</fieldset>
+			<input type="text" name="" placeholder="Are you OK ?" >
+			<button type='submit'>Submit Form</button>
+			通用重置按钮
+			<input type="reset" name="" value="重置表单">
+		
+			自定义重置按钮
+			<button type="reset">重置表单</button>
+			
+			这里有一个textbox
+			<input type="text" name="textbox1">
+		</form> -->
+		<form id="myForm" method="post" role="form">
+			<ul>
+				<li class="radio">
+					<input type="text" name="colors" placeholder="Yellow" class="form-control">
+				</li>
+				<li class="radio">
+					<input type="radio" name="color" value="red">Red
+				</li>
+				
+				<li class="radio">
+					<input type="radio" name="color" value="green">Green
+				</li>
+				
+				<li class="radio">
+					<input type="radio" name="color" value="blue">Blue
+				</li>
+				<input type="submit" name="submit-btn" value="Submit Form" class="btn btn-primary">
+			</ul>
+		</form>
+		<div tabindex="-1">
+			哈哈
+		</div>
+	</div>
 	
-	<form id="myForm">
-		<input type="text" name="" placeholder="Are you OK ?" >
-		<button type='submit'>Submit Form</button>
-		<!-- 通用重置按钮 -->
-		<input type="reset" name="" value="重置表单">
-
-		<!-- 自定义重置按钮 -->
-		<button type="reset">重置表单</button>
-	</form>
 
 
 
-
+	
 	<script type="text/javascript" src="formScripts.js"></script>
 </body>
 </html>
