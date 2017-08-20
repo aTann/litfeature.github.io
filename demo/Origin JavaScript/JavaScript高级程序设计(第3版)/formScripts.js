@@ -448,7 +448,7 @@ EventUtil.addHandler(window, 'load', function (event) {
 focus 事件。这两个事件在所有表单字段中都是相同的。但是，change 事件在不同表单控件中触发的
 次数会有所不同。对于<input>和<textarea>元素，当它们从获得焦点到失去焦点且value 值改变时，
 才会触发change 事件。对于<select>元素，只要用户选择了不同的选项，就会触发change 事件；
-换句话说，不失去焦点也会触发change 事件。
+换句话说，不失去焦点也会触发 change 事件。
 */
 /*
 通常，可以使用focus 和blur 事件来以某种方式改变用户界面，要么是向用户给出视觉提示，要
@@ -456,3 +456,40 @@ focus 事件。这两个事件在所有表单字段中都是相同的。但是�
 验证用户在字段中输入的数据。例如，假设有一个文本框，我们只允许用户输入数值。此时，可以利用
 focus 事件修改文本框的背景颜色，以便更清楚地表明这个字段获得了焦点。可以利用blur 事件恢复
 文本框的背景颜色，利用change 事件在用户输入了非数值字符时再次修改背景颜色。*/
+
+var textbox = document.forms[0].elements[0];
+
+// 一旦 textbox 获取焦点就会发生背景色改变
+EventUtil.addHandler(textbox, 'focus', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	if (target.style.backgroundColor != 'red') {
+		target.style.backgroundColor = 'yellow';
+	}
+});
+
+EventUtil.addHandler(textbox, 'blur', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	// 检测输入的值，如果不是数字就会变红
+	if (/[^\d]/.test(target.value)) {
+		target.style.backgroundColor = 'red';
+	} else {
+		target.style.backgroundColor = '';
+	}
+});
+
+// textbox 发生改变之后，如果值不是数字就会变红
+EventUtil.addHandler(textbox, 'change', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	// 检测输入的值，如果不是数字就会变红
+	if (/[^\d]/.test(target.velue)) {
+		target.style.backgroundColor = 'red';
+	} else {
+		target.style.backgroundColor = '';
+	}
+});
