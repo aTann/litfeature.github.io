@@ -493,3 +493,33 @@ EventUtil.addHandler(textbox, 'change', function (event) {
 		target.style.backgroundColor = '';
 	}
 });
+
+// 使用正则作为验证
+
+/*
+	关于blur 和change 事件的关系，并没有严格的规定。在某些浏览器中，blur
+	事件会先于change 事件发生；而在其他浏览器中，则恰好相反。为此，不能假定这
+	两个事件总会以某种顺序依次触发，这一点要特别注意。
+ */
+
+
+
+// 文本框脚本
+// 有两种方式来表现文本框：一种是使用<input>元素的单行文本框，另一种是使用<textarea>的多行文本框。
+
+// 文本框：<input type="text">
+// type：type="text"
+// size：指定文本框中能够显示的字符数：size="能够显示的字符数"
+// value：设置文本框的初始值
+// maxlength：用于指定文本框可以接受的最大字符数
+
+
+
+
+
+
+
+
+
+
+
