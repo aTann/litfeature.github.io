@@ -100,15 +100,21 @@ person2.sayName();
 // 2、直接将属性和方法赋给了this对象；
 // 3、没有return语句。
 
-// 要创建Person的新实例，必须使用new操作符，
-// 这种方式调用构造函数实际上会经历以下4步骤：
-// 1）创建一个新对象；
-// 2）将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；
-// 3）执行构造函数中的代码（为这个新对象添加属性）
-// 4）返回新对象。
+/*
+	要创建Person的新实例，必须使用new操作符，
+	这种方式调用构造函数实际上会经历以下4步骤：
+	1）创建一个新对象；
+	2）将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；
+	3）执行构造函数中的代码（为这个新对象添加属性）
+	4）返回新对象。
+*/
 
 // person1 和 person2分别保存这个Person的一个不同的示例。
 // 这个两个对象都有一个contructor(构造函数)熟悉，该属性指向Person
+
+// 对象的constructor 属性最初是用来标识对象类型的
+
+// 提到检测对象类型，还是instanceof操作符要更可靠一些
 
 /*console.log(person1.constructor == Person); // true
 console.log(person2.constructor == Person); // true
@@ -117,11 +123,16 @@ console.log(person1.constructor); // [Function: Person]
 console.log(person1 instanceof Object); // true
 console.log(person1 instanceof Person); // true*/
 
+// 创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型，而这正是构造函数模式胜过工厂模式的地方
+
 
 // 调用构造函数
 // 1、当做构造函数使用
 /*var person1 = new Person('Nicholas', 29, 'Software Engineer');
 var person2 = new Person('Greg', 27, 'Doctor');*/
+
+// 任何函数，只要通过 new 操作符来调用，那它就可以作为构造函数；
+// 而任何函数，如果不通过 new 操作符来调用，那它跟普通函数也不会有什么两样。
 
 
 // 2、作为普通函数调用
@@ -138,6 +149,9 @@ o.sayName();*/
 
 
 // 构造函数的主要问题：每个方法都要在每个实例上重新创建一篇。
+
+
+
 
 
 
@@ -963,5 +977,8 @@ console.log(friend instanceof SubType);	// true
 */
 
 			// 2017-8-16 15:41:14 再读+更新 
+
+
+// 原型链上的继承和构造函数的属性，不会发生交接，如果原型链上继承和构造函数的属性(函数)同名，优先选择构造函数的属性
 
 

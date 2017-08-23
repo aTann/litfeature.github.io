@@ -207,8 +207,8 @@ var EventUtil = {
 
 	/**
 	 * 阻止事件流传播，这里是统一为冒泡事件机制
-	 * @param  {[type]} event [description]
-	 * @return {[type]}       [description]
+	 * @param  {String} event [description]
+	 * @return {undefined}       [description]
 	 */
 	stopPropagation: function (event) {
 		if (event.stopPropagation) {
@@ -427,6 +427,7 @@ EventUtil.addHandler(window, 'load', function (event) {
 
 	/*
 		在默认情况下，只有表单字段可以获得焦点。对于其他元素而言，如果先将其tabIndex 属性设置为1，然后再调用focus()方法，也可以让这些元素获得焦点。只有Opera 不支持这种技术。
+		在 IE11 中，<div> 不需要设置 tabIndex = -1 也会触发 focus 样式改变
 	*/
 
 // blur()
@@ -456,7 +457,7 @@ focus 事件。这两个事件在所有表单字段中都是相同的。但是�
 验证用户在字段中输入的数据。例如，假设有一个文本框，我们只允许用户输入数值。此时，可以利用
 focus 事件修改文本框的背景颜色，以便更清楚地表明这个字段获得了焦点。可以利用blur 事件恢复
 文本框的背景颜色，利用change 事件在用户输入了非数值字符时再次修改背景颜色。*/
-
+/*
 var textbox = document.forms[0].elements[0];
 
 // 一旦 textbox 获取焦点就会发生背景色改变
@@ -494,6 +495,9 @@ EventUtil.addHandler(textbox, 'change', function (event) {
 	}
 });
 
+*/
+
+
 // 使用正则作为验证
 
 /*
@@ -513,13 +517,198 @@ EventUtil.addHandler(textbox, 'change', function (event) {
 // value：设置文本框的初始值
 // maxlength：用于指定文本框可以接受的最大字符数
 
+// <input type="text" name="color" size="10" maxlength="15" value="initial value" class="form-control">
+/*
+	多行文本框：textarea
+	rows + cols:指定文本框大小
+	rows：指定文本框的字符行数
+	cols:指定文本框的字符列数
+	初始值需要放在<textarea></textarea>中间
+
+	文本框都可以通过 .value 进行修改和获取值
+	
+	不建议使用标准的 DOM 方法，也就是不要使用 setAttribute() 设置 <input> 元素的 value 特性，也不要去修改 <textarea> 元素的第一个子节点。
+	原因：对 value 属性所作的修改，不一定会反映在DOM中
+
+*/
+
+// 选择文本
+/*
+	select() 方法，这个方法用于选择文本框中的所有文本。
+	在调用 select() 方法时，大多数浏览器都会将焦点设置到文本框中。
+	select() 不接受参数，可以在任何时候被调用
+ */
+/*
+var textbox = document.forms[0].elements[0]
+// console.log(textbox);
+textbox.select();
+
+*/
+
+/*// 在文本框获得焦点时选择其所有文本，这是一种非常常见的做法，特别是在文本框包含默认值的时候。因为这样做可以让用户不必一个一个地删除文本。
+
+// 只要文本框获得焦点，就会选择其中所有的文本
+var textbox = document.forms[0].elements[0];
+EventUtil.addHandler(textbox, 'focus', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	target.select();
+});
+*/
+
+// 选择(select)事件
+// select()对应的是一个select事件。在选择了文本框中的文本时，就会触发 select 事件。
+// 到底什么时候触发 select 事件，还会因浏览器而已
+// 有的用户选择了文本(而且要释放鼠标)，才会触发 select 事件
+// 有的浏览器 (IE8) 只要用户选择了一个字母(不必释放鼠标)，就会触发 select 事件
+/*
+var textbox = document.forms[0].elements[0];
+EventUtil.addHandler(textbox, 'select', function (event) {
+	var event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+	alert('Text selected ' + target.value);
+});
+*/
+
+// 取得选择的文本
+
+// selectionStart：文本选区开头
+// selectionEnd：结尾的偏移量
+// 这两个属性中保存的是基于 0 的数值，表示所选择文本的范围(即文本选区开头和结尾的偏移量)
+
+// IE8：document.selection 对象，其中保存着用户在整个文档范围内选择
+// 的文本信息；也就是说，无法确定用户选择的是页面中哪个部位的文本。
+// 在与 select 事件一起使用的时候，可以假定是用户选择了文本框中的文本，
+// 因而触发了该事件。
+// 要取得选择的文本，首先必须创建一个范围，然后在将文本从其中提取出来
+/*
+function getSelectedText(textbox) {
+	if (typeof textbox.selectionStart == 'number') {
+		return textbox.value.substring(textbox.selectionStart, 
+									   textbox.selectionEnd);
+	} else if (document.selection) {
+		// IE8情况下，一旦开始选择就会发生 select 事件，能够选择的字符数不多
+		// 需要设置 抖动函数
+		return document.selection.createRange().text;
+	}
+	
+}
+
+var textbox = document.forms[0].elements[0];
 
 
+// 绑定事件和抖动函数 不够契合
+// 使用抖动函数，对 非IE8 浏览器有延迟
+EventUtil.addHandler(textbox, 'select', debounce(function (event) {
+	var event = EventUtil.getEvent(event);
+	// var target = EventUtil.getTarget(event);
+	alert('Text selected ' + getSelectedText(textbox));
+	
+}, 300));
 
 
+function debounce(fn, delay) {
+	var timer;
+	return function () {
 
+		var context = this;
+		var args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+			fn.apply(context, args)
+		}, delay);
+	}
+		
+}
 
+*/
 
+// 选择部分文本
+// HTML5 为选择文本框中的部分文本提供了解决方案，
+// setSelectionRange(): 所有文本框除 select() 之外的共有函数，
+// 两个参数：要选择的第一字符的索引 和  最后一个字符之后的字符的索引(类似substring(start:int, end:int)方法的两个参数)
+
+/*
+// 配置 focus() 一起使用
+
+var textbox = document.forms[0].elements[0];
+console.log(textbox.value);
+textbox.value = 'Hellow world!';
+
+textbox.focus();
+
+// 选择所有文本
+// textbox.setSelectionRange(0, textbox.value.length);
+
+// 选择前 3 个字符
+// textbox.setSelectionRange(0, 3);
+
+// 选择前 4 到 6 个字符
+textbox.setSelectionRange(4, 7);
+*/
+
+// IE8 
+/*
+	1、所有文本框上提供的 createTextRange() 方法创建一个范围，并将其放置恰当的位置
+	2、使用collaase()将范围折叠到文本框的开始位置，moveStart() 和 moveEnd() 将范围起点和终点移动到相同的位置
+	3、使用 moveStart() 和 moveEnd() 这两个范围方法将范围移动到位，只需要给 moveEnd() 传入要选择的字符总数即可
+	4、使用范围的 select() 方法选择文本
+
+*/
+/*var textbox = document.forms[0].elements[0];
+textbox.value = 'Hellow world!';
+
+var range = textbox.createTextRange();
+
+// 选择所有的文本
+range.collapse(true);
+range.moveStart('character', 0);
+range.moveEnd('character', textbox.value.length);
+range.select();
+
+// 选择前 3 个字符
+range.collapse(true);
+range.moveStart('character', 0);
+range.moveEnd('character', 3);
+range.select();
+
+// 选择前 4 到 6 个字符
+range.collapse(true);
+range.moveStart('character', 4);
+range.moveEnd('character', 3);
+range.select();
+*/
+
+// 可以做兼容函数
+// 需要传入，要操作的文本框，选择文本起始位置索引，选择文本结束位置索引
+
+// 过滤输入
+// 用于要求用户在文本框中输入特定的数据，或者输入特定格式的数据。
+
+// 1、屏蔽字符
+// 我们需要用户输入的文本中包含或不包含某些字符
+// 阻止按键的 keypress 事件的默认行为
+/*var textbox = document.forms[0].elements[0];
+EventUtil.addHandler(textbox, "keypress", function(event){
+	event = EventUtil.getEvent(event);
+	EventUtil.preventDefault(event);
+});
+*/
+
+// 检测按钮进行屏蔽
+// 文本框就会忽略所有输入的非数值。
+var textbox = document.forms[0].elements[0];
+EventUtil.addHandler(textbox, "keypress", function(event){
+	event = EventUtil.getEvent(event);
+	// 获取字符编码
+	var charCode = EventUtil.getCharCode(event);
+	// 用String.fromCharCode()将字符编码转换成字符串，再使用正则表达式 /\d/ 来测试该字符串，从而确定用户输入的是不是数值
+	if (!/\d/.test(String.fromCharCode(charCode))) {
+		EventUtil.preventDefault(event);
+	}
+	
+});
 
 
 
