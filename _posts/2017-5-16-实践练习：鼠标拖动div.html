@@ -54,6 +54,12 @@ title: 实践练习：鼠标拖动div
             <br /> 鼠标下按(mousedown)：获取鼠标当前点击点坐标(e.pageX, e.pageY) - (left, top) = (_x, _y)
             <br /> 鼠标拖动(mousemove)：获取停靠点坐标(e.pageX, e.pageY) - (_x, _y) = (x, y)
             <br /> 鼠标放开(mouseup): 事件完成，取消mousemove操作
+            <br />
+            <br />需要限制拖动元素的范围，否则会被拖出外框范围，在全 document 进行乱转
+            <br />在此处，使用了直接绑定小小的拖动元素 box，会产生一定的延迟和容易失去焦点
+            <br />如果可以使用 委托 事件，将 event 事件放置 Document/parent Element
+            <br />
+            <br />可以事件侦听器函数进行实现，就不会发生焦点的失去，以至于 event 错乱
         </p>
     </div>
     <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
@@ -63,33 +69,59 @@ title: 实践练习：鼠标拖动div
         // 整个事件过程：
         // 鼠标下按(mousedown)-鼠标拖动(mouseover)-鼠标放开(mouseup)
 
+        // 整个事件的位置偏移的坐标是对于页面视口来说的，这会让拖动的元素跑出 灰色区域，这不是我们想要的
+        // 
+        
+        // 外框的定位坐标(left,top)
+        var wl = $(".wrapper").offset().left,
+            wt = $(".wrapper").offset().top,
+        
+        // 外框的宽高(width,height) 
+            ww = $(".wrapper").width(),
+            wh = $(".wrapper").height(),
+
+        // 拖动元素的宽高(width,height) 
+            bw = $('.box').width(),
+            bh = $('.box').height();
+
+        $("#xyOffset").html("坐标值:(" + parseInt($(".box").css("left")) + "," + parseInt($(".box").css("top")) + ")");
+        
         var _move = false;
         var _x, _y;
         // alert($(".box").html())
         $(".box").mousedown(function(e) {
             _move = true;
-            _x = e.pageX - parseInt($(".box").css("left"));
-            _y = e.pageY - parseInt($(".box").css("top"))
-            $("#xyOffset").html("坐标值:(" + _x + "," + _y + ")");
-            $(".box").fadeTo(20, 0.5); //点击后开始拖动并透明显示  
+            _x = e.pageX - parseInt($(".box").css("left"))/2;
+            _y = e.pageY - parseInt($(".box").css("top"))/2;
+            
+            $(".box").fadeTo(20, 0.5); // 点击后开始拖动并透明显示  
         });
         $(".box").mousemove(function(e) {
             if (_move) {
-                var x = e.pageX - _x; //移动时根据鼠标位置计算控件左上角的绝对位置  
-                var y = e.pageY - _y;
+                var ePageX = e.pageX,
+                    ePageY = e.pageY;
+                var x = ePageX - _x, // 移动时根据鼠标位置计算控件左上角的绝对位置  
+                    y = ePageY - _y;
+
                 $(".box").css({
-                    top: y,
-                    left: x
+                    // 限制 拖动元素不能被拖出 外框
+                    // 补充之后，方法会产生 一些延迟和事情的失去焦点 
+                    // [可能这是该种注册事件的缺点] --- 其实这个直接绑定的原因，
+                    // 一旦脱离 $(".box") 元素就是脱离焦点，可以利用事情委托进行，
+                    // 将事情绑定在 document 里面，至少绑在一个更大的空间
+                    top: y > 0 ? ( y < wh - bh ? y : wh - bh ) : 0,
+                    left: x > 0 ? (x < ww - bw ? x : ww - bw ) : 0
+                    // 参考：
+                    //      defcc - javascript简单拖拽(鼠标事件 mousedown mousemove mouseup)
+                    //      http://www.cnblogs.com/NNUF/archive/2012/04/02/2430132.html
                 }); //控件新位置  
+                // $("#xyOffset").html("坐标值:(" + x + "," + y + ")");
                 $("#xyOffset").html("坐标值:(" + e.pageX + "," + e.pageY + ")");
             }
         });
         $(".box").mouseup(function() {
             _move = false;
-            $(".box").fadeTo("fast", 1); //松开鼠标后停止移动并恢复成不透明  
+            $(".box").fadeTo("fast", 1); // 松开鼠标后停止移动并恢复成不透明  
         });
-
-
-
     });
     </script>
