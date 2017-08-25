@@ -698,17 +698,55 @@ EventUtil.addHandler(textbox, "keypress", function(event){
 
 // 检测按钮进行屏蔽
 // 文本框就会忽略所有输入的非数值。
-var textbox = document.forms[0].elements[0];
+/*var textbox = document.forms[0].elements[0];
 EventUtil.addHandler(textbox, "keypress", function(event){
 	event = EventUtil.getEvent(event);
 	// 获取字符编码
 	var charCode = EventUtil.getCharCode(event);
 	// 用String.fromCharCode()将字符编码转换成字符串，再使用正则表达式 /\d/ 来测试该字符串，从而确定用户输入的是不是数值
-	if (!/\d/.test(String.fromCharCode(charCode))) {
+	// 有些浏览器会对向上键、向下键、退格键和删除键触发keypress 事件；
+	// 还要避免屏蔽这些极为常用和必要的键
+	// 在Firefox 中，所有由非字符键触发的keypress 事件对应的字符编码为0，
+	// 而在Safari 3 以前的版本中，对应的字符编码全部为8。
+	// 为了让代码更通用，只要不屏蔽那些字符编码小于10 的键即可。
+	// 
+	// 还有一个问题需要处理：复制、粘贴及其他操作还要用到Ctrl 键。在除IE 之外的所有
+	// 	浏览器中，前面的代码也会屏蔽Ctrl+C、Ctrl+V，以及其他使用Ctrl 的组合键。因此，最后还要添加一
+	// 	个检测条件，以确保用户没有按下Ctrl 键
+	if (!/\d/.test(String.fromCharCode(charCode && charCode > 9 && !event.ctrlKey))) {
 		EventUtil.preventDefault(event);
 	}
+	// Google chrome 未能禁止 Backspace 事件以及其他 功能按钮
+	// 然后其他的数字按键也被禁止了
+	// 即使检测了所有的条件，但是使用中文(东亚)输入法时候，会导致事情失效，也就是说使用中文输入法可以绕过对 利用字符编码按键输入的禁止
 	
 });
+*/
 
+
+/*
+HTML 5 后来也把剪贴板事件纳入了规范。下列就是6 个剪贴板事件。
+ beforecopy：在发生复制操作前触发。
+ copy：在发生复制操作时触发。
+ beforecut：在发生剪切操作前触发。
+ cut：在发生剪切操作时触发。
+ beforepaste：在发生粘贴操作前触发。
+ paste：在发生粘贴操作时触发。
+*/
+
+/*
+	在Safari、Chrome 和Firefox中，beforecopy、beforecut 和beforepaste 事件只会在显示针对文本框的上下文菜单（预期将发
+	生剪贴板事件）的情况下触发。但是，IE 则会在触发copy、cut 和paste 事件之前先行触发这些事件。
+	至于copy、cut 和paste 事件，只要是在上下文菜单中选择了相应选项，或者使用了相应的键盘组合
+	键，所有浏览器都会触发它们。
+
+
+	在实际的事件发生之前，通过beforecopy、beforecut 和beforepaste 事件可以在向剪贴板发
+	送数据，或者从剪贴板取得数据之前修改数据。
+	不过，取消这些事件并不会取消对剪贴板的操作——只有取消copy、cut 和paste 事件，才能阻止相应操作发生。
+*/
+
+// 要访问剪贴板中数据：
+// clipboardData 对象
 
 
