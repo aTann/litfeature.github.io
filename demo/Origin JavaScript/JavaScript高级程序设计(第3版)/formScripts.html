@@ -24,7 +24,7 @@
 	
 	</form> 
 -->
-	<div class="container">
+	<div class="container" id="box">
 		<!-- <form id="myForm" class="col-sm-12">
 			<fieldset>我是一个表单元素</fieldset>
 			<input type="text" name="" placeholder="Are you OK ?" >
@@ -42,7 +42,7 @@
 			<ul>
 				<li class="radio">
 					<!-- <input type="text" name="colors" placeholder="Yellow" class="form-control"> -->
-					<input type="text" name="textbox" placeholder="Yellow" class="form-control" value="initial value">
+					<input type="text" name="textbox" placeholder="Yellow" class="form-control">
 				</li>
 				<li class="radio">
 					<input type="text" name="color" size="10" maxlength="15" value="initial value" class="form-control">
@@ -62,10 +62,35 @@
 			</ul>
 		</form>
 		<div tabindex="-1">
-			哈哈
+			哈哈，老子有 tabindex = "-1" 属性，可以进行 :focus 变焦变脸
 		</div>
+		<form id="form1" method="post" role="form">
+			<input type="text" name="tel1" id="txtTel1" maxlength="3" class="form-control">
+			<input type="text" name="tel2" id="txtTel2" maxlength="3" class="form-control">
+			<input type="text" name="tel3" id="txtTel3" maxlength="4" class="form-control">
+			
+			<select name="location" id="selLocation" multiple="multiple" class="form-control" size="5">
+				<option value="Sunnyvale, CA">Sunnyvale</option>
+				<option value="Los Angeles, CA">Los Angeles</option>
+				<option value="Mountain View, CA">Mountain View</option>
+				<!-- value="" 因为 value 是空的，得到的值也是空值 -->
+				<option value="">China</option> 
+				<!-- 因为没有特别标注 value，所有选择获取的值为 <option> 标签内的值 -->
+				<option>Australia</option> 
+			</select>
+
+			<select name="location2" id="selLocation2" multiple="" class="form-control" size="5">
+				
+			</select>
+		</form>
 	</div>
 	
+	<iframe src="Editing.html" name="richedit" style="height: 200px; width: 200px;"></iframe>
+
+	<div style="width: 200px; height: 200px; background-color: #ffc;" contenteditable>
+		发发发
+	</div>
+
 	<script type="text/javascript" src="formScripts.js"></script>
 </body>
 </html>
