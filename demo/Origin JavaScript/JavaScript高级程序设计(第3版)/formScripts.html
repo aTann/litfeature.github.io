@@ -60,6 +60,7 @@
 				</li>
 				<input type="submit" name="submit-btn" value="Submit Form" class="btn btn-primary">
 			</ul>
+			<input type="hidden" name="comments">
 		</form>
 		<div tabindex="-1">
 			哈哈，老子有 tabindex = "-1" 属性，可以进行 :focus 变焦变脸
@@ -87,7 +88,7 @@
 	
 	<iframe src="Editing.html" name="richedit" style="height: 200px; width: 200px;"></iframe>
 
-	<div style="width: 200px; height: 200px; background-color: #ffc;" contenteditable>
+	<div id="richedit" style="width: 200px; height: 200px; background-color: #ffc;" contenteditable>
 		发发发
 	</div>
 

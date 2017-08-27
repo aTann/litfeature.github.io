@@ -1358,3 +1358,93 @@ var result = frames["richedit"].document.queryCommandEnabled("bold");
 // var fontSize = frames["richedit"].document.queryCommandValue("fontsize");
 
 
+// 富文本选区
+
+/*
+	在富文本编辑器中，使用框架（iframe）的getSelection()方法，可以确定实际选择的文本。
+	这个方法是window 对象和document 对象的属性，调用它会返回一个表示当前选择文本的Selection
+	对象。每个Selection 对象都有下列属性。
+	
+	anchorNode: 选区起点所在的节点。
+	anchorOffset: 在到达选区起点位置之前跳过的anchorNode 中的字符数量。
+	focusNode: 选区终点所在的节点。
+	focusOffset: focusNode 中包含在选区之内的字符数量。
+	isCollapsed: 布尔值，表示选区的起点和终点是否重合。
+	rangeCount: 选区中包含的DOM 范围的数量。
+	
+	addRange(range): 将指定的DOM 范围添加到选区中。
+	collapse(node, offset): 将选区折叠到指定节点中的相应的文本偏移位置。
+	collapseToEnd(): 将选区折叠到终点位置。
+	collapseToStart(): 将选区折叠到起点位置。
+	containsNode(node): 确定指定的节点是否包含在选区中。
+	deleteFromDocument(): 从文档中删除选区中的文本，与document.execCommand("delete",false, null)命令的结果相同。
+	extend(node, offset): 通过将focusNode 和focusOffset 移动到指定的值来扩展选区。
+	getRangeAt(index): 返回索引对应的选区中的DOM范围。
+	removeAllRange(): 从选区中移除所有DOM 范围。实际上，这样会移除选区，因为选区中至少要有一个范围。
+	removeRange(range): 从选区中移除指定的DOM 范围。
+	selectAtChildren(node): 清除选区并选择指定节点的所有子节点。
+	toString(): 返回选区所包含的文本内容。
+*/
+
+
+/* 未测试
+var selection = frames["richedit"].getSelection();
+//取得选择的文本
+var selectedText = selection.toString();
+//取得代表选区的范围
+var range = selection.getRangeAt(0);
+//突出显示选择的文本
+var span = frames["richedit"].document.createElement("span");
+span.style.backgroundColor = "yellow";
+range.surroundContents(span);
+*/
+
+// IE8
+/*
+	通过它支持的selection 对象操作选择的文本。
+	IE 中的selection 对象是document 的属性，本章前面曾经讨论过。要取得富文本编辑器中选择的文
+	本，首先必须创建一个文本范围（请参考第12 章中的相关内容），然后再像下面这样访问其text 属性。
+*/
+
+// var range = frames["richedit"].document.selection.createRange();
+// var selectedText = range.text;
+
+
+// 要像前面使用DOM 范围那样实现相同的文本高亮效果，可以组合使用htmlText 属性和
+// pasteHTML()方法。
+
+// var range = frames["richedit"].document.selection.createRange();
+// range.pasteHTML("<span style=\"background-color:yellow\"> " + range.htmlText +"</span>");
+
+// 以上代码通过htmlText 取得了当前选区中的HTML，然后将其放在了一对<span>标签中，最后又使用pasteHTML()将结果重新插入到了选区中。
+
+// 表单与富文本
+/*
+	富文本编辑是使用 iframe 而非表单控件实现的，从技术上说，富文本编辑器并不属于表单。
+	富文本编辑器中的 HTML 不会被自动提交给服务器，而需要我们手工来提取并提交 HTML
+	通常可以添加一个隐藏的表单字段，让它的值等于从iframe 中提取出的HTML。具体来说，就是在提交表单之前，从iframe 中提取出HTML，并将其插入到隐藏的字段中
+*/
+
+/*
+EventUtil.addHandler(form, 'submit', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	target.elements['comments'].value = frames['richedit'].document.body.innerHTML;
+});
+*/
+
+// 对于contenteditable元素，也可以执行类似操作。
+
+/*
+EventUtil.addHandler(form, 'submit', function (event) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	target.elements['comments'].value = 
+		document.getElementById('richedit').innerHTML || 
+		document.getElementById('richedit').contentText;
+});
+*/
+
+
