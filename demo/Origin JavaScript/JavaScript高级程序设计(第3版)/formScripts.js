@@ -14,7 +14,7 @@
 // HTMLFormElement独有的属性和方法：
 // acceptCharset[= HTML: accept-charset]: 服务器能够处理的字符集
 // action[= HTML: action]: 接受请求的URL
-// elements: 表单中所有控件的集合（HTMLCollection）。
+// elements: 表单中所有控件的集合（HTMLFormElement）。
 // enctype[= HTML: enctype]: 请求的编码类型
 // length: 表单中控件的数量
 // method[= HTML: method]: 要发送的HTTP 请求类型，通常是"get"或"post"
@@ -66,6 +66,7 @@ var EventUtil = {
 	 * @param {[type]} element 需要绑定事件处理的元素
 	 * @param {[type]} type    需要绑定事件处理类型，如[on]click
 	 * @param {[type]} handler 需要绑定事件处理
+	 * 
 	 */
 	addHandler: function (element, type, handler) {
 		if (element.addEventListener) {
@@ -221,12 +222,9 @@ var EventUtil = {
 
 
 /*
-只要表单中存在上面列出的任何一种按钮，那么在相应表单控件拥有焦点的情况下，按回车键就可
-以提交该表单。（textarea 是一个例外，在文本区中回车会换行。）如果表单里没有提交按钮，按回车
-键不会提交表单。
+	只要表单中存在上面列出的任何一种按钮，那么在相应表单控件拥有焦点的情况下，按回车键就可以提交该表单。（textarea 是一个例外，在文本区中回车会换行。）如果表单里没有提交按钮，按回车键不会提交表单。
 
-以这种方式提交表单时，浏览器会在将请求发送给服务器之前触发submit 事件。这样，我们就有
-机会验证表单数据，并据以决定是否允许表单提交。阻止这个事件的默认行为就可以取消表单提交
+	以这种方式提交表单时，浏览器会在将请求发送给服务器之前触发submit 事件。这样，我们就有机会验证表单数据，并据以决定是否允许表单提交。阻止这个事件的默认行为就可以取消表单提交
 
 */
 
@@ -322,15 +320,16 @@ console.log(fieldCount);		// 6
 // 如果有多个表单控件都在使用一个 name (如单选按钮)，那么就会返回以该 name 命名的一个 NodeList。
 
 /*
-var colorFields = form.elements['color'];
+var colorFields = form.elements['color'];   // 不推荐
 console.log(colorFields.length);	//3
 
 var firstColorField = colorFields[0];
 var firstFormField = form.elements[0];
 console.log(firstColorField == firstFormField);		// true
 
-// 通过form.elements[0]访问到的第一个表单字段，与包含在form.elements["color"]中的第一个元素相同。
+// 通过 form.elements[0] 访问到的第一个表单字段，与包含在form.elements["color"]中的第一个元素相同。
 */
+
 /*
 	也可以通过访问表单的属性来访问元素，例如form[0]可以取得第一个表单字
 	段，而form["color"]则可以取得第一个命名字段。这些属性与通过elements 集
@@ -339,13 +338,16 @@ console.log(firstColorField == firstFormField);		// true
 */
 
 // 公有的表单字段属性：
-// disabled：布尔值，表示当前字段是否被禁用
-// form：指向当前字段所属表单的指针；只读
-// name：当前字段的名称
-// readOnly：布尔值，表示当前字段是否只读，可以用DOM event.blur()实现
-// tabIndex：表示当前字段的切换(tab)序号
-// type：当前字段的类型，如“checkbox”、“radio”
-// value：当前字段将被提交给服务器的值。对文件字段来说，这个属性是只读，包含着文件在计算机中的路径
+/*
+	disabled：布尔值，表示当前字段是否被禁用
+	form：指向当前字段所属表单的指针；只读
+	name：当前字段的名称
+	readOnly：布尔值，表示当前字段是否只读，可以用DOM event.blur()实现
+	tabIndex：表示当前字段的切换(tab)序号
+	type：当前字段的类型，如“checkbox”、“radio”
+	value：当前字段将被提交给服务器的值。对文件字段来说，这个属性是只读，包含着文件在计算机中的路径
+*/
+
 /*
 var field = form.elements[0];
 
@@ -366,7 +368,10 @@ field.type = 'checkbox';
 */
 // 能够动态修改表单字段属性，意味着我们可以在任何时候，以任何方式来动态操作表单。
 
-// 很多用户可能会重复单击表单的提交按钮。在涉及信用卡消费时，这就是个问题：因为会导致费用翻番。为此，最常见的解决方案，就是在第一次单击后就禁用提交按钮。只要侦听submit 事件，并在该事件发生时禁用提交按钮即可。
+// 很多用户可能会重复单击表单的提交按钮。
+// 在涉及信用卡消费时，这就是个问题：因为会导致费用翻番。
+// 为此，最常见的解决方案，就是在第一次单击后就禁用提交按钮。
+// 只要侦听submit 事件，并在该事件发生时禁用提交按钮即可。
 
 
 // 避免多次提交按钮
@@ -384,9 +389,9 @@ EventUtil.addHandler(form, "submit", function (event) {
 	btn.disabled = true;
 	// alert(btn.disabled);
 });
-// 最好是通过submit 事件来禁用提交按钮。不过，这种方式不适合表单中不包含提交按钮的情况
+// 最好是通过 submit 事件来禁用提交按钮。不过，这种方式不适合表单中不包含提交按钮的情况
 
-// 注意，不能通过onclick 事件处理程序来实现这个功能，原因是不同浏览器之间存在“时差”：有的浏览器会在触发表单的submit 事件之前触发click 事件，而有的浏览器则相反。
+// 注意，不能通过 onclick 事件处理程序来实现这个功能，原因是不同浏览器之间存在“时差”：有的浏览器会在触发表单的 submit 事件之前触发 click 事件，而有的浏览器则相反。
 
 
 /*
@@ -404,15 +409,15 @@ EventUtil.addHandler(form, "submit", function (event) {
 // 公有的表单字段方法
 
 // focus()	用于将浏览器的焦点设置到表单字段，即激活表单字段，使其可以响应键盘事件。
-// 			使用focus()方法，可以将用户的注意力吸引到页面中的某个部位
+// 			使用 focus() 方法，可以将用户的注意力吸引到页面中的某个部位
 // 			可以侦听页面的load 事件，并在该事件发生时在表单的第一个字段上调用focus()方法
-// 			如第一个是<input type="hidden">，代码会发生错误，需要代码进行过滤input[type=hidden]
-// 			HTML5 autofocus属性，不需要js focus
+// 			如第一个是 <input type="hidden">，代码会发生错误，需要代码进行过滤 input[type=hidden]
+// 			HTML5 autofocus 属性，不需要 js focus
 
 /*
 EventUtil.addHandler(window, 'load', function (event) {
 	var element = document.forms[0].elements[0];
-	// 因为autofocus 是一个布尔值属性，所以在支持的浏览器中它的值应该是true。
+	// 因为 autofocus 是一个布尔值属性，所以在支持的浏览器中它的值应该是true。
 	// （在不支持的浏览器中，它的值将是空字符串）
 	if (element.autofocus != true) {
 		element.focus();
@@ -425,38 +430,31 @@ EventUtil.addHandler(window, 'load', function (event) {
 	// console.log(div);
 });*/
 
-	/*
-		在默认情况下，只有表单字段可以获得焦点。对于其他元素而言，如果先将其tabIndex 属性设置为1，然后再调用focus()方法，也可以让这些元素获得焦点。只有Opera 不支持这种技术。
-		在 IE11 中，<div> 不需要设置 tabIndex = -1 也会触发 focus 样式改变
-	*/
+/*
+	在默认情况下，只有表单字段可以获得焦点。对于其他元素而言，如果先将其tabIndex 属性设置为1，然后再调用focus()方法，也可以让这些元素获得焦点。只有Opera 不支持这种技术。
+	在 IE11 中，<div> 不需要设置 tabIndex = -1 也会触发 focus 样式改变
+*/
 
 // blur()
-// 那时候的表单字段还没有readonly 特性，因此就可以使用blur()方法来创建只读字段。
-// 现在，虽然需要使用blur()的场合不多了，但必要时还可以使用的
+// 那时候的表单字段还没有 readonly 特性，因此就可以使用 blur() 方法来创建只读字段。
+// 现在，虽然需要使用 blur() 的场合不多了，但必要时还可以使用的
 
 // document.forms[0].elements[0].blur();
 
 // 公有的表单字段事件
 /*
-除了支持鼠标、键盘、更改和HTML 事件之外，所有表单字段都支持下列3 个事件。
+除了支持鼠标、键盘、更改和 HTML 事件之外，所有表单字段都支持下列3 个事件。
 . blur：当前字段失去焦点时触发。
 . change：对于<input>和<textarea>元素，在它们失去焦点且value 值改变时触发；对于
 <select>元素，在其选项改变时触发。
 . focus：当前字段获得焦点时触发。
 */
 /*
-当用户改变了当前字段的焦点，或者我们调用了blur()或focus()方法时，都可以触发blur 和
-focus 事件。这两个事件在所有表单字段中都是相同的。但是，change 事件在不同表单控件中触发的
-次数会有所不同。对于<input>和<textarea>元素，当它们从获得焦点到失去焦点且value 值改变时，
-才会触发change 事件。对于<select>元素，只要用户选择了不同的选项，就会触发change 事件；
-换句话说，不失去焦点也会触发 change 事件。
+	当用户改变了当前字段的焦点，或者我们调用了 blur() 或 focus() 方法时，都可以触发 blur 和 focus 事件。这两个事件在所有表单字段中都是相同的。但是，change 事件在不同表单控件中触发的	次数会有所不同。对于 <input> 和 <textarea>元素，当它们从获得焦点到失去焦点且value 值改变时，才会触发 change 事件。对于<select>元素，只要用户选择了不同的选项，就会触发change 事件；
+	换句话说，不失去焦点也会触发 change 事件。
 */
 /*
-通常，可以使用focus 和blur 事件来以某种方式改变用户界面，要么是向用户给出视觉提示，要
-么是向界面中添加额外的功能（例如，为文本框显示一个下拉选项菜单）。而change 事件则经常用于
-验证用户在字段中输入的数据。例如，假设有一个文本框，我们只允许用户输入数值。此时，可以利用
-focus 事件修改文本框的背景颜色，以便更清楚地表明这个字段获得了焦点。可以利用blur 事件恢复
-文本框的背景颜色，利用change 事件在用户输入了非数值字符时再次修改背景颜色。*/
+	通常，可以使用 focus 和 blur 事件来以某种方式改变用户界面，要么是向用户给出视觉提示，要么是向界面中添加额外的功能（例如，为文本框显示一个下拉选项菜单）。而 change 事件则经常用于验证用户在字段中输入的数据。例如，假设有一个文本框，我们只允许用户输入数值。此时，可以利用 focus 事件修改文本框的背景颜色，以便更清楚地表明这个字段获得了焦点。可以利用 blur 事件恢复文本框的背景颜色，利用 change 事件在用户输入了非数值字符时再次修改背景颜色。*/
 /*
 var textbox = document.forms[0].elements[0];
 
@@ -501,29 +499,31 @@ EventUtil.addHandler(textbox, 'change', function (event) {
 // 使用正则作为验证
 
 /*
-	关于blur 和change 事件的关系，并没有严格的规定。在某些浏览器中，blur
-	事件会先于change 事件发生；而在其他浏览器中，则恰好相反。为此，不能假定这
+	关于 blur 和 change 事件的关系，并没有严格的规定。在某些浏览器中，blur
+	事件会先于 change 事件发生；而在其他浏览器中，则恰好相反。为此，不能假定这
 	两个事件总会以某种顺序依次触发，这一点要特别注意。
  */
 
 
 
 // 文本框脚本
-// 有两种方式来表现文本框：一种是使用<input>元素的单行文本框，另一种是使用<textarea>的多行文本框。
-
-// 文本框：<input type="text">
-// type：type="text"
-// size：指定文本框中能够显示的字符数：size="能够显示的字符数"
-// value：设置文本框的初始值
-// maxlength：用于指定文本框可以接受的最大字符数
-
+// 有两种方式来表现文本框：
+// 	一种是使用 <input> 元素的单行文本框，
+// 	另一种是使用 <textarea> 的多行文本框。
+/*
+文本框：<input type="text">
+	type：type="text"
+	size：指定文本框中能够显示的字符数：size="能够显示的字符数"
+	value：设置文本框的初始值
+	maxlength：用于指定文本框可以接受的最大字符数
+*/
 // <input type="text" name="color" size="10" maxlength="15" value="initial value" class="form-control">
 /*
-	多行文本框：textarea
+多行文本框：textarea
 	rows + cols:指定文本框大小
 	rows：指定文本框的字符行数
-	cols:指定文本框的字符列数
-	初始值需要放在<textarea></textarea>中间
+	cols: 指定文本框的字符列数
+	初始值需要放在 <textarea></textarea> 中间
 
 	文本框都可以通过 .value 进行修改和获取值
 	
@@ -545,9 +545,9 @@ textbox.select();
 
 */
 
-/*// 在文本框获得焦点时选择其所有文本，这是一种非常常见的做法，特别是在文本框包含默认值的时候。因为这样做可以让用户不必一个一个地删除文本。
+/*// 在文本框获得焦点时选择其所有文本，这是一种非常常见的做法，特别是在文本框包含默认值的时候。因为这样做可以让用户不必一个一个字符地删除文本。
 
-// 只要文本框获得焦点，就会选择其中所有的文本
+// 只有文本框获得焦点，才会选中所有的文本
 var textbox = document.forms[0].elements[0];
 EventUtil.addHandler(textbox, 'focus', function (event) {
 	event = EventUtil.getEvent(event);
@@ -558,10 +558,14 @@ EventUtil.addHandler(textbox, 'focus', function (event) {
 */
 
 // 选择(select)事件
-// select()对应的是一个select事件。在选择了文本框中的文本时，就会触发 select 事件。
-// 到底什么时候触发 select 事件，还会因浏览器而已
-// 有的用户选择了文本(而且要释放鼠标)，才会触发 select 事件
-// 有的浏览器 (IE8) 只要用户选择了一个字母(不必释放鼠标)，就会触发 select 事件
+/*
+	select()对应的是一个select事件。在选择了文本框中的文本时，就会触发 select 事件。
+	到底什么时候触发 select 事件，还会因浏览器而已
+	有的用户选择了文本(而且要释放鼠标)，才会触发 select 事件
+	
+	有的浏览器 (IE8) 只要用户选择了一个字母(不必释放鼠标)，就会触发 select 事件
+	IE8 选择过程中就已经开始触发 select 事件
+*/
 /*
 var textbox = document.forms[0].elements[0];
 EventUtil.addHandler(textbox, 'select', function (event) {
@@ -588,7 +592,7 @@ function getSelectedText(textbox) {
 		return textbox.value.substring(textbox.selectionStart, 
 									   textbox.selectionEnd);
 	} else if (document.selection) {
-		// IE8情况下，一旦开始选择就会发生 select 事件，能够选择的字符数不多
+		// IE8情况下，一旦选择过程开始就会发生 select 事件，能够选择的字符数不多
 		// 需要设置 抖动函数
 		return document.selection.createRange().text;
 	}
@@ -598,7 +602,6 @@ function getSelectedText(textbox) {
 var textbox = document.forms[0].elements[0];
 
 
-// 绑定事件和抖动函数 不够契合
 // 使用抖动函数，对 非IE8 浏览器有延迟
 EventUtil.addHandler(textbox, 'select', debounce(function (event) {
 	var event = EventUtil.getEvent(event);
@@ -608,21 +611,23 @@ EventUtil.addHandler(textbox, 'select', debounce(function (event) {
 }, 300));
 
 
+*/
 function debounce(fn, delay) {
 	var timer;
 	return function () {
-
+		// 为什么这个 this/arguments 不是 闭包的？
+		// DOM 事件处理程序中，this 指向当前的元素 （这里 input）
 		var context = this;
 		var args = arguments;
 		clearTimeout(timer);
 		timer = setTimeout(function () {
 			fn.apply(context, args)
+			// alert(context)  // [object HTMLInputElement]
+			// alert(args) // [object Arguments]
 		}, delay);
 	}
 		
 }
-
-*/
 
 // 选择部分文本
 // HTML5 为选择文本框中的部分文本提供了解决方案，
@@ -698,31 +703,103 @@ EventUtil.addHandler(textbox, "keypress", function(event){
 
 // 检测按钮进行屏蔽
 // 文本框就会忽略所有输入的非数值。
-/*var textbox = document.forms[0].elements[0];
+var textbox = document.forms[0].elements[0];
 EventUtil.addHandler(textbox, "keypress", function(event){
 	event = EventUtil.getEvent(event);
 	// 获取字符编码
 	var charCode = EventUtil.getCharCode(event);
+	// console.log(String.fromCharCode(charCode));
 	// 用String.fromCharCode()将字符编码转换成字符串，再使用正则表达式 /\d/ 来测试该字符串，从而确定用户输入的是不是数值
+	
 	// 有些浏览器会对向上键、向下键、退格键和删除键触发keypress 事件；
 	// 还要避免屏蔽这些极为常用和必要的键
 	// 在Firefox 中，所有由非字符键触发的keypress 事件对应的字符编码为0，
 	// 而在Safari 3 以前的版本中，对应的字符编码全部为8。
-	// 为了让代码更通用，只要不屏蔽那些字符编码小于10 的键即可。
-	// 
+	// 为了让代码更通用，只要不屏蔽那些字符编码小于 10 的键即可。
+	 
 	// 还有一个问题需要处理：复制、粘贴及其他操作还要用到Ctrl 键。在除IE 之外的所有
 	// 	浏览器中，前面的代码也会屏蔽Ctrl+C、Ctrl+V，以及其他使用Ctrl 的组合键。因此，最后还要添加一
 	// 	个检测条件，以确保用户没有按下Ctrl 键
-	if (!/\d/.test(String.fromCharCode(charCode && charCode > 9 && !event.ctrlKey))) {
+	if (!/\d/.test(String.fromCharCode(charCode)) && 
+				  charCode > 9 && 
+				  !event.ctrlKey) {
 		EventUtil.preventDefault(event);
 	}
+
 	// Google chrome 未能禁止 Backspace 事件以及其他 功能按钮
-	// 然后其他的数字按键也被禁止了
+
 	// 即使检测了所有的条件，但是使用中文(东亚)输入法时候，会导致事情失效，也就是说使用中文输入法可以绕过对 利用字符编码按键输入的禁止
 	
 });
+
+// 让 type = number 的 spin 不能由 向上 和 向下键 触发
+EventUtil.addHandler(textbox, 'focus', function(event) {
+	event = EventUtil.getEvent(event);
+	var contextEle = this;
+	if (contextEle.type == 'number') {
+		// 上下按键
+		EventUtil.addHandler(contextEle, 'keydown', function (event) {
+			var charCode = EventUtil.getCharCode(event);
+			if (charCode === 38 || charCode === 40 ) {
+				EventUtil.preventDefault(event);
+			}
+		});
+
+		// 鼠标滑轮
+		(function () {
+			function handlerMouseWheel(event) {
+				event = EventUtil.getEvent(event);
+				EventUtil.preventDefault(event);
+				console.log(event.type)
+			};
+
+			EventUtil.addHandler(contextEle, 'mousewheel', handlerMouseWheel);
+			EventUtil.addHandler(contextEle, 'DOMMouseScroll', handlerMouseWheel);
+		})();
+		
+		
+	}
+
+});
+
+// 李大仁 - 浏览器IME输入法控制禁止输入中文
+// https://www.lidaren.com/archives/1240
+// 检查东亚输入法输入的字符串
+
+// 好像对 IE11 没用
+/*EventUtil.addHandler(textbox, 'compositionstart', function (event) {
+	
+	// 方案一：
+	// 使用复合事件进行，失去焦点，再次获取焦点，
+	// 以让 IME 失去作用，并利用 placeholder 发出警告
+
+	// event = EventUtil.getEvent(event);
+	var context = this;
+	// context.blur();
+	// setTimeout(function () {
+	// 	context.focus();
+	
+	// }, 300);
+	
+	// 方案二：
+	// 	  一旦发现 IME，设置 type = 'tel'
+	// 	  HTML5 type = 'tel' 不能使用 IME
+	context.setAttribute('type', 'number');
+	context.setAttribute('style', 'ime-mode:disabled;')
+	context.placeholder = '请更换输入法';
+
+});
 */
 
+
+/*
+<input type="text" name="textbox" placeholder="Yellow" class="form-control" style="ime-mode:disabled" onpaste="return false" ondragenter="return false">
+	简单的 
+		onpaste="return false" 禁止粘贴、
+		ondragenter="return false" 禁止拖放 拖放在 GC 中不起作用
+		style="ime-mode:disabled"  阻止东亚输入法使用 非标准CSS 部分浏览器【Google chrome】 	1) 手机的 <input type='tel'> 2) onkeyup="this.value=this.value.replace(/[\u4e00-\u9fa5]/g,'')"
+		\u4e00-\u9fa5为中文的编码范围
+*/
 
 /*
 HTML 5 后来也把剪贴板事件纳入了规范。下列就是6 个剪贴板事件。
@@ -1081,6 +1158,7 @@ EventUtil.addHandler(selectbox, 'click', function (event) {
 */
 
 /*
+// 选项出现改变时候，将选项内容输出
 EventUtil.addHandler(selectbox, 'change', function (event) {
 	event = EventUtil.getEvent(event);
 	var target = EventUtil.getTarget(event);
@@ -1115,6 +1193,9 @@ selectbox.appendChild(newOption);*/
 // Option 构造函数接受两个参数：文本(text) 和值(value); 第 2 值可选。
 // 虽然这个构造函数会创建一个Object 的实例，但兼容DOM 的浏览器会返回一个<option>元素。
 // 换句话说，在这种情况下，我们仍然可以使用appendChild()将新选项添加到选择框中
+// 
+// name 需要自己加？还是同一个选项卡，使用同一个 name
+// 
 
 /*var newOpt = new Option('Opt text', 'Opt value');
 selectbox.appendChild(newOpt);*/
@@ -1155,6 +1236,91 @@ selectbox.appendChild(newOpt);*/
 // 移动的选择，会从 第一个选项中移除
 /*var selectbox2 = document.getElementById('selLocation2');
 selectbox2.appendChild(selectbox.options[1]);*/
+
+var selectbox2 = document.getElementById('selLocation2')
+
+function moverOption (event, selectbox1, selectbox2) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	var opt; // 添加之后返回，用来做消除 selected = true
+	
+	// console.log(target.parentNode);
+	// console.log(event.currentTarget);  //  currentTarget 当前事件处理程序所在的 元素
+
+	// 检测父节点，
+	// 1、如果父节点是 selectbox1，选项转移给 selectbox2
+	// 2、如果父节点是 selectbox2，选项转移给 selectbox1
+	if (target.parentNode == selectbox1) {
+		opt = selectbox2.appendChild(target); // 移动项使用
+
+	} else if (target.parentNode == selectbox2) {
+		opt = selectbox.appendChild(target); // 移动项使用
+	}
+
+	opt.selected = false; // 不让被移动之后有被选中的背景色
+}
+
+
+// 从一个 selectbox 添加到另一个 selectbox，保留原来 selectbox 中的 option
+function addOption (event, selectboxFrom, selectboxTarget) {
+	event = EventUtil.getEvent(event);
+	var target = EventUtil.getTarget(event);
+
+	var optClone = null, // 克隆项
+		opt, // 添加之后返回，用来做消除 selected = true
+		i,
+		len, // selectboxTarget.length
+		flag = false; // 对比添加项和被添加项，如果没有相同项才能添加
+
+	// console.log(target.parentNode);
+	// console.log(event.currentTarget);  //  currentTarget 当前事件处理程序所在的 元素
+
+	// 检测父节点，
+	// 1、如果父节点是 selectboxFrom，选中的选项添加给 selectboxTarget
+	// 2、如果父节点是 selectboxTarget，选中的选项删除掉
+	if (target.parentNode == selectboxFrom) {
+
+		// 添加到 selectboxTarget，但不删除该选项
+		for (i = 0, len = selectboxTarget.length; i < len; i++) {
+			if (selectboxTarget[i].value == target.value) {
+				console.log('不能重复添加选项');
+				flag = true;
+			}
+		}
+		if (!flag) {
+			optClone = target.cloneNode(true);
+			opt = selectboxTarget.appendChild(optClone);
+			// opt.selected = false; // 不让被移动之后有被选中的背景色
+		}
+		
+
+	} else if (target.parentNode == selectboxTarget) {
+		
+		// 删除该选项
+		selectboxTarget.removeChild(target);
+	}
+
+}
+
+// 给选项框添加绑定
+/*
+EventUtil.addHandler(selectbox, 'dblclick',function (event) {
+	moverOption(event, selectbox, selectbox2);
+});
+
+EventUtil.addHandler(selectbox2, 'dblclick', function (event) {
+	moverOption(event, selectbox, selectbox2);
+});
+*/
+
+
+// 尝试用委托
+var form1 = document.getElementById('form1');
+EventUtil.addHandler(form1, 'dblclick', function (event) {
+	addOption(event, selectbox, selectbox2);
+});
+
 
 // 最好的方式仍然是使用DOM 方法。要将选择框中的某一项移动到特定位置，最合适的DOM 方法就是insertBefore()；
 

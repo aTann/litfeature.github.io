@@ -6,7 +6,20 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<style type="text/css">
 		div:focus{background-color: red;}
+		/* 消除 type=number spin-button */
+		input[type=number]::-webkit-inner-spin-button, 
+		input[type=number]::-webkit-outer-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+
 	</style>
+	<script type="text/javascript">
+	
+	</script>
 </head>
 <body>
 <!-- 
@@ -42,7 +55,7 @@
 			<ul>
 				<li class="radio">
 					<!-- <input type="text" name="colors" placeholder="Yellow" class="form-control"> -->
-					<input type="text" name="textbox" placeholder="Yellow" class="form-control">
+					<input type="number" name="textbox" placeholder="Yellow" class="form-control" style="ime-mode: disabled;" ><!-- onkeyup="this.value=this.value.replace(/[\u4e00-\u9fa5]/g,'')" -->
 				</li>
 				<li class="radio">
 					<input type="text" name="color" size="10" maxlength="15" value="initial value" class="form-control">
