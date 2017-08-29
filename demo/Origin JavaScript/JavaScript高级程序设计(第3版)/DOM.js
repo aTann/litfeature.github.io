@@ -772,6 +772,7 @@ someNode.appendChild(element);
 }*/
 
 
+
 // 规范化文本节点
 // normalize() 父元素上调用，对两个或多个文本节点的父元素进行子文字节点进行拼合成一个
 /*for (i = 0, len = ps.length; i < len; i++) {
