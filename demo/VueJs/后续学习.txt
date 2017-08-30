@@ -1,0 +1,16 @@
+前面组件、路由：
+路由：
+组件：
+
+后续学习：
+
+过渡：CSS动画、transition、js动画
+
+指令：v-on/v-for/v-if/v-show/v-model
+
+Render: 虚拟DOM，全代码前端
+
+
+
+
+

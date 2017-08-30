@@ -1,0 +1,37 @@
+
+蔡述雄 - 包学会之浅入浅出Vue.js：开学篇
+https://www.qcloud.com/community/article/430630001490779316?fromSource=gwzcw.60069.60069.60069
+
+Vue:
+
+搭建环境：
+	1、npm 安装Vue
+		npm intall -g vue-cli
+	
+	2、进入一个事先准备好的目录，目录文件中做初始化操作
+		vue init webpack mypro
+
+		配置基本选择：
+		Project name
+		Project description
+		Author
+		Vue build
+		Install vue-router:
+		Use ESLint to lint your code?
+		Use ESLint preset
+		Pick an ESLint prest
+		Setup unit tests with Karma + Mocha?
+		Setup e2e tests with Nightwatch?
+
+	得到提示：
+	To get started:
+		cd myPro
+		npm install
+		npm run dev
+
+	3、运行上述提示，得到一个 Vue 的主题页面
+		Welcome to Your Vue.js App
+
+	
+
+	

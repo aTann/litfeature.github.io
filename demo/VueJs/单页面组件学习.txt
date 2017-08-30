@@ -1,0 +1,483 @@
+蔡述雄 - 包学会之浅入浅出Vue.js：升学篇
+https://www.qcloud.com/community/article/437519001490856733
+
+组件库：
+	做UI和前端日常需求中经常用到的，把一个按钮，导航，列表之类的元素封装起来，方便日常使用，调用方法只需直接写上<qui-button></qui-button>或者<qui-nav></qui-nav>这样的代码就可以
+
+demo：
+需求背景：
+	page  // 存放页面
+	 |
+	 |------- css
+	 |
+	 |------- index.vue   // 首页
+	 |
+	 |------- pageQuiButton.vue   // 子页面pageQuiButton
+	 |
+	 |------- pageQuiList.vue   // 子页面pageQuiButton
+	 |
+	 |------- pageQuiNav.vue   // 子页面pageQuiButton
+
+	components    // 存放控件
+	 |
+	 |------- quiArrow.vue 		// 箭头组件
+	 |
+	 |------- quiButton.vue 	// 按钮组件
+	 |
+	 |------- quiList.vue 		// 列表组件
+	 |
+	 |------- quiNav.vue 		// 导航组件
+
+路由配置：
+
+// 文件引入
+import Vue from 'vue'
+import Router from 'vue-router'
+import index from '@/pages/index.vue'
+import pageQuiButton from '@/pages/pageQuiButton.vue'
+import pageQuiList from '@/pages/pageQuiList.vue'
+import pageQuiNav from '@/pages/pageQuiNav.vue'
+
+// 显式声明路由
+// new Vue(Router);		// 使用错误
+Vue.use(Router);
+
+// 路由配置
+export default new Router ({
+	routes:[		// error 忘记routes 属性名
+		{
+			path: '/',			// http://localhost:8080/#/
+			name: index,
+			component: index
+		},
+		{
+			path: '/btn',		// http://localhost:8080/#/btn
+			name: 'btn',
+			component: pageQuiButton
+		},
+		{
+			path: '/list',		// http://localhost:8080/#/list
+			name: 'list',
+			component: pageQuiList
+		},
+		{
+			path: '/nav',		// http://localhost:8080/#/nav
+			name: 'nav',
+			component: pageQuiNav
+		}
+	]
+})
+
+
+入口页App.vue
+
+<template>
+  <div id="app">
+  	<!-- 直接使用的元素为，共用元素 -->
+    <h1 class="page-title"><a href="#/">开发组件库</a></h1>
+    <!-- 路由视图，子页面显示 -->
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'app'
+}
+</script>
+
+<style scoped>
+  /* scoped关键字表示这个样式是私有的，也就是说，即使两个组件写着一样的#app{}样式也不会冲突，程序会加上命名空间，这也就是为什么在script标签中有个name参数。*/
+  @import './assets/css/App.css';
+</style>
+
+
+首页 index.vue
+<template>  
+<!-- 程序运行的时候，会将<template>标签里面的内容都注入到App.vue页面中的router-view标签中，从而实现无刷新的路由跳转。 -->
+	<div class="mod-momuld mod-parellel">
+		<div class="img-list type-full">
+			<div class="img-box">
+				<p class="img-item">
+					<a href="#/btn" class="page-link">
+						按钮
+					</a>
+				</p>
+			</div>
+
+			<div class="img-box">
+				<p class="img-item">
+					<a href="#/list" class="page-link">
+						列表
+					</a>
+				</p>
+			</div>
+
+			<div class="img-box">
+				<p class="img-item">
+					<a href="#/nav" class="page-link">
+						导航
+					</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</template>
+
+<style scoped>
+	@import './css/index.css';
+</style>
+
+
+
+按钮组件 quiButton.vue  简单按钮组件 结构、样式+文案
+<!-- 按钮组件初始化，msg自定义属性会被绑到<span>标签中{{msg}}中 -->
+<!-- 结构 -->
+<template>
+	<button class="qui-btn">
+		<span>
+			<!-- {{}} 绑定属性 -->
+			{{msg}}
+		</span>
+	</button>
+</template>
+
+<!-- 文案 -->
+<script>
+	export default {
+		// script 暴露这个组件的data属性
+		// data是Vue的属性值
+		// 如果不是组件的话，正常data写法可使用对象
+		// eg: data: { msg: '下载' }
+		// 组件在多个地方引用，JS中直接共享对象会造成引用传递，
+		// 也就是说修改 msg 后所有按钮的 msg 都会跟着修改，
+		// 所以这里用 function 来每次返回一个对象实例
+		data: function () {  
+			return {
+				msg: '下载'
+			}
+		}
+	}
+</script>
+
+
+<!-- 样式 -->
+<style scoped>
+	@import './css/reset.import.css';
+	@import './css/qui-btn.import.css'
+</style>
+
+
+<!-- 按钮中文案可以异化，不用每次都初始化 “下载”，可以以属性的方式来使用，如下 -->
+<qui-btn msg="确定" class="small"></qui-btn>
+<!-- 使用 prosp 接口 -->
+<script>
+	export default {
+		/*
+			属性写在 props 里面，可以暴露给其他页面调用了，在组件中，props 是专门用来暴露组件的属性接口的，可以定义默认属性 default: '下载'，
+			后面要使用，可以 <qui-btn msg="确定"></qui-btn> 即可
+		 */
+		props: { 	// 组件页面属性接口，可定义默认事件
+			msg: {
+				default: '下载'
+			}
+		}
+	}
+</script>
+
+<!-- 我们在上一篇文章的开头就讲了Vue是数据驱动模式的，当我在btn结构写上msg="确认"的时候，对应script里面的msg属性就会自动修改了。 -->
+<!--上一篇文章 https://www.qcloud.com/community/article/430630001490779316?fromSource=gwzcw.60069.60069.60069 -->
+
+
+
+
+按钮事件
+
+<script>
+	export default {
+		props: {
+			msg: {
+				default: '下载'
+			}
+		},
+		methods: { 	// 绑定事件的关键代码，可以自定义函数
+			btnClickEvent: function () {
+				alert(this.msg);
+			}
+		}
+	}
+</script>
+<!-- 绑定指令 v-on:  缩写 v-on:link  ==  @link -->
+
+
+使用按钮事件 pageQuiButton.vue
+在 pageQuiButton 子页面使用按钮组件：
+// pageQuiButton.vue
+<template>
+	<div id="pageQuiButton">
+		<!-- 调用 -->
+		<qui-btn msg="确定" class="small"></qui-btn>
+	</div>
+</template>
+
+<script>
+	import quiBtn from '../components/quiButton.vue'   /*引用*/
+	export default{
+		name: 'pageQuiButton',
+		components: {
+			'qui-btn': quiBtn  /*注册自定义标签*/
+		}
+	}
+</script>
+
+<!-- 
+	从script开始解析，首先引入我们的组件赋值给变量quiBtn，使用时候直接将quiBtn作为对象的一部分写进components属性，这是Vue用来存储引用组件的关键字，同时对应我们自定义的标签 "qui-btn"，完成这些操作之后，我们就可以在template中使用自定义的按钮组件<qui-btn>上面也说了用msg属性来自定义按钮的文案。完成之后，我们就可以在页面中看到具体效果，点击按钮弹出对应的文案。
+-->
+
+<!-- msg异化，方法 -->
+/* pageQuiButton.vue */
+<template>
+	<div id="pageQuiButton">
+		<!-- 调用 -->
+		<!-- <qui-btn msg="确定" class="small"></qui-btn> -->
+		<qui-btn class="small" v-on:btnClickEvent="doSth" msg="我可以点击"></qui-btn>
+		<!-- btnClickEvent是quiButton自定义的点击触发事件 -->
+		<!-- 在引用子组件页面中，注册了一个事件，自定义了方法 doSth，使用绑定 v-on:btnClickEvent="doSth"方式 -->
+		<!-- 这种做法叫做监听，由引用方(暂且叫做父组件)监听子组件的内置方法，同时在子组件中，需要触发这个事件 -->
+	</div>
+</template>
+
+<script>
+	// pageQuitButton.vue
+	/* 引用 */
+	import quiBtn from '../components/quiButton.vue'
+	export default{
+		name: 'pageQuiButton',
+		components: {
+			'qui-btn': quiBtn
+		},
+		methods: {
+			doSth: function () {
+				alert('你为什么要点击我呢？？！！')
+			}
+		}
+	}
+</script>
+
+
+<script>
+	// quitButton.vue
+	// 子组件设置页面
+	export default {
+		props: {
+			msg: {
+				default: '下载'
+			}
+		},
+		methods: { 	// 绑定事件的关键代码，可以自定义函数
+			btnClickEvent: function () {
+				// 如果不需要 this.$emit('')
+				// 那么会显示一次，那就是 this.msg 内容
+				// 如果添加了 this.$emit('') 那么会显示两次内容
+				// 一次组件方法的 btnClickEvent ，一次父自定义方法的 doSth
+				alert(this.msg)
+				// 关键代码父组件触发自定义事件
+				// this.$emit('btnClickEvent')
+			}
+		}
+	}
+</script>
+
+子组件触发父组件注册的自定义方法 和 父组件值传递给子组件：
+	在子组件使用页面进行绑定：v-on:childMethodComponent='customMethodPage'
+		子组件需要关键字 $emit() ：this.$emit('')
+			该种触发机制，父组件监听，子组件触发，在同时有子组件方法和父组件自定义方法情况下，可以将父组件方法 Curring 方式插入
+	父组件(子组件引用页面)传值异化：msg="customValue"
+		子组件需要 props, 如果没有 props 有可能所有使用 该组件的值都会一样，可以使用 props 引用关键字 default 进行配置 默认值：
+			props: {
+				msg: {
+					default: '默认值'
+				}
+			}
+	如上：
+	<template>
+		<qui-btn class="small" v-on:childMethodComponent="customMethodPage" msg="我可以点击"></qui-btn>
+	</template>
+		<script>
+			import quitBtn from '@/components/quiButton.vue'
+			export default {
+				name: 'pageQuitButton',
+				components: {
+					'qui-btn' : 'quiBtn'
+				},
+				methods: {
+					customMethodPage: function () { ... }
+				}
+			}
+		</script>
+
+		代码处理：
+	子组件页面代码需要做处理：
+	<script>
+		export default {
+			// 父组件 异化处理输出值
+			props: {
+				msg: {
+					default: '下载'
+				}
+			},
+			methods: {
+				childMethodComponent: function () {
+					alert('先弹出默认文档')
+					// 关键代码父组件触发自定义事件
+					this.$emit('childMethodComponent')
+				}
+			}
+		}
+	</script>
+
+
+给按钮加图标
+
+	图标+文字类型异化
+	组件按钮组件的结构除了开发时候预设的那些结构之外，允许我们在调用的时候添加一些自己想要的结构
+	需要 vue 的 slot 方法
+
+	我们可以给按钮组件加上一段结构：
+		<!-- quitButton.vue -->
+		<template>
+			<button class="qui-btn" v-on:click="btnClickEvent">
+				<slot name="icon"></slot><!-- 自定义结构 -->
+				<span>
+					{{msg}}
+				</span>
+			</button>
+		</template>
+	
+	父页面使用：
+		// pageQuitButton.vue
+		<qui-btn msg="确定" class="with-icon">
+			<!-- 子组件引用页自定义结构 -->
+			<!-- 
+				slot='icon' 与 quitButton.vue 中的 
+				<slot name="icon"></slot> 对应
+				其他为自己需要的内容
+
+			 -->
+			<img src="xxx.png" alt="确定" slot="icon" class="ico">
+		</qui-btn>
+	<!-- 
+		img上有个关键字slot="icon"对应组件中的name="icon"，渲染的时候，会将img整个替换掉组件中的对应name的<slot>标签，其实很好理解，slot的翻译是插槽的意思，相当于把img这块内容插到一个名叫icon的插槽里面去。
+	 -->
+
+片段总结：
+
+子组件： 
+	
+	props 		-----------		自定义文案
+
+	事件$emit 	-----------		自定义事件
+
+	slot        ----------- 	自定义结构
+
+												：父组件
+
+
+导航组件 quiNav.vue
+
+<!-- 
+	整个过程，利用 v-for 列表绑定，
+	在列表中绑定了 动态类 :class="[comonClass, activeClass ? item.active : '']" 
+	接着为导航列表绑定了点击切换类的事件 navClickEvent，并且开放用户自定义接口 
+-->
+<template>
+	<div class="qui-nav nav-type-1">
+		<!-- v-for -->
+		<!-- v-for="(value, key, index) in items" v-for 全格式 -->
+		<!-- 
+		items: [
+					{
+						text: '首页',		
+						active: true
+					}
+				]
+		{
+			text: '首页'，
+			active: true
+		}  ===========  value
+		items		======= key
+
+		[1]   ======  index
+
+		 -->
+		
+		<!-- :class 动态类，可以接受 数组和对象，可以利用简单的函数式，例如 三元条件式子 ? :  -->
+
+		<!-- 点击事件 v-on:click='func(args1[,args2...])' 可以缩写成 @click='func(args1[,args2...])' -->
+
+		<a v-for="(item, index) in items" :class="[commonClass,item.active ? activeClass : '']" v-on:click="navClickEvent(items, index)">
+			<span class="nav-txt">
+				{{item.text}}
+			</span>
+		</a>
+	</div>
+</template>
+
+
+<script>
+	export default {
+		data: function () {   		// data 还有 methods 这些属性属于 prototype 导出的吧，需要 function () { returen data1 }，不然会发生不同子组件中都会一样的数值
+			return {
+				commonClass: 'nav-item',
+				activeClass: 'active',
+				items: [
+					{
+						text: '首页',
+						active: true
+					},
+					{
+						text: '列表',
+						active: false
+					},
+					{
+						text: '关于',
+						active: false
+					},
+					{
+						text: '招聘',
+						active: false
+					}
+				]
+			}
+		},
+		methods: {
+			navClickEvent: function (items, index) {
+				// 默认触发切换类的动作
+				items.forEach(function (el) {
+					el.active = false
+				})
+				items[index].active = true
+				// 开发用户自定义的接口
+				this.$emit('navClickEvent', items, index)
+			}
+		}
+	}
+</script>
+
+
+<style scoped>
+	@import './css/reset.import.css';
+	@import './css/qui-nav.import.css';
+</style>
+
+
+
+总结：
+	页面路由
+	组件自定义属性 props
+	组件自定义事件 $on $emit
+	组件自定义结构 slot
+	for 循环 v-for
+	:class 动态类名设置
+
+

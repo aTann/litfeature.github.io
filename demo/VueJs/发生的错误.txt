@@ -1,0 +1,164 @@
+PhantomJS not found on PATH
+Downloading https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-windows.zip
+Saving to D:\Users\LitFeature\AppData\Local\Temp\phantomjs\phantomjs-2.1.1-windows.zip
+Receiving...
+  [====------------------------------------] 9%
+Received 1682K total.
+Extracting zip contents
+Error extracting zip
+Phantom installation failed Error: end of central directory record signature not found
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\yauzl\index.js:167:14
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\yauzl\index.js:473:5
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\fd-slicer\index.js:32:7
+    at FSReqWrap.wrapper [as oncomplete] (fs.js:663:17) Error: end of central directory record signature not found
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\yauzl\index.js:167:14
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\yauzl\index.js:473:5
+    at D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\fd-slicer\index.js:32:7
+    at FSReqWrap.wrapper [as oncomplete] (fs.js:663:17)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! phantomjs-prebuilt@2.1.15 install: `node install.js`
+npm ERR! Exit status 1
+npm ERR!
+npm ERR! Failed at the phantomjs-prebuilt@2.1.15 install script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\LitFeature\AppData\Roaming\npm-cache\_logs\2017-08-19T09_45_23_281Z-debug.log
+
+
+错误解读：
+	在运行 npm run dev 发生错误：
+
+	PhantomJS not found on PATH		
+	Failed at the phantomjs-prebuilt@2.1.15 install script.
+
+	PhantomJS 没找到，那就下载安装呗，但是安装出错了
+解决：
+	使用 --ignore-scripes 临时安装
+	npm install phantomjs-prebuilt@2.1.13 --ignore-scripts
+
+	https://stackoverflow.com/questions/40992231/failed-at-the-phantomjs-prebuilt2-1-13-install-script-node-install-js
+
+	但是没能解决；
+
+	删除重来：
+		npm install
+		又发生了一个错误
+
+		> chromedriver@2.31.0 install D:\Web-Frontend\JavaScript\Vuejs\basic-tutorial\demo\mypro\node_modules\chromedriver
+		> node install.js
+
+		Downloading https://chromedriver.storage.googleapis.com/2.31/chromedriver_win32.zip
+		Saving to D:\Users\LitFeature\AppData\Local\Temp\chromedriver\chromedriver_win32.zip
+		Received 781K...
+		Received 1568K...
+		Received 2054K total.
+		Extracting zip contents
+		ChromeDriver installation failed Error extracting archive: Error: end of central directory record signature not found
+		npm ERR! code ELIFECYCLE
+		npm ERR! errno 1
+		npm ERR! chromedriver@2.31.0 install: `node install.js`
+		npm ERR! Exit status 1
+		npm ERR!
+		npm ERR! Failed at the chromedriver@2.31.0 install script.
+		npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+		npm ERR! A complete log of this run can be found in:
+		npm ERR!     C:\Users\LitFeature\AppData\Roaming\npm-cache\_logs\2017-08-19T09_56_49_450Z-debug.log
+
+		解决：
+
+			 npm set strict-ssl false
+
+			https://github.com/Medium/phantomjs/issues/649
+			https://github.com/Medium/phantomjs/issues/644
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在编写组件完成之后，编译启动发生错误：
+	npm install
+	npm run dev
+发生错误如下：
+
+  ✘  http://eslint.org/docs/rules/indent  Expected indentation of 1 tab but found 2 spaces
+  src\main.js:11:3
+    el: '#app',
+
+    规范修改：
+    	    // first line indent 2 space for tab
+		    "indent" : [2, "tab"],
+		    // tabs for indent
+		    "no-tabs" : 0,
+
+  ✘  http://eslint.org/docs/rules/spaced-comment  Expected exception block, space or tab after '/*' in comment
+  src\pages\pageQuiButton.vue:10:53
+        import quiBtn from '../components/quiButton.vue'   /*引用*/
+    规范修改：无法修改，该注释方式在规则中都是错误，不能在 代码末尾使用注释，而且注释*和注释间需要 space 
+
+
+
+  ✘  http://eslint.org/docs/rules/semi  Extra semicolon
+  src\components\quiButton.vue:18:20
+                                alert(this.msg);
+    规范修改："semi" : ['error', 'never']
+
+  ✘  http://eslint.org/docs/rules/semi    Missing semicolon
+  src\main.js:7:33
+  Vue.config.productionTip = false
+  	规范修改："semi" : ['error', 'never']
+
+
+上面的错误都是因为没有按照 ESlint 规则进行书写引入的错误，
+可以通过修改 ESlint rules进行修改规范，
+也可以修改代码符合规范
+
+1、修改规范那么要找到 eslintrc.js 文件，可以往里面添加和修改规范
+
+  // add your custom rules here
+  'rules': {
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // require or disallow semicolons instead of ASI (semi)
+    // "semi" : ['error', 'always'],
+    // first line indent 2 space for tab
+    "indent" : [2, "tab"],
+    // tabs for indent
+    "no-tabs" : 0,
+    // space before function paren
+    "space-before-function-paren" : 0
+
+  }
+
+
+2、直接修改代码
+错误中：
+错误提示：错误格式文档说明 + 错误类型
+	http://eslint.org/docs/rules/semi    Missing semicolon
+
+错误所在行：
+  src\main.js:7:33
+
+找到错误所在行和错误提示中的文档说明进行修改即可
+
+
+
+
+
+

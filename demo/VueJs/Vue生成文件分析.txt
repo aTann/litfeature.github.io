@@ -1,0 +1,128 @@
+
+蔡述雄 - 包学会之浅入浅出Vue.js：开学篇
+	https://www.qcloud.com/community/article/430630001490779316?fromSource=gwzcw.60069.60069.60069
+
+查看 Vue 生成的文件结构：
+	build									webpack的初始化配置
+		|-webpack.base.conf.js 				里面  app: './src/main.js' 入口文件在src目录下的 main.js
+		|
+	config									项目初始化配置
+	node_modules
+	src
+	static
+	test
+	.babelrc
+	.editorconfig
+	.eslintrc.js
+	.gitignore
+	.postcssrc.js
+	index.html								我们的主页，预设的
+	package-lock.json						依赖信息
+	package.json 							配置信息
+	README.md
+
+
+	Vue核心架构：(两大模块)
+		组件
+		路由
+
+
+	跟代码学：
+
+	main.js:
+
+	// The Vue build version to load with the `import` command
+	// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+	import Vue from 'vue'	--------------------- vue文件引入，获得文件空间 Vue
+	import App from './App'	--------------------- 这是一个视图(组件/页面)
+	import router from './router' --------------- 引入路由配置
+
+	Vue.config.productionTip = false
+
+	/* eslint-disable no-new */
+	new Vue({ 				--------------------- Vue 实例化(初始化)
+	  el: '#app', 			--------------------- 将所有视图放在 ID 值为 app 这个 dom 元素中
+	  router,				--------------------- 使用路由
+	  template: '<App/>',	--------------------- 告知页面这个组件用这样的标签来包裹着，并且使用它
+	  components: { App }   --------------------- 告知当前页面想使用 App 这个组件
+	})
+
+
+
+	App.vue：(组件，单页面-结构，样式，逻辑代码都写在同一个文件中，当我们引入这个文件后，就相当于引入对应的结构、样式和JS代码)
+
+	node 端能识别 .vue 文件，是 webpack 在编译时候，将 .vue 文件中 html/js/css 抽出来合成新的单独文件
+
+	<template>							------------------------------  结构
+	  <div id="app">
+	    <img src="./assets/logo.png">
+	    <router-view></router-view>     ------------------------------ 路由视图容器，./router
+	  </div>
+	</template>
+
+	<script>							------------------------------ 脚本
+	export default {
+	  name: 'app'
+	}
+	</script>
+
+	<style>								------------------------------ 样式
+	#app {
+	  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+	  text-align: center;
+	  color: #2c3e50;
+	  margin-top: 60px;
+	}
+	</style>
+
+
+	路由视图容器：
+
+	改变的是 window.location.hash 也就是 #hash 部分，称之为 锚点，改变 hash 不会导致页面的跳转
+	此类路由，称之为 锚点路由 吧。
+	当我们需要访问那一类内容时候，就把哪一部分内容放进去，非<router-view></router-view> 像<img src="./assets/logo.png"> 属于公用部分，不可也不用变化
+
+	传统的php路由是由服务器端根据一定的url规则匹配来返回给前端不同的页面代码
+
+
+
+
+	router 文件夹中的 index.js
+
+	import Vue from 'vue'
+	import Router from 'vue-router'			------------- 引入路由插件
+	import Hello from '@/components/Hello'	------------- 组件(页面)位置引入
+
+	Vue.use(Router) 						------------- 声明需要用路由器
+
+	export default new Router({				------------- 注册路由器
+	  routes: [								------------- 配置路由
+	    {
+	      path: '/',						------------- 路径，url显示路径，http://localhost:8080/#/
+	      name: 'Hello',					------------- 页面组件引用名，识别用
+	      component: Hello					------------- 组件原名
+	    }
+	  ]
+	})
+
+	配置例子：
+	访问http://localhost:8080/#/about/me
+	{
+		path: '/blog',						------------ 路径，url显示路径，http://localhost:8080/#/blog
+		name: 'blog',						------------ 组件引用名
+		component: Blog,					------------ 组件名
+		children: [							------------ 子组件
+			{
+				path: '/', 					------------ 路径，url显示路径，http://localhost:8080/#/blog/
+				component: page1
+			},
+			{
+				path: 'info',				------------ 路径，url显示路径，http://localhost:8080/#/blog#info[猜测]
+				component: page2
+			}
+		]
+	}
+
+

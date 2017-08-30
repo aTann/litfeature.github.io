@@ -1,0 +1,118 @@
+
+创建一个 quiList.vue 组件，该组件中嵌套 子组件 quiButton.vue
+
+// quiList.vue
+<template>
+	<div class="qui-list">
+		<span class="list-tips">{{tipstext}}</span>
+		<!-- 
+			:msg=msg :msg表示绑定一个变量msg，
+			然后这个属性通过props暴露出去(本身在按钮中就暴露了msg给列表组件使用) 
+		-->
+		<qui-btn v-on:btnClickEvent="btnClickEvent" :msg=msg class="small"></qui-btn>
+	</div>
+</template>
+
+<script>
+	import quiButton from '@/components/quiButton.vue'
+	export default {
+		props: { 						----     暴露给引用页面使用的数据接口
+			msg: {
+				default: '下载'
+			},
+			tipstext: {
+				default: '默认的文案'
+			}
+		},
+		components: { 					---- 		引用的组件
+			'qui-btn': quiButton
+		},
+		methods: {						---- 		方法，没有暴露【this.$emit()】引用页自定义接口
+			btnClickEvent: function () {
+				alert('按钮点击那点事')
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	@import './css/reset.import.css';
+</style>
+
+
+<!-- pageQuiList -->
+<template>
+	<div id="pageQuiList">
+		<qui-list v-on="btnClickEvent" msg="确定" tipstext="默认的文档"></qui-list>
+	</div>
+</template>
+
+<script>
+	import quiList from '@/components/quiList.vue'
+	export default {
+		name: 'pageQuiList',
+		components: {
+			'qui-list': quiList
+		}
+	}
+</script>
+
+quiList本身是一个组件，而在这个组件里面，我们又引入了按钮组件quiButton，也就是组件内引用组件，实际上就是组件的嵌套
+
+
+
+是否有一个参数，可以决定列表组件的右侧是放置按钮组件呢？还是箭头组件。
+
+
+动态组件：
+Vue提供特定的关键字：is 和特定的结构 <components> 来生成动态组件
+
+<component :is="currentView" v-on:btnClickEvent="clickEvent" :msg=msg class="small" keep-alive></component>
+
+<component> 是 Vue 自带的标签，当做一个容器，这个容器可以用来装按钮，也可以用来装箭头，也就是在component 元素当中，并不需要像以往那样引用组件 <qui-btn></qui-btn>
+
+决定 component元素该是什么确定的子组件的关键属性：is="currentView"，当 currentView 为 qui-btn 的时候，这个容器就是按钮组件，当它是 qui-arrow 的时候，就是箭头组件。默认 qui-btn，
+使用列表组件的时候，只需要给暴露出来的currentView指定一个值，就可以决定右侧是按钮还是箭头了。
+
+keep-alive 关键字保持这个组件在内存中是常驻的，由于动态组件可能需要动态切换，这样保持组件活跃可以减少组件变化时候的内存消耗。
+
+可定义 props 中为函数属性需要操作
+
+btnClickEvent: {
+	type: Function,
+	default: function () {
+		// to do
+	}
+}
+
+ref 属性：这个属性代表组件集合，当页面中有很多组件的时候，可以通过这几种方法获取对应的某个组件的信息：
+	console.log(this.$children[0].msg); // 通过数组获取
+	console.log(this.$refs.child1.msg); // 通过对象集合获取
+
+组件的生命周期 - 通过refs来获取组件对象的信息，那么在什么时候或者说哪个时机点去做这件事呢，组件从引用到调用到销毁(比较少操作)，主要的调用函数如下：
+
+<script>
+	export default {
+		component: {
+			'qui-list': quiList
+		},
+		beforeCreate: function () {}, // 组件实例化之前
+		created: function () {}, // 组件实例化了
+		beforeModel: function () {},// 组件写入DOM结构之前
+		mounted: function () {// 组件写入DOM结构了
+			console.log(this.$children)
+			console.log(this.$refs)
+		},
+		beforeUpdate: function () {}, // 组件更新前
+		updated: function () {}, // 组件更新比如修改了文案
+		beforeDestroy: function () {},// 组件销毁之前
+		destroyed: function () {} // 组件已经销毁
+	}
+</script>
+
+
+v-if/ v-else / v-else-if 判断指令，配置展示指令 v-show，可以根据指定的值来决定对应的组件是否应该展示
+
+v-if: 编译判断，会被适当的切换和重建，更高的切换成本，运行条件不太可能改变
+v-show：无论什么条件都是渲染的，通过CSS现隐，更大的初始渲染开销，频繁切换
+
