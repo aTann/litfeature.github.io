@@ -10,8 +10,8 @@
 
 // 表单的基础知识
 // HTML: 表单<form>		
-// JavaScript: HTMLFormElement类型，继承自HTMLElement
-// HTMLFormElement独有的属性和方法：
+// JavaScript: HTMLFormElement 类型，继承自 HTMLElement
+// HTMLFormElement 独有的属性和方法：
 // acceptCharset[= HTML: accept-charset]: 服务器能够处理的字符集
 // action[= HTML: action]: 接受请求的URL
 // elements: 表单中所有控件的集合（HTMLFormElement）。
