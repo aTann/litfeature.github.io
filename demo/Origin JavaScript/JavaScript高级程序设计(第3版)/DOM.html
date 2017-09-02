@@ -18,13 +18,27 @@
 		<script type="text/javascript">
 			document.writeln('我是document.writeln动态写入的！')
 		</script>>
-		<p>
+		<p id="data" data-appId="12345" data-myname="Nicholas">
 			我是第三个 &lt;p&gt;;
 		</p>
+
 	</div>
 	<div id="mydiv"><!-- 这是一个注释 --></div>
 	<ul id="list"></ul>
 	<script type="text/javascript" src="DOM.js"></script>
-	
+	<script type="text/javascript">
+		var dataDiv = document.getElementById('data');
+		var dataset = dataDiv.dataset;
+
+		/*for (var [key, value] of dataset) {
+			console.log(key + " = " + value);
+		}*/
+
+		dataset.forEach(function (key, value) {
+			console.log(key + " = " + value);
+		});
+
+
+	</script>
 </body>
 </html>
