@@ -144,10 +144,29 @@ console.log(dataset.appId);		// undefined
 
 console.log(dataset);			
 // DOMStringMap {appid: "12345", myname: "Nicholas"}
+// dataset 是 DOMStringMap 实例，就形式上来说，每一个 data-property 都会一个 object attribute，本质上来说 DOMStringMap 中数据是一个 对象字面量 构造，而不是其他类似 Map/Array 的引用类型，所有可以使用 for_in 进行迭代
+
+var key;
+for (key in dataset) {
+	
+	// console.log(key);
+	// appid
+	// myname
+	
+	// console.log(dataset[key]);
+	// 12345
+	// Nicholas
+
+	// console.log(key + " : " + dataset[key]);
+	// appid : 12345
+	// myname : Nicholas
+}
 
 // Map - MDN web docs
 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map
 
+// HTMLElement.dataset - MDN web docs
+// https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
 
 "
 	Note also that an HTML data-attribute and its corresponding DOM dataset.property do not share the same name, but they are always similar:
@@ -159,5 +178,86 @@ console.log(dataset);
 		  https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
 "
 
+*/
+
+// 插入标记
+// 细致入微的控制手段
+
+// innerHTML 属性
+// 读模式：innerHTML 属性返回与调用元素的所有子节点（包括元素、注释和文本节点）对应的 HTML 标记。
+
+// 写模式：innerHTML 会根据指定的值创建新的DOM树，然后用这个 DOM 树完全替换调用元素原先的所有子节点。
+
+// 在大多数浏览器中，通过 innerHTML 插入<script>元素并不会执行其中的脚本
+
+
+// outerHTML 属性
+// 读模式：outerHTML 返回调用它的元素及所有子节点的 HTML 标签
+
+// 写模式：outerHTML 会根据指定的 HTML 字符串创建新的 DOM 子树，然后用这个 DOM 子树完全替换调用元素。
+
+// insertAdjacentHTML() 方法
+/* 
+接收两个参数：插入位置和要插入的 HTML 文本
+第一个参数必须是下列值之一：
+	"beforebegin"，在当前元素之前插入一个紧邻的同辈元素；
+	"afterbegin"，在当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素；
+	"beforeend"，在当前元素之下插入一个新的子元素或在最后一个子元素之后再插入新的子元素；
+	"afterend"，在当前元素之后插入一个紧邻的同辈元素。
+注意，这些值都必须是小写形式。第二个参数是一个HTML 字符串（与 innerHTML 和 outerHTML 的值相同），如果浏览器无法解析该字符串，就会抛出错误。
+*/
+
+
+// 内存与性能问题
+
+
+
+// scrollIntoView() 方法
+// 滚动页面
+/* 
+	可以在所有 HTML 元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中。如果给这个方法传入 true 作为参数，或者不传入任何参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。如果传入 false 作为参数，调用元素会尽可能全部出现在视口中，(可能的话，调用元素的底部会与视口顶部平齐。)
+ 	
+ 	当页面发生变化时，一般会用这个方法来吸引用户的注意力。实际上，为某个元素设置焦点也会导致浏览器滚动并显示出获得焦点的元素。
+
+ */
+
+
+// 专有扩展
+
+// 文档模式
+/* 
+	页面的文档模式决定了可以使用什么功能。换句话说，文档模式决定了你可以使用哪个级别的CSS，可以在JavaScript 中使用哪些API，以及如何对待文档类型（doctype）。
+	
+	要强制浏览器以某种模式渲染页面，可以使用HTTP 头部信息X-UA-Compatible，或通过等价的<meta>标签来设置：
+
+		<meta http-equiv="X-UA-Compatible" content="IE=IEVersion">
+	
+	通过document.documentMode 属性可以知道给定页面使用的是什么文档模式。
+	知道页面采用的是什么文档模式，有助于理解页面的行为方式。无论在什么文档模式下，都可以访问这个属性。
+ */
+
+
+
+// 插入文本
+
+// innerText -- 除 firefox，其在 firefox 也实现了
+// textContent -- firefox
+// text
+
+// outerText -- 读和 innerText 一样，写 替换整个元素(包括子节点)
+
+
+// 滚动
+
+/*
+下面列出的几个方法都是对HTMLElement 类型的扩展，因此在所有元素中都可以调用。
+	scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚	动浏览器窗口或容器元素，最终让它可见。如果当前元素在视口中可见，这个方法什么也不做。
+	如果将可选的 alignCenter 参数设置为 true，则表示尽量将元素显示在视口中部（垂直方向）。	
+	Safari 和 Chrome 实现了这个方法。
+	
+	scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount 值可以是正值，也可以是负值。Safari 和 Chrome 实现了这个方法。
+	 
+	scrollByPages(pageCount)：将元素的内容滚动指定的页面高度，具体高度由元素的高度决
+	定。Safari 和 Chrome 实现了这个方法。
 */
 

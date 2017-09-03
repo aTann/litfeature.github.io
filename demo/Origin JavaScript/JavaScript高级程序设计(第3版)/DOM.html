@@ -27,17 +27,26 @@
 	<ul id="list"></ul>
 	<script type="text/javascript" src="DOM.js"></script>
 	<script type="text/javascript">
+		// 获取 data- 自定义属性 值
 		var dataDiv = document.getElementById('data');
 		var dataset = dataDiv.dataset;
+		var key;
+		
+		// dataset 是 DOMStringMap 实例
+		for (key in dataset) {
+			
+			// console.log(key);
+			// appid
+			// myname
+			
+			// console.log(dataset[key]);
+			// 12345
+			// Nicholas
 
-		/*for (var [key, value] of dataset) {
-			console.log(key + " = " + value);
-		}*/
-
-		dataset.forEach(function (key, value) {
-			console.log(key + " = " + value);
-		});
-
+			// console.log(key + " : " + dataset[key]);
+			// appid : 12345
+			// myname : Nicholas
+		}
 
 	</script>
 </body>
