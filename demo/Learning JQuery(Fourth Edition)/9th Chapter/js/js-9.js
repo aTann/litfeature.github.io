@@ -25,20 +25,61 @@
 */
 
 // 9-1
-$(document).ready(function (argument) {
+/*
+$(document).ready(function () {
 	$('#topics a').click(function (event) {
 		event.preventDefault(); // 阻止每个链接的默认行为
-		$('#topics a.selected').removeClass('selected'); // 
-		$(this).addClass('selected');
+		$('#topics a.selected').removeClass('selected'); // 删除所有主题的 selector 类
+		$(this).addClass('selected'); // 为当前点击添加上 selector
 	});
 });
+*/
+
+
+// 9-2
+
+// 隐藏所有不包含相关主题的表格行
+/*$(document).ready(function () {
+	$('#topics a').click(function (event) {
+		event.preventDefault(); // 阻止每个链接的默认行为
+		var topic = $(this).text(); // 获取主题相关的 关键字文本
+
+		$('#topics a.selected').removeClass('selected'); // 删除主题处所有的 .selected 
+		$(this).addClass('selected'); // 为当前点击添加 .selected
+
+		$('#news tr').show(); // 所有 #news tr 显示 topic = All 的情况
+
+		// topic != All, tr 有 :has(td)，在此同时，却没有 :not() 包含 :contains() 主题相关的 关键字 的项，进行隐藏处理
+		if (topic != 'All') {
+			$('#news tr:has(td):not(:contains("' + topic + '"))')
+				.hide();
+		}
+
+	});
+});
+*/
+
+// #news tr:has(td):not(:contains("topic"))
+// #news tr 表示表格所有行
+// :has(td) 表示在单元格中
+// :not()   不包含
+// :contains("topic")  某个元素文本中包含 topic，只会匹配包含文本的行
+// :not(contains("topic")) 对 :contains("topic") 进行 非 操作
 
 
 
 
+// 新闻标题中不能包含主题文本
+// 我们必须考虑主题文本包含在某个新闻标题文本中的可能性
+// 为了排除这种情况，需要针对每一行多做一些检测
 
+$(document).ready(function () {
+	$('#topics a').click(function (event) {
+		
+		// event.
 
-
+	});
+});
 
 
 
