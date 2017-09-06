@@ -173,7 +173,7 @@
 // 	// 大号字体
 // 	$('#switcher-large')
 // 		.on('click', function () {
-// 			$('body').removeClass().addClass('large');
+// 			$('body').addClass('large');
 // 	});
 
 // 	// 恢复正常 
@@ -446,6 +446,7 @@ $(document).ready(function () {
 // 要测试元素是否包含某个类，也可以使用另一个简写方法.hasClass()。
 // 不过，.is()方法则更灵活一些，它可以测试任何选择符表达式。
 
+
 $(document).ready(function () {
 	
 	// 样式转换器启用鼠标悬停效果
@@ -471,7 +472,7 @@ $(document).ready(function () {
 	var setBodyClass = function(className){
 		$('body').removeClass().addClass(className);
 		$('#switcher button').removeClass('selected');
-		$('#switch-' + className).addClass('selected');
+		$('#switcher-' + className).addClass('selected');
 		$('#switcher').off('click', toggleSwitcher);
 		if(className == 'default') {
 			$('#switcher').on('click', toggleSwitcher);
@@ -508,6 +509,12 @@ $(document).ready(function () {
 
 });
 
+window.onload = function() {
+	var ii = document.getElementById('header');
+	console.log(ii.GetProperty);
+	var d = '1234';
+	console.log(typeof(d));
+}
 
 
 
