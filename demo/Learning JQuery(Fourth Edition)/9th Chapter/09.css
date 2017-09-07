@@ -105,3 +105,7 @@ a {
   background-color: #dfd;
 }
 
+/* #news tr:nth-child(3n+1) td {
+  == js: $('#news tr:har("td"):nth-child(3n+1)');
+  background-color: #f00;
+} */
