@@ -82,19 +82,27 @@ $(document).ready(function () {
 	$('#topics a').click(function (event) {
 		
 		// 阻止 <a> 点击 默认事情（跳转）
-		// event.
+		event.preventDefault();
 
 		// 获取当前 主题关键词 文本
-		
+		var topic = $(event.target).text();
+		// console.log(topic);
+
 		// 先删除所有 .selected，
+		$('#topics a.selected').removeClass('selected')
 
 		// 再为当前 主题 添加 .selected 样式
-		
+		$(this).addClass('selected');
+
 		// 所有内容行都显示，默认 topic = All
+		$('#news tr').show();
 
 		// 如果 topic != All
 		// 遍历所有的内容行，检索每一个单元格，如果不符合条件的 单元格所在行 进行隐藏处理
 		// 条件：当前行中的第 4 个子元素内的文本 = topic[.selected]
+		if (topic != 'All') {
+			$('#news tr:has(td):not(:contains("'+ topic +'"))').hide();
+		}
 	});
 });
 
@@ -224,7 +232,8 @@ $(document).ready(function () {
 		 * @param  {HTMLCollection} set     匹配到当前元素的整个 DOM 元素集合，这个参数很少用
 		 * @return {boolean}         是否符合当前条件，index % (num * 2) < num
 		 */
-		group: function (element, index, matches, set) {
+		 // support: jQuery <1.8
+/*		group: function (element, index, matches, set) {
 			// 将当前的匹配转化为 10 位整数 - num
 			var num = parseInt(matches[3], 10);
 			// 检测输入的 num 是否符合要求，如果不符，返回 false
@@ -232,12 +241,79 @@ $(document).ready(function () {
 				return false;
 			}
 
+
+			// console.log(this);
+
+			// console.log(num);
+
+			// :group(4)
+			// console.log(matches); // (4) ["group", "group", "", "4"]
+			
+			// console.log(index % (num * 2) < num); // 都是 true
+
+			// console.log(index); // 都是 0
+
+			// console.log(element); 
+
+			// console.log($(element));
+			
 			// 返回 检测条件获得的 boolean
-			return index % (num * 2) < num;
-		}
-	})
+			return index % (num * 2) < num; 
+		}*/
+
+		/*group: $.expr.createPseudo(function( num ) {
+
+			return function (element, context, xml) {
+				// console.log(this);
+				console.log(element);
+				console.log(context);
+				console.log(xml);
+			};
+		})*/
+
+		/*group: function (element, index, matches, set) {
+			// 将当前的匹配转化为 10 位整数 - num
+			var num = parseInt(matches[3], 10);
+			// 检测输入的 num 是否符合要求，如果不符，返回 false
+			if (isNaN(num)) {
+				return false;
+			}
+			
+			// 先找到 parent DOM，在进行 转化为 Array traversal
+			var $children = $(element).parent().children(':has("td")');
+
+			// var $children = $(element).siblings().addBack().has('td'); // 使用同辈关系
+
+			index = $children.toArray().indexOf(element);
+			
+			// console.log($children.toArray());
+			// console.log(index)
+
+			// 返回 检测条件获得的 boolean
+			return index % (num * 2) < num; 
+		}*/
+	});
 })(jQuery);
 
+
+
+// $.expr[':'],{} jquery < 1.8
+// $.expr.createPseudo(fn())  > 1.8+，但是只接受一个 参数 HTMLElement
+// $.expr.setFilters.group = function (elements, argument, not) { ... }  1.8+ 
+// 
+(function ($) {
+	$.expr.setFilters.group = function (elements, argument, not) {
+		var resultElements = [];
+		// console.log(elements);
+		for (var i = 0; i < elements.length; i++) {
+			 var test = i % (argument * 2) < argument;
+			 if ((!not && test) || (not && !test)) {
+		        resultElements.push(elements[i]);
+		      }
+		}
+		return resultElements;
+	}
+})(jQuery);
 
 
 // 9-9
@@ -245,12 +321,24 @@ $(document).ready(function () {
 /*$(document).ready(function () {
 	function stripe () {
 		// 在内容行中删除所有[class = alt]
+		$('#news').find('tr.alt').removeClass('alt');
 
 		// 在 <tbody> 遍历可见的子元素，同时子元素需要有 <td> 元素存在
 		// 筛选子元素的索引是否符合 :group(3) 的条件
 		// 符合添加的子元素添加 [class = alt]
+		$('#news tbody').each(function () {
+			$(this).children(':visible')
+				.has('td')
+				.filter(':group(3)')
+				.addClass('alt');
+		});
 
 	}
+	stripe();
+
+	// $('#news tr:group(2)').addClass('alt');
+	// console.log('jQuery.expr',$.expr);
+	// console.log('jQuery.filter',$.filter);
 });
 */
 
@@ -381,9 +469,10 @@ $(document).ready(function () {
 	// .nextAll() 本元素之后同级元素集
 	// .addBack() 包含前一个引用
 	// 也就是 .nextAll() + this
+	/*
 	var $addBack = $('#release').nextAll().addBack();
 	$addBack.addClass('highlight');
-	
+	*/
 	// console.log($addBack.prevObject);
 	// (2) [td.highlight, td.highlight, prevObject: r.fn.init(1)]
 

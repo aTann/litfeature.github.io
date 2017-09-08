@@ -54,7 +54,143 @@ $('#news tbody').each(function (index) {
 
 
 
+/*
+(2) 创建一个新的选择符插件:containsExactly()，用于选择包含的文本与传入括号中的文本完全相同的元素。
+*/
 
+/*(function ($) {
+	$.extend($.expr[':'],{
+		containsExactly: $.expr.createPseudo( function ( inText ) {
+			return function (elem) {
+				return $(elem).text().indexOf(inText) == 0;
+			}
+		})
+	});
+})(jQuery);
+
+$(document).ready(function () {
+	$('#news tr').children(':containsExactly("Miscellaneous")').css('background-color', 'red');
+});
+*/
+
+// (3) 使用新的:containsExactly()选择符重写代码清单9-3中的筛选代码。
+/*
+(function ($) {
+ 	$.extend($.expr[':'], {
+ 		containsExactly: $.expr.createPseudo( function ( inText ) {
+ 			return function (elem) {
+
+ 				return !$(elem).children()
+ 						.toArray()
+ 						// some 一组数组 只要有一个为 true，返回 true
+ 						.some( function (item, index, array) {
+ 							return $(item).text().indexOf(inText) == 0; 
+ 						});
+ 			}
+ 		})
+ 	});
+ })(jQuery);
+
+$(document).ready(function () {
+	$('#topics a').click(function (event) {
+		
+		// 阻止 <a> 点击 默认事情（跳转）
+		event.preventDefault();
+
+		// 获取当前 主题关键词 文本
+		var topic = $(event.target).text();
+		// console.log(topic);
+
+		// 先删除所有 .selected，
+		$('#topics a.selected').removeClass('selected')
+
+		// 再为当前 主题 添加 .selected 样式
+		$(this).addClass('selected');
+
+		// 所有内容行都显示，默认 topic = All
+		$('#news tr').show();
+
+		// 如果 topic != All
+		// 遍历所有的内容行，检索每一个单元格，如果不符合条件的 单元格所在行 进行隐藏处理
+		// 条件：当前行中的第 4 个子元素内的文本 = topic[.selected]
+		if (topic != 'All') {
+			$('#news tr:has(td):containsExactly('+ topic +')').hide();
+		}
+	});
+});
+*/
+
+// (4) 创建一个新的DOM遍历插件.grandparent()，可以在DOM中移动到一个或一组元素的祖父元素。
+/*(function ($) {
+	$.fn.grandparent = function () {
+		var $parents = $();
+		// console.log(this);
+		this.each(function (index, item, array) {
+			// 爸爸的爸爸 就是 祖父  granparent
+			$parents = $parents.add($(item).parent().parent());
+		});
+		return this.pushStack($parents);
+	}
+})(jQuery);
+
+
+
+$(document).ready(function () {
+	console.log($('#release, td:contains("Spotlight")').grandparent().addClass('highlight'));
+});
+*/
+
+/*
+(5) 挑战：使用http://jsperf.com/，把index.html的内容粘贴进去，比较一下使用下列方式查找与<td id="release">最接近的祖先表格元素的性能：
+	. 使用.closest()方法；
+	. 使用.parents()方法，将结果限制为找到的第一个表格。
+*/
+
+/*
+var $origin = $('#release');
+console.log($origin.closest('tbody'))
+console.log($origin.parents('tbody')[0]);
+*/
+
+
+/*Done. Ready to run again.
+
+Run again
+Testing in Chrome 60.0.3112 / Windows 10 0.0.0
+Test	Ops/sec
+Search by .closest()
+$origin.closest('tbody');
+284,193
+±1.92%
+fastest
+Search by .parents()
+$origin.parents('tbody')[0];
+179,568
+±2.31%
+37% slower
+
+https://jsperf.com/jquery-compare-closest-with-parents
+*/
+
+/*
+(6) 挑战：使用http://jsperf.com/，把index.html的内容粘贴进去，比较一下使用下列方式查找表格中每一行的最后一个<td>元素的性能：
+	. 使用:last-child伪类；
+	. 使用:nth-child()伪类；
+	. 在每一行中（使用.each()方法遍历每一行）使用.last()方法；
+	. 在每一行中（使用.each()方法遍历每一行）使用:last()伪类。
+*/
+
+console.log($('#news tr td:last-child'));
+console.log($('#news tr td:nth-child(4)'));
+
+$('#news tr').each(function (index, item, array) {
+	console.log($(item).children().last());
+});
+
+
+$('#news tr').each(function (index, item, array) {
+	console.log($(item).children(':last()'));
+});
 
 
 
