@@ -180,19 +180,37 @@ https://jsperf.com/jquery-compare-closest-with-parents
 	. 在每一行中（使用.each()方法遍历每一行）使用:last()伪类。
 */
 
-console.log($('#news tr td:last-child'));
-console.log($('#news tr td:nth-child(4)'));
-
-$('#news tr').each(function (index, item, array) {
-	console.log($(item).children().last());
-});
-
-
-$('#news tr').each(function (index, item, array) {
-	console.log($(item).children(':last()'));
-});
+// benchmark
 
 
 
 
+var suite = new Benchmark.Suite;
+
+// add tests
+suite.add('$#:last-child', function() {
+        $('#news tr:has(td)').children(':last-child');
+    })
+    .add('$#:nth-child', function() {
+        $('#news tr:has(td)').children(':nth-child(4)');
+    })
+    .add('$#each.last', function() {
+        $('#news tr:has(td)').each(function(index, item, array) {
+            $(item).children('td').last();
+        });
+    })
+    .add('$#each:last', function() {
+        $('#news tr:has(td)').each(function(index, item, array) {
+            $(item).children('td:last()');
+        });
+    })
+    // add listeners
+    .on('cycle', function(event) {
+        console.log(String(event.target));
+    })
+    .on('complete', function() {
+        console.log('Fastest is ' + this.filter('fastest').map('name'));
+    })
+    // run async
+    .run({ 'async': true });
 
