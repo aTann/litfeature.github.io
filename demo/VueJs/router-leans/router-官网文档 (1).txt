@@ -60,6 +60,8 @@ const app = new Vue({
 
 
 
+
+
 // 动态路由匹配
 // 动态路径参数 (dynamic segment)
 // 一个路径参数使用冒号 : 标记，当匹配到一个路由时，
@@ -89,3 +91,135 @@ watch: {
 	}
 }
 
+
+// 高级匹配模式
+// vue-router 使用 path-to-regexp 作为路径匹配引擎
+// https://github.com/pillarjs/path-to-regexp#parameters
+// http://forbeslindesay.github.io/express-route-tester/
+
+
+// 匹配优先级
+// 有时候，同一个路径可以匹配多个路由，此时，匹配的优先级就按照路由的定义顺序：谁先定义的，谁的优先级就最高。
+// 
+// 
+
+
+
+
+
+// 嵌套路由
+
+// 应用界面 多层嵌套的组件组合
+// URL各段动态路径 某种结构对应嵌套的各层组件
+
+/user/foo/profile                     /user/foo/posts
++------------------+                  +-----------------+
+| User             |                  | User            |
+| +--------------+ |                  | +-------------+ |
+| | Profile      | |  +------------>  | | Posts       | |
+| |              | |                  | |             | |
+| +--------------+ |                  | +-------------+ |
++------------------+                  +-----------------+
+
+
+// 顶级、没有嵌套
+const router = new VueRouter({
+  routes: [
+    { path: '/user/:id', component: User }
+  ]
+})
+
+
+// 有嵌套
+// 需要在 VueRouter 的参数中使用 children 配置
+const router = new VueRouter({
+  routes: [
+    { path: '/user/:id', component: User,
+      children: [
+        {
+          // 当 /user/:id/profile 匹配成功，
+          // UserProfile 会被渲染在 User 的 <router-view> 中
+          path: 'profile',
+          component: UserProfile
+        },
+        {
+          // 当 /user/:id/posts 匹配成功
+          // UserPosts 会被渲染在 User 的 <router-view> 中
+          path: 'posts',
+          component: UserPosts
+        }
+      ]
+    }
+  ]
+})
+
+// 要在嵌套的出口中渲染组件
+
+const User = {
+  template: `
+    <div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div>
+  `
+}
+
+
+// 要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+
+
+// children 配置就是像 routes 配置一样的路由配置数组，所以呢，你可以嵌套多层路由。
+
+// 实例：http://jsfiddle.net/yyx990803/L7hscd8h/
+
+
+
+
+
+
+
+// 编程式导航
+
+
+
+// 命名路由
+
+
+// 重定向和别名
+
+
+// HTML5 History 模式
+
+
+
+
+// 进阶
+// 导航钩子
+
+
+// 路由源信息
+
+
+// 过渡动效
+
+
+
+// 数据获取
+
+
+
+// 滚动行为
+
+
+
+// 懒加载
+
+
+
+// API文档
+// router-link
+// router-view
+// 路由信息对象
+// Router 构造配置
+// Router 实例
+// 对组件注入
