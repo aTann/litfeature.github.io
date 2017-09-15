@@ -104,10 +104,9 @@ watch: {
 [例子](http://forbeslindesay.github.io/express-route-tester/)   
 
 
-// 匹配优先级
-// 有时候，同一个路径可以匹配多个路由，此时，匹配的优先级就按照路由的定义顺序：谁先定义的，谁的优先级就最高。
-// 
-// 
+#### 匹配优先级
+有时候，同一个路径可以匹配多个路由，此时，匹配的优先级就按照路由的定义顺序：谁先定义的，谁的优先级就最高。
+
 
 
 
@@ -115,7 +114,7 @@ watch: {
 
 ### 嵌套路由
 
-应用界面 多层嵌套的组件组合     
+应用界面 多层嵌套的组件组合         
 URL各段动态路径 某种结构对应嵌套的各层组件    
 ```
 /user/foo/profile                     /user/foo/posts
@@ -128,7 +127,7 @@ URL各段动态路径 某种结构对应嵌套的各层组件
 +------------------+                  +-----------------+
 ```
 
-顶级、没有嵌套
+顶级、没有嵌套    
 ```
 const router = new VueRouter({
   routes: [
@@ -137,7 +136,7 @@ const router = new VueRouter({
 })
 ```
 
-有嵌套
+有嵌套     
 需要在 VueRouter 的参数中使用 children 配置
 ```
 const router = new VueRouter({
@@ -301,7 +300,7 @@ router.push({ name: 'user', params: { userId: 123 }})
 ```
 如果 router-view 没有设置名字，那么默认为 default
 
-一个视图 一个组件 渲染，同个路由，多个视图需要多个组件。
+一个视图 一个组件 渲染，同个路由，多个视图需要多个组件。    
 确保正确使用 components 配置 (components 是复数的)
 
 ```
