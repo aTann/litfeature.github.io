@@ -137,7 +137,7 @@ function AdditiveExpression(source) {
 
         node.children.push(source.shift());
         node.children.push(source.shift());
-        MultiplicativeExpression(source.shift());
+        MultiplicativeExpression(source);
         node.children.push(source.shift());
         source.unshift(node);
         return AdditiveExpression(source)
@@ -152,14 +152,14 @@ function AdditiveExpression(source) {
 
         node.children.push(source.shift());
         node.children.push(source.shift());
-        MultiplicativeExpression(source.shift());
+        MultiplicativeExpression(source);
         node.children.push(source.shift());
         source.unshift(node);
         return AdditiveExpression(source)
     }
 
     if (source[0].type === 'AdditiveExpression') {
-        return source[0]
+      return source[0]
     }
 
     MultiplicativeExpression(source);
@@ -229,14 +229,42 @@ var ast = Expression(source);
 
 console.log(ast);
 
+// 解释执行
 
+function evaluate(node) {
+  if (node.type === 'Expression') {
+    return evaluate(node.children[0])
+  }
 
+  if (node.type === 'AdditiveExpression') {
+    if (node.operator === '-') {
+      return evaluate(node.children[0]) - evaluate(node.children[2])
+    }
 
+    if (node.operator === '+') {
+      return evaluate(node.children[0]) + evaluate(node.children[2])
+    }
 
+    return evaluate(node.children[0])
+  }
 
+  if(node.type === 'MultiplicativeExpression') {
+    if (node.operator === '*') {
+      return evaluate(node.children[0]) * evaluate(node.children[2])
+    }
 
+    if (node.operator === '/') {
+      return evaluate(node.children[0]) / evaluate(node.children[2])
+    }
 
+    return evaluate(node.children[0])
+  }
 
+  if (node.type === 'Number') {
+    return Number(node.value)
+  }
+}
 
+const eva = evaluate(ast)
 
-
+console.log(eva);
