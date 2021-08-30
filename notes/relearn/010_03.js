@@ -23,7 +23,7 @@
 
 // 词法分析：状态机
 
-var token = [], source = [];
+var token = [];
 var start = (char) => {
     if (char === '0'
         || char === '1'
@@ -75,6 +75,13 @@ const inNumber = char => {
     ) {
         token.push(char);
         return inNumber;
+    } else if (char === '.') {
+        if (!token.includes('.')) {
+            token.push(char);
+            return inNumber;
+        } else {
+            throw new SyntaxError('Unexpected number')
+        }
     } else {
         emmitToken("Number", token.join(""));
         token = [];
@@ -82,16 +89,18 @@ const inNumber = char => {
     }
 }
 
+var source = []
+
 function emmitToken(type, value) {
     source.push({
         type,
         value
     })
 
-    console.log(type, value);
+    // console.log(type, value);
 }
 
-var input = "1024 + 2 * 256"
+var input = "1024.25 + 2 * - 256"
 
 var state = start;
 
@@ -100,8 +109,7 @@ for (let c of input.split('')) {
 }
 
 state(Symbol('EOF'))
-
-console.log(source);
+// console.log(JSON.stringify(source));
 
 // 语法分析：LL
 // var tokens = [
@@ -126,6 +134,44 @@ function Expression(source) {
     return Expression(source)
 }
 
+function NegativeExpression(source) {
+    // console.log('-------------------NegativeExpression-------------------');
+    // console.log(source);
+    // console.log('-------------------NegativeExpression-------------------');
+    if (source[0].type === '-' 
+        &&  source[1] 
+        && (source[1].type === '*' 
+            || source[1].type === '/' 
+            || source[1].type === '+' 
+            || source[1].type === '-' )
+    ) {
+        throw new SyntaxError('Unexpected token ' + source[1].type)
+    }
+
+    if (source[0].type === '-' &&  source[1] && source[1].type === 'Number') {
+        let node = {
+            type: 'NegativeExpression',
+            operator: '-',
+            children: []
+        }
+
+        node.children.push(source.shift())
+        node.children.push(source.shift())
+        source.unshift(node)
+        return NegativeExpression(source)
+    }
+
+    if (source[0].type === 'NegativeExpression') {
+        return source[0]
+    }
+
+    if (source[0].type === 'Number') {
+        return source[0]
+    }
+
+    return NegativeExpression(source)
+}
+
 function AdditiveExpression(source) {
     if (source[0].type === 'MultiplicativeExpression') {
         let node = {
@@ -146,6 +192,7 @@ function AdditiveExpression(source) {
 
         node.children.push(source.shift());
         node.children.push(source.shift());
+        NegativeExpression(source)
         MultiplicativeExpression(source);
         node.children.push(source.shift());
         source.unshift(node);
@@ -177,7 +224,8 @@ function AdditiveExpression(source) {
 
 
 function MultiplicativeExpression() {
-    if (source[0].type === 'Number') {
+
+    if (source[0].type === 'Number' || source[0].type === 'NegativeExpression') {
         let node = {
             type: 'MultiplicativeExpression',
             children: [source[0]]
@@ -195,6 +243,7 @@ function MultiplicativeExpression() {
 
         node.children.push(source.shift());
         node.children.push(source.shift());
+        NegativeExpression(source)
         node.children.push(source.shift());
         source.unshift(node);
 
@@ -226,7 +275,7 @@ function MultiplicativeExpression() {
     
 var ast = Expression(source); 
 
-console.log(ast);
+console.log(JSON.stringify(ast));
 
 // 解释执行
 
@@ -249,7 +298,12 @@ function evaluate(node) {
 
   if(node.type === 'MultiplicativeExpression') {
     if (node.operator === '*') {
-      return evaluate(node.children[0]) * evaluate(node.children[2])
+        const l = evaluate(node.children[0]) ;
+        const r = evaluate(node.children[2]);
+        const lr = l * r
+        console.log(r);
+    //   return evaluate(node.children[0]) * evaluate(node.children[2])
+    return lr
     }
 
     if (node.operator === '/') {
@@ -257,6 +311,10 @@ function evaluate(node) {
     }
 
     return evaluate(node.children[0])
+  }
+
+  if (node.type === 'NegativeExpression') {
+    return - evaluate(node.children[1])
   }
 
   if (node.type === 'Number') {

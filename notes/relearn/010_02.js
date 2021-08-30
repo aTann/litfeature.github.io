@@ -23,7 +23,7 @@
 
 // 词法分析：状态机
 
-var token = [], source = [];
+var token = [];
 var start = (char) => {
     if (char === '0'
         || char === '1'
@@ -75,12 +75,22 @@ const inNumber = char => {
     ) {
         token.push(char);
         return inNumber;
+    }
+    else if (char === '.') {
+        if (!token.includes('.')) {
+            token.push(char);
+            return inNumber;
+        } else {
+            throw new SyntaxError('Unexpected number')
+        }
     } else {
         emmitToken("Number", token.join(""));
         token = [];
         return start(char); // put back char
     }
 }
+
+var source = []
 
 function emmitToken(type, value) {
     source.push({
@@ -91,7 +101,7 @@ function emmitToken(type, value) {
     console.log(type, value);
 }
 
-var input = "1024 + 2 * 256"
+var input = "1024.25 + 2 * 256"
 
 var state = start;
 
