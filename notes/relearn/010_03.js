@@ -142,13 +142,14 @@ function NegativeExpression(source) {
         &&  source[1] 
         && (source[1].type === '*' 
             || source[1].type === '/' 
-            || source[1].type === '+' 
-            || source[1].type === '-' )
+            // || source[1].type === '+' 
+            // || source[1].type === '-' 
+            )
     ) {
         throw new SyntaxError('Unexpected token ' + source[1].type)
     }
 
-    if (source[0].type === '-' &&  source[1] && source[1].type === 'Number') {
+    if (source[0].type === '-') {
         let node = {
             type: 'NegativeExpression',
             operator: '-',
@@ -156,6 +157,21 @@ function NegativeExpression(source) {
         }
 
         node.children.push(source.shift())
+        NegativeExpression(source)
+        node.children.push(source.shift())
+        source.unshift(node)
+        return NegativeExpression(source)
+    }
+
+    if (source[0].type === '+') {
+        let node = {
+            type: 'NegativeExpression',
+            operator: '+',
+            children: []
+        }
+
+        node.children.push(source.shift())
+        NegativeExpression(source)
         node.children.push(source.shift())
         source.unshift(node)
         return NegativeExpression(source)
@@ -314,7 +330,13 @@ function evaluate(node) {
   }
 
   if (node.type === 'NegativeExpression') {
-    return - evaluate(node.children[1])
+    if (node.operator === '-') {
+      return - evaluate(node.children[1])
+    }
+  
+    if (node.operator === '+') {
+       return evaluate(node.children[1])
+    }
   }
 
   if (node.type === 'Number') {
