@@ -159,7 +159,7 @@ function emmitToken(type, value) {
   //   console.log(type, value);
 }
 
-var input = "1024.25 + -(- + - 2 * ( 256 / 1 ))";
+var input = "1024.25 + - -(- + - 2 * ( 256 / 1 ))";
 
 var state = start;
 
@@ -395,8 +395,6 @@ var ast = Expression(source);
 
 console.log(ast);
 
-console.log(JSON.stringify(ast));
-
 // 解释执行
 
 function evaluate(node) {
@@ -445,3 +443,5 @@ function evaluate(node) {
 }
 
 const eva = evaluate(ast);
+
+console.log(eva);
