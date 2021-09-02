@@ -21,9 +21,8 @@
 
 // 词法分析：状态机
 
-// 添加负号，在词法分析-状态机阶段处理负号
-
 var token = [];
+var groupSigns = [];
 var start = (char) => {
   if (
     char === "0" ||
@@ -44,6 +43,23 @@ var start = (char) => {
   if (char === "+" || char === "-" || char === "*" || char === "/") {
     emmitToken(char, char);
     return InNegativeNumber;
+  }
+
+  if (char === '(') {
+    groupSigns.push(char)
+    emmitToken(char, char);
+    return InNegativeNumber;
+  }
+
+  if (char === ')') {
+    const sign = groupSigns.pop()
+
+    if (!sign) {
+      throw new SyntaxError('Unexpected end of input')
+    }
+    emmitToken(char, char);
+
+    return start;
   }
 
   if (char === " ") {
@@ -68,6 +84,10 @@ const InNegativeNumber = (char) => {
     return InNegativeNumber;
   }
 
+  if (char === " " || char === "+") {
+    return InNegativeNumber;
+  }
+
   if (
     char === "0" ||
     char === "1" ||
@@ -88,8 +108,10 @@ const InNegativeNumber = (char) => {
     throw new SyntaxError("Unexpected token " + char);
   }
 
-  if (char === " " || char === "+") {
-    return InNegativeNumber;
+
+  if (token.length) {
+    emmitToken('NegativeNumber', '-')
+    token = []
   }
 
   return start(char);
@@ -137,7 +159,7 @@ function emmitToken(type, value) {
   //   console.log(type, value);
 }
 
-var input = "1024.25 + - + - 2 * 256";
+var input = "1024.25 + (- + - 2 * ( 256 / 1 ))";
 
 var state = start;
 
@@ -172,6 +194,19 @@ function Expression(source) {
     source.unshift(node);
     return node;
   }
+
+  if (
+    source[0].type === "AdditiveExpression" &&
+    source[1] &&
+    source[1].type === ")"
+  ) {
+    let node = {
+      type: "Expression",
+      children: [source.shift()],
+    };
+    return node;
+  }
+
   AdditiveExpression(source);
   return Expression(source);
 }
@@ -200,6 +235,7 @@ function AdditiveExpression(source) {
 
     node.children.push(source.shift());
     node.children.push(source.shift());
+    GroupExpression(source)
     MultiplicativeExpression(source);
     node.children.push(source.shift());
     source.unshift(node);
@@ -219,6 +255,7 @@ function AdditiveExpression(source) {
 
     node.children.push(source.shift());
     node.children.push(source.shift());
+    GroupExpression(source)
     MultiplicativeExpression(source);
     node.children.push(source.shift());
     source.unshift(node);
@@ -234,7 +271,7 @@ function AdditiveExpression(source) {
 }
 
 function MultiplicativeExpression() {
-  if (source[0].type === "Number") {
+  if (source[0].type === "GroupExpression") {
     let node = {
       type: "MultiplicativeExpression",
       children: [source[0]],
@@ -256,6 +293,7 @@ function MultiplicativeExpression() {
 
     node.children.push(source.shift());
     node.children.push(source.shift());
+    GroupExpression(source)
     node.children.push(source.shift());
     source.unshift(node);
 
@@ -275,6 +313,7 @@ function MultiplicativeExpression() {
 
     node.children.push(source.shift());
     node.children.push(source.shift());
+    GroupExpression(source)
     node.children.push(source.shift());
     source.unshift(node);
 
@@ -285,7 +324,59 @@ function MultiplicativeExpression() {
     return source[0];
   }
 
+  GroupExpression(source)
   return MultiplicativeExpression(source);
+}
+
+function GroupExpression() {
+  if (source[0].type === "Number") {
+    let node = {
+      type: "GroupExpression",
+      children: ['', source[0], ''],
+    };
+    source[0] = node;
+    return GroupExpression(source);
+  }
+
+  if (source[0].type === '(') {
+    let node = {
+      type: "GroupExpression",
+      operator: "(",
+      children: []
+    }
+    node.children.push(source.shift())
+    node.children.push(Expression(source))
+    node.children.push(source.shift())
+    source.unshift(node)
+    return GroupExpression(source)
+  }
+
+  if (source[0].type === "GroupExpression") {
+    return source[0];
+  }
+
+  return GroupExpression(source)
+}
+
+
+function NegativeExpression(source) {
+  if (source[0].type === "NegativeNumber") {
+    let node = {
+      type: "NegativeNumber",
+      children: [source.shift()],
+    };
+
+    GroupExpression(source)
+    source.unshift(node);
+    return NegativeExpression(source);
+  }
+
+  if (source[0].type === "NegativeNumber") {
+    return source[0];
+  }
+
+  return NegativeExpression(source)
+
 }
 
 var ast = Expression(source);
@@ -321,6 +412,14 @@ function evaluate(node) {
     }
 
     return evaluate(node.children[0]);
+  }
+
+  if (node.type === "GroupExpression") {
+    return evaluate(node.children[1])
+  }
+
+  if (node.type === "NegativeNumber") {
+    return -evaluate(node.children[1]);
   }
 
   if (node.type === "Number") {
