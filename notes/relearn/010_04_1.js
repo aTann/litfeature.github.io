@@ -159,7 +159,7 @@ function emmitToken(type, value) {
   //   console.log(type, value);
 }
 
-var input = "1024.25 + (- + - 2 * ( 256 / 1 ))";
+var input = "1024.25 + -(- + - 2 * ( 256 / 1 ))";
 
 var state = start;
 
@@ -212,6 +212,7 @@ function Expression(source) {
 }
 
 function AdditiveExpression(source) {
+
   if (source[0].type === "MultiplicativeExpression") {
     let node = {
       type: "AdditiveExpression",
@@ -329,10 +330,10 @@ function MultiplicativeExpression() {
 }
 
 function GroupExpression() {
-  if (source[0].type === "Number") {
+  if (source[0].type === "NegativeExpression") {
     let node = {
       type: "GroupExpression",
-      children: ['', source[0], ''],
+      children: [, source[0]],
     };
     source[0] = node;
     return GroupExpression(source);
@@ -354,24 +355,35 @@ function GroupExpression() {
   if (source[0].type === "GroupExpression") {
     return source[0];
   }
-
+  NegativeExpression(source)
   return GroupExpression(source)
 }
 
 
 function NegativeExpression(source) {
+  if (source[0].type === "Number") {
+    let node = {
+      type: "NegativeExpression",
+      children: [source[0]],
+    };
+    source[0] = node;
+    return GroupExpression(source);
+  }
+
   if (source[0].type === "NegativeNumber") {
     let node = {
-      type: "NegativeNumber",
+      type: "NegativeExpression",
+      operator: '-',
       children: [source.shift()],
     };
 
     GroupExpression(source)
+    node.children.push(source.shift())
     source.unshift(node);
     return NegativeExpression(source);
   }
 
-  if (source[0].type === "NegativeNumber") {
+  if (source[0].type === "NegativeExpression") {
     return source[0];
   }
 
@@ -382,6 +394,8 @@ function NegativeExpression(source) {
 var ast = Expression(source);
 
 console.log(ast);
+
+console.log(JSON.stringify(ast));
 
 // 解释执行
 
@@ -418,8 +432,11 @@ function evaluate(node) {
     return evaluate(node.children[1])
   }
 
-  if (node.type === "NegativeNumber") {
-    return -evaluate(node.children[1]);
+  if (node.type === "NegativeExpression") {
+    if (node.operator === "-") {
+     return -evaluate(node.children[1]);
+    }
+    return evaluate(node.children[0]);
   }
 
   if (node.type === "Number") {
@@ -428,5 +445,3 @@ function evaluate(node) {
 }
 
 const eva = evaluate(ast);
-
-console.log(eva);
