@@ -1,4 +1,5 @@
 var names = Object.getOwnPropertyNames(window);
+var filter = (...args) => names.filter(n => !args.includes(n))
 console.log(names.length) // 1017
 // ES 全局对象
 // [ecma262](https://tc39.es/ecma262/#sec-object-objects)
@@ -14,6 +15,9 @@ const globalOListSet = new Set(globalOList)
 
 names = names.filter(n => !globalOListSet.has(n))
 
+// 移除自建
+filter('names', 'globalOList', 'globalOListSet')
+
 console.log(names.length) // 962
 
 // DOM 中的元素构造器
@@ -27,6 +31,9 @@ names = names.filter(n => {
         return true
     }
 }).filter(n => n != 'Node')
+
+// 移除自建
+filter('nodes')
 
 console.log(names.length) // 803
 
@@ -43,6 +50,9 @@ var winOSet = new Set(winOList);
 
 names = names.filter(n => !winOSet.has(n))
 
+// 移除自建
+filter('winOList', 'winOSet')
+
 console.log(names.length) // 768
 
 const evtList = []
@@ -52,6 +62,9 @@ names = names.filter(n => {
     isEvt && evtList.push(n)
     return !isEvt
 })
+
+// 移除自建
+filter('evtList')
 
 console.log(names.length) // 660
 
@@ -64,6 +77,9 @@ names = names.filter(n => {
     return !isWebkit
 })
 
+// 移除自建
+filter('wibkitList')
+
 console.log(names.length) // 647
 
 // Audio API
@@ -73,15 +89,21 @@ var audioAPISet = new Set(audioAPIList);
 
 names = names.filter(n => !audioAPISet.has(n))
 
+// 移除自建
+filter('audioAPIList', 'audioAPISet')
+
 console.log(names.length) // 615
 
-const mediaStreamList = [
+var mediaStreamList = [
     ' MediaStream', 'MediaStreamEvent', 'MediaStreamTrack', 'MediaStreamTrackEvent', 'OverconstrainedError', 'InputDeviceInfo', 'ConstrainablePattern'
     ];
 
 var mediaStreamSet = new Set(mediaStreamList);
 
 names = names.filter(n => !mediaStreamSet.has(n))
+
+// 移除自建
+filter('mediaStreamList', 'mediaStreamSet')
 
 console.log(names.length) // 608
 
@@ -93,6 +115,9 @@ names = names.filter(n => {
     return !isRTC
 })
 
+// 移除自建
+filter('RTCList')
+
 console.log(names.length) // 593
 
 // Intl 国际化
@@ -101,6 +126,9 @@ var intlList = ['Intl']
 var intlSet = new Set(intlList);
 
 names = names.filter(n => !intlSet.has(n))
+
+// 移除自建
+filter('intlList', 'intlSet')
 
 console.log(names.length) // 592
 
@@ -116,6 +144,8 @@ names = names.filter(n => {
     }
 }).filter(n => n != 'CSSRule' && n != 'CSSRuleList')
 
+// 移除自建
+filter('CSSRuleAPIList')
 console.log(names.length) // 580
 
 // CSSStyleValue
@@ -132,4 +162,6 @@ names = names.filter(n => {
     }
 }).filter(n => n != 'CSSStyleValue' )
 
+// 移除自建
+filter('CSSStyleValueAPIListOther', 'CSSStyleValueAPIList')
 console.log(names.length) // 564
