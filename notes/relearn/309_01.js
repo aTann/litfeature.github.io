@@ -95,7 +95,7 @@ names = filter('audioAPIList', 'audioAPISet')
 console.log(names.length) // 620
 
 var mediaStreamList = [
-    'MediaStream', 'MediaStreamEvent', 'MediaStreamTrack', 'MediaStreamTrackEvent', 'OverconstrainedError', 'InputDeviceInfo', 'ConstrainablePattern'
+    'MediaRecorder', 'MediaStream', 'MediaStreamEvent', 'MediaStreamTrack', 'MediaStreamTrackEvent', 'OverconstrainedError', 'InputDeviceInfo', 'ConstrainablePattern'
 ];
 
 var mediaStreamSet = new Set(mediaStreamList);
@@ -293,12 +293,12 @@ names = filter('MIDIList')
 console.log(names.length) // 
 
 // Indexed Database API
-var IDBList = []
+var IDBList = ['indexedDB']
 names = names.filter(n => {
     const isIDB = /^IDB/g.test(n)
     isIDB && IDBList.push(n)
     return !isIDB
-})
+}).filter(n = n !== 'indexedDB')
 
 // 移除自建
 names = filter('IDBList')
@@ -315,6 +315,418 @@ names = names.filter(n => {
 // 移除自建
 names = filter('idleList')
 console.log(names.length) // 
+
+// Streams
+var streamsSet = new Set(['TransformStream', 'ByteLengthQueuingStrategy', 'CountQueuingStrategy', 'ReadableByteStreamController']);
+var streamsList = [...Array.from(streamsSet)]
+
+names = names.filter(n => {
+    const isStreamse = /^(Writ|Read)ableStream/g.test(n)
+    isStreamse && streamsList.push(n)
+    return !isStreamse
+}).filter(n => !streamsSet.has(n))
+
+// 移除自建
+names = filter('streamsSet', 'streamsList')
+console.log(names.length) // 
+
+// VTT
+var VTTList = ['VTTCue']
+var VTTSet = new Set(VTTList);
+
+names = names.filter(n => !VTTSet.has(n))
+
+// 移除自建
+names = filter('VTTSet', 'VTTList')
+console.log(names.length) // 
+
+// TextEncoder
+var textEncoderList = ['TextEncoderStream', 'TextEncoder', 'TextDecoderStream', 'TextDecoder']
+var textEncoderSet = new Set(textEncoderList);
+
+names = names.filter(n => !textEncoderSet.has(n))
+
+// 移除自建
+names = filter('textEncoderSet', 'textEncoderList')
+console.log(names.length) // 
+
+// Resize Observer
+var resizeObserverList = []
+
+names = names.filter(n => {
+    const isResizeObservere = /^ResizeObserver/g.test(n)
+    isResizeObservere && resizeObserverList.push(n)
+    return !isResizeObservere
+})
+
+// 移除自建
+names = filter('resizeObserverList')
+console.log(names.length) // 
+
+
+// Drag and drop
+var dragList = ['DragEvent', 'DataTransfer', 'DataTransferItem', 'DataTransferItemList']
+var dragSet = new Set(dragList);
+
+names = names.filter(n => !dragSet.has(n))
+
+// 移除自建
+names = filter('dragSet', 'dragList')
+console.log(names.length) // 
+
+// Gamepad
+var gamepadList = []
+
+names = names.filter(n => {
+    const isGamepad = /^Gamepad/g.test(n)
+    isGamepad && gamepadList.push(n)
+    return !isGamepad
+})
+
+// 移除自建
+names = filter('gamepadList')
+console.log(names.length) // 
+
+// TextTrack
+var textTrackList = ['TrackEvent', 'TextTrack', 'TextTrackCue', 'TextTrackCueList', 'TextTrackList']
+var textTrackSet = new Set(textTrackList);
+
+names = names.filter(n => !textTrackSet.has(n))
+
+// 移除自建
+names = filter('textTrackSet', 'textTrackList')
+console.log(names.length) // 
+
+// 以下部分 https://dom.spec.whatwg.org/
+// Ranges
+var rangesList = ['Range', 'StaticRange', ' AbstractRange']
+var rangesSet = new Set(rangesList);
+
+names = names.filter(n => !rangesSet.has(n))
+
+// 移除自建
+names = filter('rangesSet', 'rangesList')
+console.log(names.length) // 
+
+// Traversal
+var traversalList = ['NodeIterator', 'TreeWalker', ' NodeFilter']
+var traversalSet = new Set(traversalList);
+
+names = names.filter(n => !traversalSet.has(n))
+
+// 移除自建
+names = filter('traversalSet', 'traversalList')
+console.log(names.length) // 
+
+// Sets
+var setsList = ['NodeIterator', 'TreeWalker', ' NodeFilter']
+var setsSet = new Set(setsList);
+
+names = names.filter(n => !setsSet.has(n))
+
+// 移除自建
+names = filter('setsSet', 'setsList')
+console.log(names.length) // 
+
+// XPath
+var xPathList = []
+
+names = names.filter(n => {
+    const isXPath = /^XPath/g.test(n)
+    isXPath && xPathList.push(n)
+    return !isXPath
+})
+
+// 移除自建
+names = filter('xPathList')
+console.log(names.length) // 
+
+// XSLTProcessor
+var XSLTProcessorList = ['XSLTProcessor']
+var XSLTProcessorSet = new Set(XSLTProcessorList);
+
+names = names.filter(n => !XSLTProcessorSet.has(n))
+
+// 移除自建
+names = filter('XSLTProcessorSet', 'XSLTProcessorList')
+console.log(names.length) // 
+
+// Aborting ongoing activities
+var abortList = ['AbortController', 'AbortSignal']
+var AbortSet = new Set(abortList);
+
+names = names.filter(n => !AbortSet.has(n))
+
+// 移除自建
+names = filter('AbortSet', 'abortList')
+console.log(names.length) // 
+
+// NodeList
+var nodeListList = ['NodeList', 'RadioNodeList']
+var nodeListSet = new Set(nodeListList);
+
+names = names.filter(n => !nodeListSet.has(n))
+
+// 移除自建
+names = filter('nodeListSet', 'nodeListList')
+console.log(names.length) // 
+
+// MutationObserver
+var mutationObserverList = ['MutationEvent', 'MutationObserver', 'MutationRecord']
+var mutationObserverSet = new Set(mutationObserverList);
+
+names = names.filter(n => !mutationObserverSet.has(n))
+
+// 移除自建
+names = filter('mutationObserverSet', 'mutationObserverList')
+console.log(names.length) // 
+
+// DOMImplementation
+var otherDomList = ['DOMImplementation', 'DOMTokenList', 'CustomEvent']
+var otherDomSet = new Set(otherDomList);
+
+names = names.filter(n => !otherDomSet.has(n))
+
+// 移除自建
+names = filter('otherDomSet', 'otherDomList')
+console.log(names.length) // 
+
+// Geolocation API
+// https://w3c.github.io/geolocation-api/
+var geolocationList = []
+
+names = names.filter(n => {
+    const isGeolocation = /^Geolocation/g.test(n)
+    isGeolocation && geolocationList.push(n)
+    return !isGeolocation
+})
+
+// 移除自建
+names = filter('geolocationList')
+console.log(names.length) // 
+
+// 'HTMLCollection', 'HTMLAllCollection'
+var HTMLCollectionList = ['HTMLCollection', 'HTMLAllCollection']
+var HTMLCollectionSet = new Set(HTMLCollectionList)
+
+names = names.filter(n => {
+    try {
+        const isHTMLCollection = (window[n].prototype instanceof HTMLCollection);
+        isHTMLCollection && HTMLCollectionList.push(n)
+        return !isHTMLCollection
+    } catch (err) {
+        return true
+    }
+}).filter(n => !HTMLCollectionSet.has(n))
+
+// 移除自建
+names = filter('HTMLCollectionSet', 'HTMLCollectionList')
+console.log(names.length) // 
+
+// Canvas
+// https://html.spec.whatwg.org/multipage/canvas.html
+var canvasList = ['CanvasRenderingContext2D', 'CanvasPattern', 'CanvasGradient', 'TextMetrics', 'ImageData', 'Path2D']
+var canvasSet = new Set(canvasList);
+
+names = names.filter(n => !canvasSet.has(n))
+
+// 移除自建
+names = filter('canvasSet', 'canvasList')
+console.log(names.length) // 
+
+// Trusted Types && Worker
+// https://w3c.github.io/webappsec-trusted-types/dist/spec/#trusted-html
+// https://html.spec.whatwg.org/multipage/workers.html
+var trustedTypesSet = new Set(['DOMParser', 'Worker', 'SharedWorker', /*'ServiceWorkerContainer'*/])
+var trustedTypesList = [...Array.from(trustedTypesSet)]
+
+names = names.filter(n => {
+    const isTrustedTypes = /^[Tt]rusted/g.test(n)
+    isTrustedTypes && trustedTypesList.push(n)
+    return !isTrustedTypes
+}).filter(n => !trustedTypesSet.has(n))
+
+// 移除自建
+names = filter('trustedTypesList', 'trustedTypesSet')
+console.log(names.length) // 
+
+
+// ServiceWorker
+// https://w3c.github.io/ServiceWorker/
+var serviceWorkerSet = new Set(['NavigationPreloadManager', 'Cache', 'CacheStorage', 'caches'])
+var serviceWorkerList = [...Array.from(serviceWorkerSet)]
+
+names = names.filter(n => {
+    const isServiceWorker = /^ServiceWorker/g.test(n)
+    isServiceWorker && serviceWorkerList.push(n)
+    return !isServiceWorker
+}).filter(n => !serviceWorkerSet.has(n))
+
+// 移除自建
+names = filter('serviceWorkerSet', 'serviceWorkerList')
+console.log(names.length) // 
+
+// Encrypted Media Extensions
+// https://w3c.github.io/encrypted-media/#mediakeys-interface
+var mediaExtList = ['MediaEncryptedEvent',   'MediaKeySession', 'MediaKeyStatusMap', 'MediaKeySystemAccess', 'MediaKeys', 'MediaKeyMessageEvent']
+var mediaExtSet = new Set(mediaExtList);
+
+names = names.filter(n => !mediaExtSet.has(n))
+
+// 移除自建
+names = filter('mediaExtSet', 'mediaExtList')
+console.log(names.length) // 
+
+// Geometry Interfaces
+// https://drafts.fxtf.org/geometry/#idl-index
+var geometryList = ['DOMPointReadOnly', 'DOMPoint', 'DOMRectReadOnly', 'DOMRect', 'DOMRectList', 'DOMQuad', 'DOMMatrixReadOnly', 'DOMMatrix']
+var geometrySet = new Set(geometryList);
+
+names = names.filter(n => !geometrySet.has(n))
+
+// 移除自建
+names = filter('geometrySet', 'geometryList')
+console.log(names.length) // 
+
+// MediaSource
+// https://w3c.github.io/media-source/#mediasource
+var mediaSourceList = ['MediaSource', 'SourceBuffer', 'SourceBufferList']
+var mediaSourceSet = new Set(mediaSourceList);
+
+names = names.filter(n => !mediaSourceSet.has(n))
+
+// 移除自建
+names = filter('mediaSourceSet', 'mediaSourceList')
+console.log(names.length) // 
+
+// MediaSession
+// https://w3c.github.io/mediasession/#idl-index
+var mediaSessionList = ['MediaSession', 'MediaMetadata']
+var mediaSessionSet = new Set(mediaSessionList);
+
+names = names.filter(n => !mediaSessionSet.has(n))
+
+// 移除自建
+names = filter('mediaSessionSet', 'mediaSessionList')
+console.log(names.length) // 
+
+// cssom-view 
+// https://drafts.csswg.org/cssom-view/#idl-index
+// MediaQueryList
+var mediaQueryListList = ['matchMedia', 'MediaQueryList', 'MediaQueryListEvent', 'styleMedia', 'Screen', 'screen']
+var mediaQueryListSet = new Set(mediaQueryListList);
+
+names = names.filter(n => !mediaQueryListSet.has(n))
+
+// 移除自建
+names = filter('mediaQueryListSet', 'mediaQueryListList')
+console.log(names.length) // 
+
+// CSSOM ScrollOptions
+// https://drafts.csswg.org/cssom-view/#dom-window-scrollto
+var scrollOptList = [
+    'moveTo', 'moveBy', 'resizeTo', 'resizeBy', // browsing context
+    'innerWidth', 'innerHeight', // viewport
+    'scrollX', 'pageXOffset', 'scrollY', 'pageYOffset', 'scroll', 'scrollTo', 'scrollBy', // viewport scrolling
+    'screenX', 'screenLeft', 'screenY', 'screenTop', 'outerWidth', 'outerHeight', 'devicePixelRatio', // client
+]
+var scrollOptSet = new Set(scrollOptList);
+
+names = names.filter(n => !scrollOptSet.has(n))
+
+// 移除自建
+names = filter('scrollOptSet', 'scrollOptList')
+console.log(names.length) // 
+
+// Web Storage
+// https://html.spec.whatwg.org/multipage/webstorage.html
+var storagetList = [
+   'Storage', 'StorageEvent', 'StorageManager', 'sessionStorage', 'localStorage'
+]
+var storagetSet = new Set(storagetList);
+
+names = names.filter(n => !scrollOptSet.has(n))
+
+// 移除自建
+names = filter('storagetSet', 'storagetList')
+console.log(names.length) // 
+
+// CookieStore
+// https://wicg.github.io/cookie-store/
+var cookieStoreList = [
+    'CookieStore', 'CookieStoreManager', 'CookieChangeEvent', 'cookieStore'
+ ]
+ var cookieStoreSet = new Set(cookieStoreList);
+ 
+ names = names.filter(n => !cookieStoreSet.has(n))
+ 
+ // 移除自建
+ names = filter('cookieStoreSet', 'cookieStoreList')
+ console.log(names.length) // 
+
+//  webhid
+// https://wicg.github.io/webhid/
+var webhidList = [
+    'HID','HIDConnectionEvent', 'HIDDevice', 'HIDInputReportEvent',
+ ]
+ var webhidSet = new Set(webhidList);
+ 
+ names = names.filter(n => !webhidSet.has(n))
+ 
+ // 移除自建
+ names = filter('webhidSet', 'webhidList')
+ console.log(names.length) // 
+
+//  DeviceOrientation Event
+// https://w3c.github.io/deviceorientation/
+var deviceOrientationList = [
+    'DeviceMotionEvent', 'DeviceMotionEventAcceleration', 'DeviceMotionEventRotationRate', 'DeviceOrientationEvent',
+ ]
+ var deviceOrientationSet = new Set(deviceOrientationList);
+ 
+ names = names.filter(n => !deviceOrientationSet.has(n))
+ 
+ // 移除自建
+ names = filter('deviceOrientationSet', 'deviceOrientationList')
+ console.log(names.length) // 
+
+// Media Capture and Streams
+// https://w3c.github.io/mediacapture-main
+var mediacaptureList = [
+    'MediaDevices', 'MediaDeviceInfo'
+ ]
+ var mediacaptureSet = new Set(deviceOrientationList);
+ 
+ names = names.filter(n => !mediacaptureSet.has(n))
+ 
+ // 移除自建
+ names = filter('mediacaptureSet', 'mediacaptureList')
+ console.log(names.length) // 
+
+// InputDeviceCapabilities
+// https://wicg.github.io/input-device-capabilities
+
+var inputDeviceCapabilitiesList = [
+    'InputDeviceCapabilities'
+ ]
+ var inputDeviceCapabilitiesSet = new Set(inputDeviceCapabilitiesList);
+ 
+ names = names.filter(n => !inputDeviceCapabilitiesSet.has(n))
+ 
+ // 移除自建
+ names = filter('inputDeviceCapabilitiesSet', 'inputDeviceCapabilitiesList')
+ console.log(names.length) // 
+
+
+
+
+
+
+
+
+
+// MediaList MediaCapabilities
+
 
 // var names = Object.getOwnPropertyNames(window);
 // names.filter(n => {
