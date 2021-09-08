@@ -39,8 +39,10 @@ console.log(names.length) // 813
 
 // window 上面的属性
 // EventTarget
+// https://html.spec.whatwg.org/multipage/window-object.html#the-window-object
 const winOList = [
-    'window', 'self', 'document', 'name', 'location', 'history', 'customElement', 'locationbar', 'menubar', 'personalbar', 'scrollbars', 'statusbar', 'toolbar', 'status', 'close', 'closed', 'stop', 'focus', 'blur', // the current browsing context
+    'Window',
+    'window', 'self', 'document', 'name', 'location', 'history', 'customElements', 'locationbar', 'menubar', 'personalbar', 'scrollbars', 'statusbar', 'toolbar', 'status', 'close', 'closed', 'stop', 'focus', 'blur', // the current browsing context
     'frames', 'length', 'top', 'opener', 'parent', 'frameElement', 'open', // other browsing contexts
     'navigator', 'clientInfomation', 'originAgentCluster', // the user agent
     'alert', 'confirm', 'prompt', 'print', 'postMessage', // user prompts
@@ -83,7 +85,7 @@ names = filter('wibkitList')
 console.log(names.length) // 653
 
 // Audio API
-const audioAPIList = ['BaseAudioContext', 'AudioContext', 'OfflineAudioContext', 'AudioBuffer', 'AudioNode', 'AudioParam', 'AudioParamMap', 'AudioScheduledSourceNode', 'AnalyserNode', 'AudioBufferSourceNode', 'AudioDestinationNode', 'AudioListener', 'AudioProcessingEvent', 'BiquadFilterNode', 'ChannelMergerNode', 'ChannelSplitterNode', 'ConstantSourceNode', 'ConvolverNode', 'DelayNode', 'DynamicsCompressorNode', 'GainNode', 'IIRFilterNode', 'MediaElementAudioSourceNode', 'MediaStreamAudioDestinationNode', 'MediaStreamAudioSourceNode', 'MediaStreamTrackAudioSourceNode', 'OscillatorNode', 'PannerNode', 'PeriodicWave', 'ScriptProcessorNode', 'StereoPannerNode', 'WaveShaperNode', 'AudioWorklet', 'AudioWorkletNode', 'OfflineAudioCompletionEvent'];
+const audioAPIList = ['BaseAudioContext', 'AudioContext', 'OfflineAudioContext', 'AudioBuffer', 'AudioNode', 'AudioParam', 'AudioParamMap', 'AudioScheduledSourceNode', 'AnalyserNode', 'AudioBufferSourceNode', 'AudioDestinationNode', 'AudioListener', 'AudioProcessingEvent', 'BiquadFilterNode', 'ChannelMergerNode', 'ChannelSplitterNode', 'ConstantSourceNode', 'ConvolverNode', 'DelayNode', 'DynamicsCompressorNode', 'GainNode', 'IIRFilterNode', 'MediaElementAudioSourceNode', 'MediaStreamAudioDestinationNode', 'MediaStreamAudioSourceNode', 'MediaStreamTrackAudioSourceNode', 'OscillatorNode', 'PannerNode', 'PeriodicWave', 'ScriptProcessorNode', 'StereoPannerNode', 'WaveShaperNode', 'AudioWorklet', 'AudioWorkletNode', 'OfflineAudioCompletionEvent', 'MediaError'];
 
 var audioAPISet = new Set(audioAPIList);
 
@@ -169,7 +171,7 @@ console.log(names.length) // 554
 // CSSStyleDeclaration
 // StyleSheet
 
-var styleSheetList = ['StyleSheet', 'StyleSheetList', 'CSSStyleDeclaration', 'CSSStyleSheet',]
+var styleSheetList = ['MediaList', 'StyleSheet', 'StyleSheetList', 'CSSStyleDeclaration', 'CSSStyleSheet']
 var styleSheetSet = new Set(styleSheetList);
 
 names = names.filter(n => !styleSheetSet.has(n))
@@ -298,16 +300,17 @@ names = names.filter(n => {
     const isIDB = /^IDB/g.test(n)
     isIDB && IDBList.push(n)
     return !isIDB
-}).filter(n = n !== 'indexedDB')
+}).filter(n => n !== 'indexedDB')
 
 // 移除自建
 names = filter('IDBList')
 console.log(names.length) // 
 
 // idle Cooperative Scheduling of Background Tasks
+// https://w3c.github.io/requestidlecallback/#the-idledeadline-interface
 var idleList = []
 names = names.filter(n => {
-    const isIdle = /^idle/g.test(n)
+    const isIdle = /idle/ig.test(n)
     isIdle && idleList.push(n)
     return !isIdle
 })
@@ -399,7 +402,7 @@ console.log(names.length) //
 
 // 以下部分 https://dom.spec.whatwg.org/
 // Ranges
-var rangesList = ['Range', 'StaticRange', ' AbstractRange']
+var rangesList = ['Range', 'StaticRange', 'AbstractRange']
 var rangesSet = new Set(rangesList);
 
 names = names.filter(n => !rangesSet.has(n))
@@ -409,7 +412,7 @@ names = filter('rangesSet', 'rangesList')
 console.log(names.length) // 
 
 // Traversal
-var traversalList = ['NodeIterator', 'TreeWalker', ' NodeFilter']
+var traversalList = ['NodeIterator', 'TreeWalker', 'NodeFilter']
 var traversalSet = new Set(traversalList);
 
 names = names.filter(n => !traversalSet.has(n))
@@ -419,7 +422,7 @@ names = filter('traversalSet', 'traversalList')
 console.log(names.length) // 
 
 // Sets
-var setsList = ['NodeIterator', 'TreeWalker', ' NodeFilter']
+var setsList = ['DOMTokenList']
 var setsSet = new Set(setsList);
 
 names = names.filter(n => !setsSet.has(n))
@@ -482,7 +485,7 @@ names = filter('mutationObserverSet', 'mutationObserverList')
 console.log(names.length) // 
 
 // DOMImplementation
-var otherDomList = ['DOMImplementation', 'DOMTokenList', 'CustomEvent']
+var otherDomList = ['DOMImplementation', 'CustomEvent']
 var otherDomSet = new Set(otherDomList);
 
 names = names.filter(n => !otherDomSet.has(n))
@@ -506,7 +509,8 @@ names = filter('geolocationList')
 console.log(names.length) // 
 
 // 'HTMLCollection', 'HTMLAllCollection'
-var HTMLCollectionList = ['HTMLCollection', 'HTMLAllCollection']
+// https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#the-domstringlist-interface
+var HTMLCollectionList = ['HTMLCollection', 'HTMLAllCollection', 'DOMStringList']
 var HTMLCollectionSet = new Set(HTMLCollectionList)
 
 names = names.filter(n => {
@@ -525,7 +529,7 @@ console.log(names.length) //
 
 // Canvas
 // https://html.spec.whatwg.org/multipage/canvas.html
-var canvasList = ['CanvasRenderingContext2D', 'CanvasPattern', 'CanvasGradient', 'TextMetrics', 'ImageData', 'Path2D']
+var canvasList = ['CanvasRenderingContext2D', 'CanvasPattern', 'CanvasGradient', 'TextMetrics', 'ImageData', 'Path2D', 'ImageBitmapRenderingContext', 'OffscreenCanvas', 'OffscreenCanvasRenderingContext2D']
 var canvasSet = new Set(canvasList);
 
 names = names.filter(n => !canvasSet.has(n))
@@ -568,7 +572,7 @@ console.log(names.length) //
 
 // Encrypted Media Extensions
 // https://w3c.github.io/encrypted-media/#mediakeys-interface
-var mediaExtList = ['MediaEncryptedEvent',   'MediaKeySession', 'MediaKeyStatusMap', 'MediaKeySystemAccess', 'MediaKeys', 'MediaKeyMessageEvent']
+var mediaExtList = ['MediaEncryptedEvent', 'MediaKeySession', 'MediaKeyStatusMap', 'MediaKeySystemAccess', 'MediaKeys', 'MediaKeyMessageEvent']
 var mediaExtSet = new Set(mediaExtList);
 
 names = names.filter(n => !mediaExtSet.has(n))
@@ -640,92 +644,735 @@ console.log(names.length) //
 
 // Web Storage
 // https://html.spec.whatwg.org/multipage/webstorage.html
-var storagetList = [
-   'Storage', 'StorageEvent', 'StorageManager', 'sessionStorage', 'localStorage'
+var storageList = [
+    'Storage', 'StorageEvent', 'StorageManager', 'sessionStorage', 'localStorage'
 ]
-var storagetSet = new Set(storagetList);
+var storageSet = new Set(storageList);
 
-names = names.filter(n => !scrollOptSet.has(n))
+names = names.filter(n => !storageSet.has(n))
 
 // 移除自建
-names = filter('storagetSet', 'storagetList')
+names = filter('storageSet', 'storageList')
 console.log(names.length) // 
 
 // CookieStore
 // https://wicg.github.io/cookie-store/
 var cookieStoreList = [
     'CookieStore', 'CookieStoreManager', 'CookieChangeEvent', 'cookieStore'
- ]
- var cookieStoreSet = new Set(cookieStoreList);
- 
- names = names.filter(n => !cookieStoreSet.has(n))
- 
- // 移除自建
- names = filter('cookieStoreSet', 'cookieStoreList')
- console.log(names.length) // 
+]
+var cookieStoreSet = new Set(cookieStoreList);
+
+names = names.filter(n => !cookieStoreSet.has(n))
+
+// 移除自建
+names = filter('cookieStoreSet', 'cookieStoreList')
+console.log(names.length) // 
 
 //  webhid
 // https://wicg.github.io/webhid/
 var webhidList = [
-    'HID','HIDConnectionEvent', 'HIDDevice', 'HIDInputReportEvent',
- ]
- var webhidSet = new Set(webhidList);
- 
- names = names.filter(n => !webhidSet.has(n))
- 
- // 移除自建
- names = filter('webhidSet', 'webhidList')
- console.log(names.length) // 
+    'HID', 'HIDConnectionEvent', 'HIDDevice', 'HIDInputReportEvent',
+]
+var webhidSet = new Set(webhidList);
+
+names = names.filter(n => !webhidSet.has(n))
+
+// 移除自建
+names = filter('webhidSet', 'webhidList')
+console.log(names.length) // 
 
 //  DeviceOrientation Event
 // https://w3c.github.io/deviceorientation/
 var deviceOrientationList = [
     'DeviceMotionEvent', 'DeviceMotionEventAcceleration', 'DeviceMotionEventRotationRate', 'DeviceOrientationEvent',
- ]
- var deviceOrientationSet = new Set(deviceOrientationList);
- 
- names = names.filter(n => !deviceOrientationSet.has(n))
- 
- // 移除自建
- names = filter('deviceOrientationSet', 'deviceOrientationList')
- console.log(names.length) // 
+]
+var deviceOrientationSet = new Set(deviceOrientationList);
+
+names = names.filter(n => !deviceOrientationSet.has(n))
+
+// 移除自建
+names = filter('deviceOrientationSet', 'deviceOrientationList')
+console.log(names.length) // 
 
 // Media Capture and Streams
 // https://w3c.github.io/mediacapture-main
 var mediacaptureList = [
     'MediaDevices', 'MediaDeviceInfo'
- ]
- var mediacaptureSet = new Set(deviceOrientationList);
- 
- names = names.filter(n => !mediacaptureSet.has(n))
- 
- // 移除自建
- names = filter('mediacaptureSet', 'mediacaptureList')
- console.log(names.length) // 
+]
+var mediacaptureSet = new Set(deviceOrientationList);
+
+names = names.filter(n => !mediacaptureSet.has(n))
+
+// 移除自建
+names = filter('mediacaptureSet', 'mediacaptureList')
+console.log(names.length) // 
 
 // InputDeviceCapabilities
 // https://wicg.github.io/input-device-capabilities
 
 var inputDeviceCapabilitiesList = [
     'InputDeviceCapabilities'
- ]
- var inputDeviceCapabilitiesSet = new Set(inputDeviceCapabilitiesList);
- 
- names = names.filter(n => !inputDeviceCapabilitiesSet.has(n))
- 
- // 移除自建
- names = filter('inputDeviceCapabilitiesSet', 'inputDeviceCapabilitiesList')
- console.log(names.length) // 
+]
+var inputDeviceCapabilitiesSet = new Set(inputDeviceCapabilitiesList);
+
+names = names.filter(n => !inputDeviceCapabilitiesSet.has(n))
+
+// 移除自建
+names = filter('inputDeviceCapabilitiesSet', 'inputDeviceCapabilitiesList')
+console.log(names.length) // 
+
+//  DOMStringMap 用于 dataset 
+// https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes:domstringmap-3
+
+var DOMStringMapList = [
+    'DOMStringMap'
+]
+var DOMStringMapSet = new Set(DOMStringMapList);
+
+names = names.filter(n => !DOMStringMapSet.has(n))
+
+// 移除自建
+names = filter('DOMStringMapSet', 'DOMStringMapList')
+console.log(names.length) // 
+
+// CustomElementRegistry
+// https://html.spec.whatwg.org/multipage/custom-elements.html#dom-window-customelements
+
+var customElementList = [
+    'CustomElementRegistry',
+    // 'customElements'
+]
+var customElementSet = new Set(customElementList);
+
+names = names.filter(n => !customElementSet.has(n))
+
+// 移除自建
+names = filter('customElementSet', 'customElementList')
+console.log(names.length) // 
+
+// webappapis
+// https://html.spec.whatwg.org/multipage/webappapis.html
+
+var webappapiList = [
+    'btoa', 'atob', // base64 utility methods
+    'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', // timers
+    'queueMicrotask', // microtask queuing
+    'createImageBitmap', // ImageBitmap
+    'ErrorEvent',
+    'PromiseRejectionEvent'
+]
+var webappapiSet = new Set(webappapiList);
+
+names = names.filter(n => !webappapiSet.has(n))
+
+// 移除自建
+names = filter('webappapiSet', 'webappapiList')
+console.log(names.length) // 
+
+// openDatabase
+// https://www.tutorialspoint.com/html5/html5_web_sql.htm
+var openDatabaseList = [
+    'openDatabase'
+]
+var openDatabaseSet = new Set(openDatabaseList);
+
+names = names.filter(n => !openDatabaseSet.has(n))
+
+// 移除自建
+names = filter('openDatabaseSet', 'openDatabaseList')
+console.log(names.length) // 
+
+// PaymentRequest
+// https://w3c.github.io/payment-request
+var paymentRequestList = []
+
+names = names.filter(n => {
+    const isPaymentRequest = /^Payment/g.test(n)
+    isPaymentRequest && paymentRequestList.push(n)
+    return !isPaymentRequest
+})
+
+// 移除自建
+names = filter('paymentRequestList')
+console.log(names.length) // 
+
+// XMLHttpRequest
+// https://xhr.spec.whatwg.org/
+var xhrList = ['XMLHttpRequestEventTarget', 'XMLHttpRequestUpload', 'XMLHttpRequest', 'FormData', 'ProgressEvent']
+var xhrSet = new Set(xhrList);
+
+names = names.filter(n => !xhrSet.has(n))
+
+// 移除自建
+names = filter('xhrSet', 'xhrList')
+console.log(names.length) // 
+
+// ImageCapture 
+// https://w3c.github.io/mediacapture-image/#idl-index
+var imageCaptureList = ['ImageCapture']
+var imageCaptureSet = new Set(imageCaptureList);
+
+names = names.filter(n => !imageCaptureSet.has(n))
+
+// 移除自建
+names = filter('imageCaptureSet', 'imageCaptureList')
+console.log(names.length) // 
+
+// ImageBitmap
+// https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmap
+var imageBitmapList = ['ImageCapture', 'ImageBitmap']
+var imageBitmapSet = new Set(imageBitmapList);
+
+names = names.filter(n => !imageBitmapSet.has(n))
+
+// 移除自建
+names = filter('imageBitmapSet', 'imageBitmapList')
+console.log(names.length) // 
+
+// AggregateError 错误信息合并
+// https://tc39.es/ecma262/multipage/fundamental-objects.html#sec-aggregate-error-objects
+var aggregateErrorList = ['AggregateError']
+var aggregateErrorSet = new Set(aggregateErrorList);
+
+names = names.filter(n => !aggregateErrorSet.has(n))
+
+// 移除自建
+names = filter('aggregateErrorSet', 'aggregateErrorList')
+console.log(names.length) // 
+
+// console 
+// https://console.spec.whatwg.org/#console-namespace
+var consoleList = ['console']
+var consoleSet = new Set(consoleList);
+
+names = names.filter(n => !consoleSet.has(n))
+
+// 移除自建
+names = filter('consoleSet', 'consoleList')
+console.log(names.length) // 
+
+// escape
+// https://tc39.es/ecma262/multipage/additional-ecmascript-features-for-web-browsers.html#sec-escape-string
+var escapeList = ['escape', 'unescape']
+var escapeSet = new Set(escapeList);
+
+names = names.filter(n => !escapeSet.has(n))
+
+// 移除自建
+names = filter('escapeSet', 'escapeList')
+console.log(names.length) // 
+
+// XMLSerializer 
+// https://w3c.github.io/DOM-Parsing/#the-xmlserializer-interface
+var XMLSerializerList = ['XMLSerializer']
+var XMLSerializerSet = new Set(XMLSerializerList);
+
+names = names.filter(n => !XMLSerializerSet.has(n))
+
+// 移除自建
+names = filter('XMLSerializerSet', 'XMLSerializerList')
+console.log(names.length) // 
+
+// UIEvent
+// https://w3c.github.io/uievents/
+var UIEventList = []
+names = names.filter(n => {
+    try{
+        const isUIEvent =  (window[n].prototype instanceof UIEvent)
+        isUIEvent && UIEventList.push(n)
+        return !isUIEvent
+    } catch(err) {
+        return true
+    }
+}).filter(n => n !== 'UIEvent')
+
+// 移除自建
+names = filter('UIEventList')
+console.log(names.length) // 
+
+// WebSocket
+https://html.spec.whatwg.org/multipage/web-sockets.html#the-websocket-interface
+var webSocketList = ['WebSocket', 'CloseEvent']
+var webSocketSet = new Set(webSocketList);
+
+names = names.filter(n => !webSocketSet.has(n))
+
+// 移除自建
+names = filter('webSocketSet', 'webSocketList')
+console.log(names.length) // 
+
+// VisualViewport
+// https://wicg.github.io/visual-viewport/#the-visualviewport-interface
+var visualViewportList = ['VisualViewport', 'visualViewport']
+var visualViewportSet = new Set(visualViewportList);
+
+names = names.filter(n => !visualViewportSet.has(n))
+
+// 移除自建
+names = filter('visualViewportSet', 'visualViewportList')
+console.log(names.length) // 
+
+// ValidityState
+// https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api:validitystate-3
+
+var validityStateList = ['ValidityState', 'SubmitEvent', 'FormDataEvent']
+var validityStateSet = new Set(validityStateList);
+
+names = names.filter(n => !validityStateSet.has(n))
+
+// 移除自建
+names = filter('validityStateSet', 'validityStateList')
+console.log(names.length) // 
 
 
+// UserActivation
+// https://mustaqahmed.github.io/user-activation-v2/
+var userActivationList = ['UserActivation']
+var userActivationSet = new Set(userActivationList);
+
+names = names.filter(n => !userActivationSet.has(n))
+
+// 移除自建
+names = filter('userActivationSet', 'userActivationList')
+console.log(names.length) // 
+
+// URL
+// https://url.spec.whatwg.org
+var URLApiList = ['URL', 'URLSearchParams']
+var URLApiSet = new Set(URLApiList);
+
+names = names.filter(n => !URLApiSet.has(n))
+
+// 移除自建
+names = filter('URLApiSet', 'URLApiList')
+console.log(names.length) // 
+
+// TransitionEvent 
+// https://drafts.csswg.org/css-transitions/#idl-index
+var transitionEventList = ['TransitionEvent']
+var transitionEventSet = new Set(transitionEventList);
+
+names = names.filter(n => !transitionEventSet.has(n))
+
+// 移除自建
+names = filter('transitionEventSet', 'transitionEventList')
+console.log(names.length) // 
+
+// Touch
+// https://w3c.github.io/touch-events/#touchlist-interface
+var touchList = ['Touch', 'TouchList' /*, 'TouchEvent'*/]
+var touchSet = new Set(touchList);
+
+names = names.filter(n => !touchSet.has(n))
+
+// 移除自建
+names = filter('touchSet', 'touchList')
+console.log(names.length) // 
+
+// media TimeRanges
+// https://html.spec.whatwg.org/multipage/media.html#time-ranges
+var timeRangesList = ['TimeRanges']
+var timeRangesSet = new Set(timeRangesList);
+
+names = names.filter(n => !timeRangesSet.has(n))
+
+// 移除自建
+names = filter('timeRangesSet', 'timeRangesList')
+console.log(names.length) // 
 
 
+// TaskAttributionTiming
+// https://w3c.github.io/longtasks/#idl-index
+var taskAttributionTimingList = ['TaskAttributionTiming']
+var taskAttributionTimingSet = new Set(taskAttributionTimingList);
+
+names = names.filter(n => !taskAttributionTimingSet.has(n))
+
+// 移除自建
+names = filter('taskAttributionTimingSet', 'taskAttributionTimingList')
+console.log(names.length) // 
 
 
+// Web Background Synchronization
+// https://wicg.github.io/background-sync/spec/#idl-index
+var wbsList = ['SyncManager', 'SyncEvent']
+var wbsSet = new Set(wbsList);
+
+names = names.filter(n => !wbsSet.has(n))
+
+// 移除自建
+names = filter('wbsSet', 'wbsList')
+console.log(names.length) // 
 
 
+// Web Periodic Background Synchronization
+// https://wicg.github.io/periodic-background-sync/
+var wpbsList = ['ServiceWorkerRegistration', 'PeriodicSyncManager', 'PeriodicSyncEvent']
+var wpbsSet = new Set(wpbsList);
 
-// MediaList MediaCapabilities
+names = names.filter(n => !wpbsSet.has(n))
+
+// 移除自建
+names = filter('wpbsSet', 'wpbsList')
+console.log(names.length) // 
+
+// Selection API
+var selectionList = ['Selection', 'getSelection']
+var selectionSet = new Set(selectionList);
+
+names = names.filter(n => !selectionSet.has(n))
+
+// 移除自建
+names = filter('selectionSet', 'selectionList')
+console.log(names.length) // 
+
+
+// SecurityPolicyViolationEvent
+// https://w3c.github.io/webappsec-csp/#idl-index
+var SPVEList = ['SecurityPolicyViolationEvent']
+var SPVESet = new Set(SPVEList);
+
+names = names.filter(n => !SPVESet.has(n))
+
+// 移除自建
+names = filter('SPVESet', 'SPVEList')
+console.log(names.length) // 
+
+// The Screen Orientation API
+// https://w3c.github.io/screen-orientation/#screenorientation-interface
+var screenOrientationList = ['ScreenOrientation']
+var screenOrientationSet = new Set(screenOrientationList);
+
+names = names.filter(n => !screenOrientationSet.has(n))
+
+// 移除自建
+names = filter('screenOrientationSet', 'screenOrientationList')
+console.log(names.length) // 
+
+// Web Authentication API
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API
+// https://w3c.github.io/webauthn/
+var webauthnList = ['PublicKeyCredential', 'AuthenticatorResponse', 'AuthenticatorAttestationResponse', 'AuthenticatorAssertionResponse']
+var webauthnSet = new Set(webauthnList);
+
+names = names.filter(n => !webauthnSet.has(n))
+
+// 移除自建
+names = filter('webauthnSet', 'webauthnList')
+console.log(names.length) // 
+
+// Credential Management Level 1
+// https://w3c.github.io/webappsec-credential-management/#idl-index
+var credentialList = ['Credential', 'CredentialsContainer', 'FederatedCredential', 'PasswordCredential']
+var credentialSet = new Set(credentialList);
+
+names = names.filter(n => !credentialSet.has(n))
+
+// 移除自建
+names = filter('credentialSet', 'credentialList')
+console.log(names.length) // 
+
+// Fetch
+// https://fetch.spec.whatwg.org/
+var fetchList = ['Headers', 'Request', 'Response', 'fetch']
+var fetchSet = new Set(fetchList);
+
+names = names.filter(n => !fetchSet.has(n))
+
+// 移除自建
+names = filter('fetchSet', 'fetchList')
+console.log(names.length) // 
+
+
+// Reporting API
+// https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API
+// https://w3c.github.io/reporting/#intro
+var reporteList = ['ReportingObserver']
+var reporteSet = new Set(reporteList);
+
+names = names.filter(n => !reporteSet.has(n))
+
+// 移除自建
+names = filter('reporteSet', 'reporteList')
+console.log(names.length) // 
+
+
+// History traversal & Unloading documents
+// https://html.spec.whatwg.org/multipage/browsing-the-web.html#the-popstateevent-interface
+var htudList = ['PopStateEvent', 'HashChangeEvent', 'PageTransitionEvent', 'BeforeUnloadEvent']
+var htudSet = new Set(htudList);
+
+names = names.filter(n => !htudSet.has(n))
+
+// 移除自建
+names = filter('htudSet', 'htudList')
+console.log(names.length) // 
+
+// History 
+// https://html.spec.whatwg.org/multipage/history.html#the-history-interface
+var historyList = ['History', 'Location']
+var historySet = new Set(historyList);
+
+names = names.filter(n => !historySet.has(n))
+
+// 移除自建
+names = filter('historySet', 'historyList')
+console.log(names.length) // 
+
+// PDF viewing support && Navigator 
+// https://html.spec.whatwg.org/multipage/system-state.html#pdf-viewing-support
+var PDFVSList = ['PluginArray', 'MimeTypeArray', 'Plugin', 'MimeType', 'Navigator']
+var PDFVSSet = new Set(PDFVSList);
+
+names = names.filter(n => !PDFVSSet.has(n))
+
+// 移除自建
+names = filter('PDFVSSet', 'PDFVSList')
+console.log(names.length) // 
+
+// Managed Configuration API
+// https://wicg.github.io/WebApiDevice/managed_config/#navigatormanageddata-interface
+
+var navigatorManagedDataList = ['NavigatorManagedData']
+var navigatorManagedDataSet = new Set(navigatorManagedDataList);
+
+names = names.filter(n => !navigatorManagedDataSet.has(n))
+
+// 移除自建
+names = filter('navigatorManagedDataSet', 'navigatorManagedDataList')
+console.log(names.length) // 
+
+// User-Agent Client Hints API
+// https://wicg.github.io/ua-client-hints/#idl-index
+var navigatorUADataList = ['NavigatorUAData']
+var navigatorUADataSet = new Set(navigatorUADataList);
+
+names = names.filter(n => !navigatorUADataSet.has(n))
+
+// 移除自建
+names = filter('navigatorUADataSet', 'navigatorUADataList')
+console.log(names.length) // 
+
+// Network Information API
+// https://wicg.github.io/netinfo/#networkinformation-interface
+var networkList = ['NetworkInformation']
+var networkSet = new Set(networkList);
+
+names = names.filter(n => !networkSet.has(n))
+
+// 移除自建
+names = filter('networkSet', 'networkList')
+console.log(names.length) // 
+
+// NamedNodeMap
+// https://dom.spec.whatwg.org/#interface-namednodemap
+var namedNodeMapList = ['NamedNodeMap']
+var namedNodeMapSet = new Set(namedNodeMapList);
+
+names = names.filter(n => !namedNodeMapSet.has(n))
+
+// 移除自建
+names = filter('namedNodeMapSet', 'namedNodeMapList')
+console.log(names.length) // 
+
+
+// Channel messaging
+// https://html.spec.whatwg.org/multipage/web-messaging.html#message-channels
+var channelMessagingList = ['MessageChannel', 'MessagePort', 'BroadcastChannel']
+var channelMessagingSet = new Set(channelMessagingList);
+
+names = names.filter(n => !channelMessagingSet.has(n))
+
+// 移除自建
+names = filter('channelMessagingSet', 'channelMessagingList')
+console.log(names.length) // 
+
+// Communication MessageEvent
+// https://html.spec.whatwg.org/multipage/comms.html#the-messageevent-interface
+var messageEventList = ['MessageEvent']
+var messageEventSet = new Set(messageEventList);
+
+names = names.filter(n => !messageEventSet.has(n))
+
+// 移除自建
+names = filter('messageEventSet', 'messageEventList')
+console.log(names.length) // 
+
+
+// MediaCapabilities
+// https://w3c.github.io/media-capabilities/#idl-index
+var mediaCapabilitiesList = ['MediaCapabilities']
+var mediaCapabilitiesSet = new Set(mediaCapabilitiesList);
+
+names = names.filter(n => !mediaCapabilitiesSet.has(n))
+
+// 移除自建
+names = filter('mediaCapabilitiesSet', 'mediaCapabilitiesList')
+console.log(names.length) // 
+
+// Layout Instability API
+// https://wicg.github.io/layout-instability/#sec-layout-shift
+var layoutInstabilityList = ['LayoutShift', 'LayoutShiftAttribution']
+var layoutInstabilitySet = new Set(layoutInstabilityList);
+
+names = names.filter(n => !layoutInstabilitySet.has(n))
+
+// 移除自建
+names = filter('layoutInstabilitySet', 'layoutInstabilityList')
+console.log(names.length) // 
+
+
+// Largest Contentful Paint
+// https://wicg.github.io/largest-contentful-paint/#sec-largest-contentful-paint-interface
+var largestContentfulPaintList = ['LargestContentfulPaint']
+var largestContentfulPaintSet = new Set(largestContentfulPaintList);
+
+names = names.filter(n => !largestContentfulPaintSet.has(n))
+
+// 移除自建
+names = filter('largestContentfulPaintSet', 'largestContentfulPaintList')
+console.log(names.length) // 
+
+// Web Animations
+// https://drafts.csswg.org/web-animations/#the-keyframeeffect-interface
+var webAnimationsList = ['AnimationTimeline','DocumentTimeline', 'Animation', 'AnimationEffect', 'KeyframeEffect', 'AnimationPlaybackEvent']
+var webAnimationsSet = new Set(webAnimationsList);
+
+names = names.filter(n => !webAnimations.has(n))
+
+// 移除自建
+names = filter('webAnimations', 'webAnimationsList')
+console.log(names.length) // 
+
+// CSS Animations Level 1
+// AnimationEvent 
+// https://drafts.csswg.org/css-animations/#interface-animationevent
+
+var cssAnimationsList = ['AnimationEvent', 'CSSKeyframeRule', 'CSSKeyframesRule']
+var cssAnimationsSet = new Set(cssAnimationsList);
+
+names = names.filter(n => !cssAnimationsSet.has(n))
+
+// 移除自建
+names = filter('cssAnimationsSet', 'cssAnimationsList')
+console.log(names.length) // 
+
+
+// Intersection Observer
+// https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+// https://w3c.github.io/IntersectionObserver/
+var intersectionObserverList = ['IntersectionObserverEntry', 'IntersectionObserver']
+var intersectionObserverSet = new Set(intersectionObserverList);
+
+names = names.filter(n => !intersectionObserverSet.has(n))
+
+// 移除自建
+names = filter('intersectionObserverSet', 'intersectionObserverList')
+console.log(names.length) // 
+
+// CSS Font Loading Module Level 3
+// https://drafts.csswg.org/css-font-loading/#fontfacesetloadevent
+var List = ['FontFace', 'FontFaceSetLoadEvent']
+var Set = new Set(List);
+
+names = names.filter(n => !Set.has(n))
+
+// 移除自建
+names = filter('Set', 'List')
+console.log(names.length) // 
+
+// File API
+// https://w3c.github.io/FileAPI
+var fileAPIList = ['Blob', 'File', 'FileReader', 'FileList', 'BlobEvent']
+var fileAPISet = new Set(fileAPIList);
+
+names = names.filter(n => !fileAPISet.has(n))
+
+// 移除自建
+names = filter('fileAPISet', 'fileAPIList')
+console.log(names.length) // 
+
+// Feature Policy
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Feature_Policy
+// https://w3c.github.io/webappsec-permissions-policy/#feature-policy-http-header-field
+var featurePolicyList = ['FeaturePolicy']
+var featurePolicySet = new Set(featurePolicyList);
+
+names = names.filter(n => !featurePolicySet.has(n))
+
+// 移除自建
+names = filter('featurePolicySet', 'featurePolicyList')
+console.log(names.length) // 
+
+// Permissions
+var permissionsList = ['Permissions ', 'PermissionStatus']
+var permissionsSet = new Set(permissionsList);
+
+names = names.filter(n => !permissionsSet.has(n))
+
+// 移除自建
+names = filter('permissionsSet', 'permissionsList')
+console.log(names.length) // 
+
+
+// Web Speech API
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
+
+var speechList = ['speechSynthesis', 'SpeechSynthesisErrorEvent', 'SpeechSynthesisEvent', 'SpeechSynthesisUtterance']
+var speechSet = new Set(speechList);
+
+names = names.filter(n => !speechSet.has(n))
+
+// 移除自建
+names = filter('speechSet', 'speechList')
+console.log(names.length) // 
+
+// Background Fetch
+// https://wicg.github.io/background-fetch/
+var backgroundFetchList = ['BackgroundFetchManager', 'BackgroundFetchRecord', 'BackgroundFetchRegistration']
+var backgroundFetchSet = new Set(backgroundFetchList);
+
+names = names.filter(n => !backgroundFetchSet.has(n))
+
+// 移除自建
+names = filter('backgroundFetchSet', 'backgroundFetchList')
+console.log(names.length) // 
+
+// Animation frames
+// https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-animationframeprovider-requestanimationframe
+var animationFramesList = ['requestAnimationFrame', 'cancelAnimationFrame']
+var animationFramesSet = new Set(animationFramesList);
+
+names = names.filter(n => !animationFramesSet.has(n))
+
+// 移除自建
+names = filter('animationFramesSet', 'animationFramesList')
+console.log(names.length) // 
+
+// monitor
+// https://developers.google.com/web/updates/2015/05/quickly-monitor-events-from-the-console-panel
+// https://stackoverflow.com/questions/50666956/whats-the-monitorevents-equivalent-for-firefox
+var monitorList = ['monitor', 'unmonitor', 'monitorEvents', 'unmonitorEvents']
+var monitorSet = new Set(monitorList);
+
+names = names.filter(n => !monitorSet.has(n))
+
+// 移除自建
+names = filter('monitorSet', 'monitorList')
+console.log(names.length) // 
+
+// File System Access API
+// https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
+// https://wicg.github.io/file-system-access/
+var fileSystemAccessList = ['FileSystemHandle', 'FileSystemDirectoryHandle', 'FileSystemFileHandle', 'FileSystemWritableFileStream']
+var fileSystemAccessSet = new Set(fileSystemAccessList);
+
+names = names.filter(n => !fileSystemAccessSet.has(n))
+
+// 移除自建
+names = filter('fileSystemAccessSet', 'fileSystemAccessList')
+console.log(names.length) // 
+
 
 
 // var names = Object.getOwnPropertyNames(window);
@@ -737,4 +1384,13 @@ var inputDeviceCapabilitiesList = [
 //         return false
 //     }
 // })
+
+// var List = ['',]
+// var Set = new Set(List);
+
+// names = names.filter(n => !Set.has(n))
+
+// // 移除自建
+// names = filter('Set', 'List')
+// console.log(names.length) // 
 
