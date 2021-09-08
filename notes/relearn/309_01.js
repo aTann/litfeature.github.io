@@ -268,6 +268,53 @@ names = names.filter(n => {
 names = filter('XRList')
 console.log(names.length) // 
 
+// Performance
+var performanceList = []
+names = names.filter(n => {
+    const isPerformance = /^Performance/ig.test(n)
+    isPerformance && performanceList.push(n)
+    return !isPerformance
+})
+
+// 移除自建
+names = filter('performanceList')
+console.log(names.length) // 
+
+// Musical Instrument Digital Interface (MIDI) 
+var MIDIList = []
+names = names.filter(n => {
+    const isMIDI = /^MIDI/g.test(n)
+    isMIDI && MIDIList.push(n)
+    return !isMIDI
+})
+
+// 移除自建
+names = filter('MIDIList')
+console.log(names.length) // 
+
+// Indexed Database API
+var IDBList = []
+names = names.filter(n => {
+    const isIDB = /^IDB/g.test(n)
+    isIDB && IDBList.push(n)
+    return !isIDB
+})
+
+// 移除自建
+names = filter('IDBList')
+console.log(names.length) // 
+
+// idle Cooperative Scheduling of Background Tasks
+var idleList = []
+names = names.filter(n => {
+    const isIdle = /^idle/g.test(n)
+    isIdle && idleList.push(n)
+    return !isIdle
+})
+
+// 移除自建
+names = filter('idleList')
+console.log(names.length) // 
 
 // var names = Object.getOwnPropertyNames(window);
 // names.filter(n => {
