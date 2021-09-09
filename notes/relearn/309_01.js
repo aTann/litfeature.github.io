@@ -42,9 +42,9 @@ console.log(names.length) // 813
 // https://html.spec.whatwg.org/multipage/window-object.html#the-window-object
 const winOList = [
     'Window',
-    'window', 'self', 'document', 'name', 'location', 'history', 'customElements', 'locationbar', 'menubar', 'personalbar', 'scrollbars', 'statusbar', 'toolbar', 'status', 'close', 'closed', 'stop', 'focus', 'blur', // the current browsing context
+    'window', 'self', 'document', 'name', 'location', 'history', 'customElements', 'locationbar', 'menubar', 'personalbar', 'scrollbars', 'statusbar', 'toolbar', 'status', 'defaultStatus', 'defaultstatus', 'close', 'closed', 'stop', 'focus', 'blur', // the current browsing context
     'frames', 'length', 'top', 'opener', 'parent', 'frameElement', 'open', // other browsing contexts
-    'navigator', 'clientInfomation', 'originAgentCluster', // the user agent
+    'navigator', 'clientInformation', 'originAgentCluster', // the user agent
     'alert', 'confirm', 'prompt', 'print', 'postMessage', // user prompts
     'captureElements', 'releaseEvents', 'External', 'external'
 ]
@@ -170,8 +170,8 @@ console.log(names.length) // 554
 
 // CSSStyleDeclaration
 // StyleSheet
-
-var styleSheetList = ['MediaList', 'StyleSheet', 'StyleSheetList', 'CSSStyleDeclaration', 'CSSStyleSheet']
+// https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle
+var styleSheetList = ['MediaList', 'StyleSheet', 'StyleSheetList', 'CSSStyleDeclaration', 'CSSStyleSheet', 'getComputedStyle']
 var styleSheetSet = new Set(styleSheetList);
 
 names = names.filter(n => !styleSheetSet.has(n))
@@ -485,7 +485,8 @@ names = filter('mutationObserverSet', 'mutationObserverList')
 console.log(names.length) // 
 
 // DOMImplementation
-var otherDomList = ['DOMImplementation', 'CustomEvent']
+// https://dom.spec.whatwg.org/#dom-window-event
+var otherDomList = ['DOMImplementation', 'CustomEvent', 'event']
 var otherDomSet = new Set(otherDomList);
 
 names = names.filter(n => !otherDomSet.has(n))
@@ -740,7 +741,8 @@ console.log(names.length) //
 
 var customElementList = [
     'CustomElementRegistry',
-    // 'customElements'
+    // 'customElements',
+    'ElementInternals'
 ]
 var customElementSet = new Set(customElementList);
 
@@ -759,7 +761,9 @@ var webappapiList = [
     'queueMicrotask', // microtask queuing
     'createImageBitmap', // ImageBitmap
     'ErrorEvent',
-    'PromiseRejectionEvent'
+    'PromiseRejectionEvent',
+    crossOriginIsolated,
+    isSecureContext,
 ]
 var webappapiSet = new Set(webappapiList);
 
@@ -767,6 +771,20 @@ names = names.filter(n => !webappapiSet.has(n))
 
 // 移除自建
 names = filter('webappapiSet', 'webappapiList')
+console.log(names.length) // 
+
+// origin 归属于上面
+// https://stackoverflow.com/questions/55451493/what-is-window-origin
+// https://developer.mozilla.org/en-US/docs/Web/API/origin
+// https://html.spec.whatwg.org/multipage/webappapis.html#dom-origin-dev
+
+var originList = ['origin']
+var originSet = new Set(originList);
+
+names = names.filter(n => !originSet.has(n))
+
+// 移除自建
+names = filter('originSet', 'originList')
 console.log(names.length) // 
 
 // openDatabase
@@ -1238,10 +1256,10 @@ console.log(names.length) //
 var webAnimationsList = ['AnimationTimeline','DocumentTimeline', 'Animation', 'AnimationEffect', 'KeyframeEffect', 'AnimationPlaybackEvent']
 var webAnimationsSet = new Set(webAnimationsList);
 
-names = names.filter(n => !webAnimations.has(n))
+names = names.filter(n => !webAnimationsSet.has(n))
 
 // 移除自建
-names = filter('webAnimations', 'webAnimationsList')
+names = filter('webAnimationsSet', 'webAnimationsList')
 console.log(names.length) // 
 
 // CSS Animations Level 1
@@ -1272,13 +1290,13 @@ console.log(names.length) //
 
 // CSS Font Loading Module Level 3
 // https://drafts.csswg.org/css-font-loading/#fontfacesetloadevent
-var List = ['FontFace', 'FontFaceSetLoadEvent']
-var Set = new Set(List);
+var cssFontLoadingList = ['FontFace', 'FontFaceSetLoadEvent']
+var cssFontLoadingSet = new Set(cssFontLoadingList);
 
-names = names.filter(n => !Set.has(n))
+names = names.filter(n => !cssFontLoadingSet.has(n))
 
 // 移除自建
-names = filter('Set', 'List')
+names = filter('cssFontLoadingSet', 'cssFontLoadingList')
 console.log(names.length) // 
 
 // File API
@@ -1374,6 +1392,198 @@ names = filter('fileSystemAccessSet', 'fileSystemAccessList')
 console.log(names.length) // 
 
 
+// EventTarget
+// https://dom.spec.whatwg.org/#interface-eventtarget
+
+var eventTargetList = ['EventTarget', 'Event']
+var eventTargeSet = new Set(eventTargeList);
+
+names = names.filter(n => !eventTargeSet.has(n))
+
+// 移除自建
+names = filter('eventTargeSet', 'eventTargeList')
+console.log(names.length) // 
+
+// EventSource
+// https://html.spec.whatwg.org/multipage/server-sent-events.html#the-eventsource-interface
+
+var eventSourceList = ['EventSource']
+var eventSourceSet = new Set(eventSourceList);
+
+names = names.filter(n => !eventSourceSet.has(n))
+
+// 移除自建
+names = filter('eventSourceSet', 'eventSourceList')
+console.log(names.length) // 
+
+// DecompressionStream
+// https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream/DecompressionStream
+// https://wicg.github.io/compression/#dom-decompressionstream-decompressionstream
+var decompressionStreamList = ['CompressionStream', 'DecompressionStream']
+var decompressionStreamSet = new Set(decompressionStreamList);
+
+names = names.filter(n => !decompressionStreamSet.has(n))
+
+// 移除自建
+names = filter('decompressionStreamSet', 'decompressionStreamList')
+console.log(names.length) // 
+
+
+// DOMException
+// https://heycam.github.io/webidl/#idl-DOMException
+
+var DOMExceptionList = ['DOMException']
+var DOMExceptionSet = new Set(DOMExceptionList);
+
+names = names.filter(n => !DOMExceptionSet.has(n))
+
+// 移除自建
+names = filter('DOMExceptionSet', 'DOMExceptionList')
+console.log(names.length) // 
+
+
+// DOMError
+// https://developer.mozilla.org/zh-CN/docs/Web/API/DOMError
+var DOMErrorList = ['DOMError']
+var DOMErrorSet = new Set(DOMErrorList);
+
+names = names.filter(n => !DOMErrorSet.has(n))
+
+// 移除自建
+names = filter('DOMErrorSet', 'DOMErrorList')
+console.log(names.length) // 
+
+
+// Web Cryptography API
+// https://www.w3.org/TR/WebCryptoAPI/#crypto-interface
+
+var cryptoList = ['Crypto', 'crypto', 'CryptoKey', 'SubtleCrypto']
+var cryptoSet = new Set(cryptoList);
+
+names = names.filter(n => !cryptoSet.has(n))
+
+// 移除自建
+names = filter('cryptoSet', 'cryptoList')
+console.log(names.length) // 
+
+// Clipboard 
+// https://w3c.github.io/clipboard-apis/#idl-index
+var clipboardList = ['Clipboard', 'ClipboardEvent', 'ClipboardItem']
+var clipboardSet = new Set(clipboardList);
+
+names = names.filter(n => !clipboardSet.has(n))
+
+// 移除自建
+names = filter('clipboardSet', 'clipboardList')
+console.log(names.length) // 
+
+// Media Capture from DOM Elements
+// https://w3c.github.io/mediacapture-fromelement/#the-canvascapturemediastreamtrack
+var mcfdeList = ['CanvasCaptureMediaStreamTrack']
+var mcfdeSet = new Set(mcfdeList);
+
+names = names.filter(n => !mcfdeSet.has(n))
+
+// 移除自建
+names = filter('mcfdeSet', 'mcfdeList')
+console.log(names.length) // 
+
+
+// BeforeInstallPromptEvent
+// https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
+
+var beforeInstallPromptEventList = ['BeforeInstallPromptEvent']
+var beforeInstallPromptEventSet = new Set(beforeInstallPromptEventList);
+
+names = names.filter(n => !beforeInstallPromptEventSet.has(n))
+
+// 移除自建
+names = filter('beforeInstallPromptEventSet', 'beforeInstallPromptEventList')
+console.log(names.length) // 
+
+
+// BatteryManager
+// https://w3c.github.io/battery/#the-batterymanager-interface
+
+var batteryManagerList = ['BatteryManager']
+var batteryManagerSet = new Set(batteryManagerList);
+
+names = names.filter(n => !batteryManagerSet.has(n))
+
+// 移除自建
+names = filter('batteryManagerSet', 'batteryManagerList')
+console.log(names.length) // 
+
+
+// BarProp
+// https://developer.mozilla.org/en-US/docs/Web/API/BarProp
+// https://html.spec.whatwg.org/multipage/window-object.html#barprop
+var barPropList = ['BarProp']
+var barPropSet = new Set(barPropList);
+
+names = names.filter(n => !barPropSet.has(n))
+
+// 移除自建
+names = filter('barPropSet', 'barPropList')
+console.log(names.length) // 
+
+
+// offscreenBuffering
+// https://docs.microsoft.com/en-us/openspecs/ie_standards/ms-html5e/705b736b-5bf1-4e55-a02e-21cace0d968f
+
+var offscreenBufferingList = ['offscreenBuffering']
+var offscreenBufferingSet = new Set(offscreenBufferingList);
+
+names = names.filter(n => !offscreenBufferingSet.has(n))
+
+// 移除自建
+names = filter('offscreenBufferingSet', 'offscreenBufferingList')
+console.log(names.length) // 
+
+
+// captureEvents
+var captureEventsList = ['captureEvents']
+var captureEventsSet = new Set(captureEventsList);
+
+names = names.filter(n => !captureEventsSet.has(n))
+
+// 移除自建
+names = filter('captureEventsSet', 'captureEventsList')
+console.log(names.length) // 
+
+// find
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/find
+var findList = ['',]
+var findSet = new Set(findList);
+
+names = names.filter(n => !findSet.has(n))
+
+// 移除自建
+names = filter('findSet', 'findList')
+console.log(names.length) // 
+
+// chrome
+var chromeList = ['chrome']
+var chromeSet = new Set(chromeList);
+
+names = names.filter(n => !chromeSet.has(n))
+
+// 移除自建
+names = filter('chromeSet', 'chromeList')
+console.log(names.length) // 
+
+// profile
+// https://developer.mozilla.org/en-US/docs/Web/API/console/profile
+// https://developer.mozilla.org/en-US/docs/Web/API/console/profileEnd
+var profileList = ['profile', 'profileEnd']
+var profileSet = new Set(profileList);
+
+names = names.filter(n => !profileSet.has(n))
+
+// 移除自建
+names = filter('profileSet', 'profileList')
+console.log(names.length) // 
+
 
 // var names = Object.getOwnPropertyNames(window);
 // names.filter(n => {
@@ -1385,12 +1595,12 @@ console.log(names.length) //
 //     }
 // })
 
-// var List = ['',]
-// var Set = new Set(List);
+var List = ['',]
+var Set = new Set(List);
 
-// names = names.filter(n => !Set.has(n))
+names = names.filter(n => !Set.has(n))
 
-// // 移除自建
-// names = filter('Set', 'List')
-// console.log(names.length) // 
+// 移除自建
+names = filter('Set', 'List')
+console.log(names.length) // 
 
