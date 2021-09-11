@@ -700,7 +700,7 @@ console.log(names.length) //
 var mediacaptureList = [
     'MediaDevices', 'MediaDeviceInfo'
 ]
-var mediacaptureSet = new Set(deviceOrientationList);
+var mediacaptureSet = new Set(mediacaptureList);
 
 names = names.filter(n => !mediacaptureSet.has(n))
 
@@ -762,8 +762,8 @@ var webappapiList = [
     'createImageBitmap', // ImageBitmap
     'ErrorEvent',
     'PromiseRejectionEvent',
-    crossOriginIsolated,
-    isSecureContext,
+    'crossOriginIsolated',
+    'isSecureContext',
 ]
 var webappapiSet = new Set(webappapiList);
 
@@ -1323,7 +1323,7 @@ names = filter('featurePolicySet', 'featurePolicyList')
 console.log(names.length) // 
 
 // Permissions
-var permissionsList = ['Permissions ', 'PermissionStatus']
+var permissionsList = ['Permissions', 'PermissionStatus']
 var permissionsSet = new Set(permissionsList);
 
 names = names.filter(n => !permissionsSet.has(n))
@@ -1382,7 +1382,7 @@ console.log(names.length) //
 // File System Access API
 // https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
 // https://wicg.github.io/file-system-access/
-var fileSystemAccessList = ['FileSystemHandle', 'FileSystemDirectoryHandle', 'FileSystemFileHandle', 'FileSystemWritableFileStream']
+var fileSystemAccessList = ['FileSystemHandle', 'FileSystemDirectoryHandle', 'FileSystemFileHandle', 'FileSystemWritableFileStream', 'showDirectoryPicker', 'showOpenFilePicker', 'showSaveFilePicker']
 var fileSystemAccessSet = new Set(fileSystemAccessList);
 
 names = names.filter(n => !fileSystemAccessSet.has(n))
@@ -1396,12 +1396,12 @@ console.log(names.length) //
 // https://dom.spec.whatwg.org/#interface-eventtarget
 
 var eventTargetList = ['EventTarget', 'Event']
-var eventTargeSet = new Set(eventTargeList);
+var eventTargeSet = new Set(eventTargetList);
 
 names = names.filter(n => !eventTargeSet.has(n))
 
 // 移除自建
-names = filter('eventTargeSet', 'eventTargeList')
+names = filter('eventTargeSet', 'eventTargetList')
 console.log(names.length) // 
 
 // EventSource
@@ -1553,7 +1553,7 @@ console.log(names.length) //
 
 // find
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/find
-var findList = ['',]
+var findList = ['find']
 var findSet = new Set(findList);
 
 names = names.filter(n => !findSet.has(n))
@@ -1583,6 +1583,254 @@ names = names.filter(n => !profileSet.has(n))
 // 移除自建
 names = filter('profileSet', 'profileList')
 console.log(names.length) // 
+
+
+// WebAssembly Web API.
+// https://webassembly.github.io/spec/js-api/
+
+var webAssemblyList = ['WebAssembly', 'Module', 'Instance', 'Memory', 'Table', 'Global']
+var webAssemblySet = new Set(webAssemblyList);
+
+names = names.filter(n => !webAssemblySet.has(n))
+
+// 移除自建
+names = filter('webAssemblySet', 'webAssemblyList')
+console.log(names.length) // 
+
+// Sensor APIs
+// https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs
+var sensorList = [
+    // https://w3c.github.io/sensors/#idl-index
+    'Sensor', 'SensorErrorEvent', 
+    // https://w3c.github.io/accelerometer/#idl-index
+    'Accelerometer', 'LinearAccelerationSensor', 'GravitySensor',
+    // https://w3c.github.io/gyroscope/
+    'Gyroscope', 
+    // https://w3c.github.io/orientation-sensor/
+    'OrientationSensor', 'AbsoluteOrientationSensor', 'RelativeOrientationSensor'
+
+]
+var sensorSet = new Set(sensorList);
+
+names = names.filter(n => !sensorSet.has(n))
+
+// 移除自建
+names = filter('sensorSet', 'sensorList')
+console.log(names.length) // 
+
+
+// Keyboard
+// https://wicg.github.io/keyboard-map/#idl-index
+// https://wicg.github.io/keyboard-lock/#keyboard-interface
+var keyboardList = [
+    'KeyboardLayoutMap', 'Keyboard'
+]
+var keyboardSet = new Set(keyboardList);
+
+names = names.filter(n => !keyboardSet.has(n))
+
+// 移除自建
+names = filter('keyboardSet', 'keyboardList')
+console.log(names.length) // 
+
+
+// Web Locks API
+// https://wicg.github.io/web-locks/#api-lock
+
+var locksList = ['LockManager', 'Lock']
+var locksSet = new Set(locksList);
+
+names = names.filter(n => !locksSet.has(n))
+
+// 移除自建
+names = filter('locksSet', 'locksList')
+console.log(names.length) // 
+
+
+// Worklet
+// https://developer.mozilla.org/en-US/docs/Web/API/Worklet
+// https://html.spec.whatwg.org/multipage/worklets.html#worklets-worklet
+var workletList = ['Worklet']
+var workletSet = new Set(workletList);
+
+names = names.filter(n => !workletSet.has(n))
+
+// 移除自建
+names = filter('workletSet', 'workletList')
+console.log(names.length) // 
+
+
+// BarcodeDetector 
+// https://developer.mozilla.org/en-US/docs/Web/API/BarcodeDetector
+// https://wicg.github.io/shape-detection-api/#barcode-detection-api
+var barcodeDetectorList = ['BarcodeDetector', 'FaceDetector']
+var barcodeDetectorSet = new Set(barcodeDetectorList);
+
+names = names.filter(n => !barcodeDetectorSet.has(n))
+
+// 移除自建
+names = filter('barcodeDetectorSet', 'barcodeDetectorList')
+console.log(names.length) // 
+
+
+// Text Fragments FragmentDirective
+// https://wicg.github.io/scroll-to-text-fragment/
+var fragmentDirectiveList = ['FragmentDirective', '']
+var fragmentDirectiveSet = new Set(fragmentDirectiveList);
+
+names = names.filter(n => !fragmentDirectiveSet.has(n))
+
+// 移除自建
+names = filter('fragmentDirectiveSet', 'fragmentDirectiveList')
+console.log(names.length) // 
+
+// WebOTP API
+// https://wicg.github.io/web-otp/#OTPCredential
+
+var webOTPList = ['OTPCredential']
+var webOTPSet = new Set(webOTPList);
+
+names = names.filter(n => !webOTPSet.has(n))
+
+// 移除自建
+names = filter('webOTPSet', 'webOTPList')
+console.log(names.length) // 
+
+
+// Scheduling API
+// https://github.com/WICG/scheduling-apis
+// https://github.com/WICG/is-input-pending
+var schedulingList = ['Scheduling']
+var schedulingSet = new Set(schedulingList);
+
+names = names.filter(n => !schedulingSet.has(n))
+
+// 移除自建
+names = filter('schedulingSet', 'schedulingList')
+console.log(names.length) // 
+
+
+// Web Serial API
+// https://wicg.github.io/serial/
+
+var serialList = ['Serial', 'SerialPort']
+var serialSet = new Set(serialList);
+
+names = names.filter(n => !serialSet.has(n))
+
+// 移除自建
+names = filter('serialSet', 'serialList')
+console.log(names.length) // 
+
+// Screen Wake Lock API
+// https://w3c.github.io/screen-wake-lock/
+var wakeLockList = ['WakeLock', 'WakeLockSentinel']
+var wakeLockSet = new Set(wakeLockList);
+
+names = names.filter(n => !wakeLockSet.has(n))
+
+// 移除自建
+names = filter('wakeLockSet', 'wakeLockList')
+console.log(names.length) // 
+
+// Custom State Pseudo Class
+// https://wicg.github.io/custom-state-pseudo-class/
+// https://css-tricks.com/custom-state-pseudo-classes-in-chrome/
+var customStateSetList = ['CustomStateSet']
+var customStateSetSet = new Set(customStateSetList);
+
+names = names.filter(n => !customStateSetSet.has(n))
+
+// 移除自建
+names = filter('customStateSetSet', 'customStateSetList')
+console.log(names.length) // 
+
+// Event Timing API
+// https://wicg.github.io/event-timing/
+var eventTimingAPIList = ['EventCounts', 'PerformanceEventTiming', 'Performance']
+var eventTimingAPISet = new Set(eventTimingAPIList);
+
+names = names.filter(n => !eventTimingAPISet.has(n))
+
+// 移除自建
+names = filter('eventTimingAPISet', 'eventTimingAPIList')
+console.log(names.length) // 
+
+// Notifications API
+// https://notifications.spec.whatwg.org/#api
+var notificationList = ['Notification', '']
+var notificationSet = new Set(notificationList);
+
+names = names.filter(n => !notificationSet.has(n))
+
+// 移除自建
+names = filter('notificationSet', 'notificationList')
+console.log(names.length) // 
+
+// Picture-in-Picture 
+// https://w3c.github.io/picture-in-picture/#event-types
+var pictureInPictureList = ['PictureInPictureWindow', 'PictureInPictureEvent']
+var pictureInPictureSet = new Set(pictureInPictureList);
+
+names = names.filter(n => !pictureInPictureSet.has(n))
+
+// 移除自建
+names = filter('pictureInPictureSet', 'pictureInPictureList')
+console.log(names.length) // 
+
+
+// Push API
+// https://developer.mozilla.org/en-US/docs/Web/API/Push_API
+var pushAPIList = ['PushManager', 'PushSubscription', 'PushSubscriptionOptions']
+var pushAPISet = new Set(pushAPIList);
+
+names = names.filter(n => !pushAPISet.has(n))
+
+// 移除自建
+names = filter('pushAPISet', 'pushAPIList')
+console.log(names.length) // 
+
+
+// Remote Playback API
+// https://developer.mozilla.org/en-US/docs/Web/API/Remote_Playback_API
+// https://w3c.github.io/remote-playback/#remoteplayback-interface
+var remotePlaybackList = ['RemotePlayback']
+var remotePlaybackSet = new Set(remotePlaybackList);
+
+names = names.filter(n => !remotePlaybackSet.has(n))
+
+// 移除自建
+names = filter('remotePlaybackSet', 'remotePlaybackList')
+console.log(names.length) // 
+
+// Media Playback Quality 
+// https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality
+// https://w3c.github.io/media-playback-quality/#videoplaybackquality-interface
+var mediaPlaybackQualityList = ['VideoPlaybackQuality']
+var mediaPlaybackQualitySet = new Set(mediaPlaybackQualityList);
+
+names = names.filter(n => !mediaPlaybackQualitySet.has(n))
+
+// 移除自建
+names = filter('mediaPlaybackQualitySet', 'mediaPlaybackQualityList')
+console.log(names.length) // 
+
+// WebUI
+// https://chromium.googlesource.com/chromium/src/+/HEAD/docs/webui_explainer.md
+var webUIList = ['cr']
+var webUISet = new Set(webUIList);
+
+names = names.filter(n => !webUISet.has(n))
+
+// 移除自建
+names = filter('webUISet', 'webUIList')
+console.log(names.length) //
+
+
+
+
+
+
 
 
 // var names = Object.getOwnPropertyNames(window);
