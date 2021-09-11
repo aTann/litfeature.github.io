@@ -1817,6 +1817,7 @@ console.log(names.length) //
 
 // WebUI
 // https://chromium.googlesource.com/chromium/src/+/HEAD/docs/webui_explainer.md
+// https://www.chromium.org/developers/webui
 var webUIList = ['cr']
 var webUISet = new Set(webUIList);
 
