@@ -1826,10 +1826,81 @@ names = names.filter(n => !webUISet.has(n))
 names = filter('webUISet', 'webUIList')
 console.log(names.length) //
 
+// ShadyCSS
+// https://github1s.com/webcomponents/shadycss/blob/HEAD/README.md
+// https://github1s.com/webcomponents/polyfills/tree/master/packages/shadycss
+var shadyCSSList = ['ShadyCSS']
+var shadyCSSSet = new Set(shadyCSSList);
+
+names = names.filter(n => !shadyCSSSet.has(n))
+
+// 移除自建
+names = filter('shadyCSSSet', 'shadyCSSList')
+console.log(names.length) // 
 
 
+// console 
+// https://console.spec.whatwg.org/
+// https://developer.mozilla.org/zh-CN/docs/Web/API/Console/dir
+// https://developer.mozilla.org/zh-CN/docs/Web/API/Console/dirxml
+// dir 可将 element 进行 object 化
+// var consoleList = ['dir', 'dirxml', 'table', 'profile', 'profileEnd']
+// var consoleSet = new Set(consoleList);
+
+// names = names.filter(n => !consoleSet.has(n))
+
+// // 移除自建
+// names = filter('consoleSet', 'consoleList')
+// console.log(names.length) // 
 
 
+// devTools
+// inspect 只能在控制台用，不能放到函数里面
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/devtools/inspectedWindow/eval#examples
+// queryObjects(Constructor)
+// https://umaar.com/dev-tips/173-query-objects/
+// getEventListeners
+// http://www.softwareishard.com/blog/planet-mozilla/firebug-tip-geteventlisteners-command/
+// "$_", "$0", "$1", "$2", "$3", "$4",
+// $(selector, [startNode]) $$(selector, [startNode]) $x(XPath, [startNode])
+// copy(object)
+// 'debug', 'undebug',
+// dir(object) dirxml(object)
+// getEventListeners(object)
+// keys(object)
+// https://developer.chrome.com/docs/devtools/console/utilities/#geteventlisteners
+var devToolsList = ['inspect', 'queryObjects', 'getEventListeners', '$', '$$', '$x', '$_', 'copy', 'debug', 'undebug', 'dir', 'dirxml', 'monitor', 'unmonitor', 'monitorEvents', 'unmonitorEvents', 'profile', 'profileEnd', 'table', 'keys', 'values']
+var devToolsSet = new Set(devToolsList);
+
+names = names.filter(n => !devToolsSet.has(n)).filter(n => !/\$\d+/.test(n))
+
+// 移除自建
+names = filter('devToolsSet', 'devToolsList')
+console.log(names.length) // 
+
+// keys values
+// 类似 Object.keys|values
+var kvList = ['',]
+var kvSet = new Set(kvList);
+
+names = names.filter(n => !kvSet.has(n))
+
+// 移除自建
+names = filter('kvSet', 'kvList')
+console.log(names.length) // 
+
+// getAccessibleName
+// getAccessibleRole
+var accessibleList = ['getAccessibleName', 'getAccessibleRole']
+var accessibleSet = new Set(accessibleList);
+
+names = names.filter(n => !accessibleSet.has(n))
+
+// 移除自建
+names = filter('accessibleSet', 'accessibleList')
+console.log(names.length) // 
+
+// JSCompiler_renameProperty
 
 
 
@@ -1843,12 +1914,12 @@ console.log(names.length) //
 //     }
 // })
 
-var List = ['',]
-var Set = new Set(List);
+// var List = ['',]
+// var Set = new Set(List);
 
-names = names.filter(n => !Set.has(n))
+// names = names.filter(n => !Set.has(n))
 
-// 移除自建
-names = filter('Set', 'List')
-console.log(names.length) // 
+// // 移除自建
+// names = filter('Set', 'List')
+// console.log(names.length) // 
 
